@@ -11,73 +11,97 @@ Responsible maintainer: Beacon.
 
 ## Status
 
-This repository develops reusable restricted-product character theory.
-Historical mathematical reviews approved PRs #2, #3, #5 and #6; README-only
-PR #7 was accepted at `c2a54a2547185e8db3ddfc860a749c265d2b8e5a`.
-The module-migration and public-import client candidate PR #8
-(`d69e71cc9cfa490376db400569be95c66975505d`) received independent
-ordinary-main review #2975 (issue #1 comment 40197), Beacon's ordinary-main
-acceptance (issue #1 comment 40233), and exact-tree integration (issue #1
-comment 40239) as `ae1998d20adc0b4fea4b311818b9d1b0a2859825` (tree
-`fc6764ae85ce01f9741b1f86f4c588434a2f9c3b`). These dated historical
-records are not live registry status. The accepted library at this revision proves:
+This library provides conditional character reconstruction and duality for
+cofinite restricted products over an arbitrary index type. Its theorems do
+**not** establish general locally compact-coordinate duality or arithmetic
+applications; no source correspondence or coverage is claimed. The official
+release is identified by its separately verified exact commit, not by a moving
+development branch. The mathematical modules and public-import client checks
+are default build targets. The six existing public `Clients` helpers remain
+available through the umbrella import; private named tests are not a new
+public mathematical API. AI agents developed the Lean code and documentation;
+see [`formalization.yaml`](formalization.yaml) for methods and bibliography.
 
-- every compact subset of a cofinite restricted product with open
-  distinguished subsets lies in one finite exceptional-coordinate stage;
-- a subgroup mapped by a circle-valued homomorphism into the centered
-  `π / 2` arc lies in its kernel;
-- orthogonality makes the coordinatewise product pairing of two cofinite
-  restricted products finitely supported, independent of its finite
-  presentation, and multiplicative in both variables;
-- jointly continuous local bicharacters induce a jointly continuous global
-  pairing and a canonical continuous homomorphism to the Pontryagin dual; and
-- local separation in the second variable makes that homomorphism injective;
-- continuity of a global character forces finite coordinate dependence on the
-  distinguished product, for an arbitrary index type;
-- explicit bijectivity of every local character map together with the exact
-  right-annihilator equality reconstructs every global character, proving
-  surjectivity without nondegeneracy or cardinality shortcuts; and
-- when the character-domain coordinates are finite discrete groups and the
-  representing coordinates are topological groups, explicit compact-open test
-  sets prove continuity of the reconstruction map and bundle the result as a
-  `ContinuousMulEquiv`; and
-- left local perfectness and the reverse exact-annihilator equality directly
-  give the opposite-direction equivalence and its evaluation identity, without
-  invoking a general Pontryagin biduality theorem; and
-- coordinatewise continuous homomorphisms preserving distinguished subgroups
-  cofinitely induce restricted-product maps, and pointwise adjoint maps satisfy
-  the contravariant naturality square for the pairing and duality equivalence.
+## Headline results
 
-The compact-stage theorem and the bundled equivalence are exercised at empty,
-nonempty finite, and genuinely infinite index types in
-`RestrictedProductDuality/Clients.lean`.
+These constructions use mathlib's restricted products, circle-valued
+characters and compact-open Pontryagin dual; they do not redefine those APIs.
 
-The naturality clients exercise arbitrary and infinite index types and
-apply the full naturality square to a genuinely non-identity adjoint
-coordinate map on both restricted products.
+- **Compact subsets occupy one finite-exceptional stage.** When every
+  distinguished subset is open, any compact subset lies in a stage allowing
+  exceptions at a single finite set of indices, with no countability
+  assumption. Neither compact stages nor a countable compact exhaustion are
+  asserted. [Compact-stage theorem](docs/API.md#user-content-restrictedproduct-exists_subset_cofinitestage).
+- **Finite-support pairing and continuous dual map.** For commutative
+  coordinate groups with circle bicharacters, orthogonality on both
+  distinguished subgroups makes coordinatewise evaluation a well-defined,
+  multiplicative finite product. Joint local continuity and openness of both
+  subgroup families yield a jointly continuous pairing and continuous map
+  into the compact-open character group; local separation in the representing
+  variable gives injectivity, **not** surjectivity.
+  [Pairing](RestrictedProductDuality/Pairing.lean),
+  [continuity](docs/API.md#user-content-restrictedproduct-continuous_pairing),
+  [injectivity](docs/API.md#user-content-restrictedproduct-topontryagindual_injective).
+- **Finite tail dependence and character reconstruction.** A continuous
+  global character kills a finite-coordinate tail **of the distinguished
+  product**, not necessarily a tail of the full restricted product. Under the
+  preceding continuity/openness assumptions, bijectivity of each actual map
+  `Y_i → (X_i →* Circle)` onto *all algebraic* circle characters and equality
+  of `V_i` with the exact right annihilator of `U_i` reconstruct every global
+  continuous character. Separation or bijectivity only for continuous local
+  characters is insufficient; finite/discrete coordinates are not required
+  for this surjectivity step. [Finite dependence](docs/API.md#user-content-restrictedproduct-exists_producttail_le_ker),
+  [local map](docs/API.md#user-content-restrictedproduct-rightcharacter),
+  [surjectivity](docs/API.md#user-content-restrictedproduct-topontryagindual_surjective).
+- **Topological equivalences in both orientations.** Finite discrete
+  character-domain coordinates `X_i` and topological representing groups
+  `Y_i` give inverse continuity and an equivalence with the compact-open
+  dual. The transposed direction instead requires finite discrete `Y_i`,
+  topological `X_i`, bijectivity of the *left* local character maps and exact
+  left annihilators. The evaluation identity uses this transposition, not
+  general biduality or an open-mapping theorem.
+  [Equivalence](docs/API.md#user-content-restrictedproduct-pontryagindualequiv),
+  [opposite direction](docs/API.md#user-content-restrictedproduct-symmetricpontryagindualequiv).
+- **Naturality under adjoint coordinate maps.** Coordinatewise continuous
+  homomorphisms preserve restricted products when subgroup preservation holds
+  **cofinitely**, even with exceptional failures. For adjoint
+  `f : X' → X` and `g : Y → Y'`, the pairing and canonical dual maps form a
+  contravariant square. The equivalence-level square additionally requires
+  its stronger local-perfectness, exact-annihilator and finite-discrete
+  assumptions. [Induced maps](docs/API.md#user-content-restrictedproduct-mapcontinuousmonoidhom),
+  [naturality](docs/API.md#user-content-restrictedproduct-topontryagindual_natural),
+  [equivalence square](docs/API.md#user-content-restrictedproduct-pontryagindualequiv_natural_apply).
 
-That accepted revision also opts the mathematical files into Lean's
-module system, gives the original anonymous clients private stable names and
-builds `RestrictedProductDualityTest.lean` from the public umbrella import.
-The existing six public `Clients` helpers remain available through the root
-import, including `punitBicharacter` and `zmodBicharacter`. Private named tests
-are audit handles, not an advertised mathematical API. AI agents developed
-the Lean code and documentation with pinned-toolchain checks. Ordinary-main
-review does not accept this documentation successor, release readiness,
-redistribution rights or source correspondence. [`formalization.yaml`](formalization.yaml)
-records the methods and historical review distinction.
+## Mathematical outline and references
 
-Accepted main does **not** yet contain the general locally compact-coordinate
-theorem of NSW (1.1.13) or the arithmetic inputs of NSW (8.5.2). The repository
-claims no NSW source correspondence or coverage.
-Subsequent mathematical or API changes still require fresh-context review and
-maintainer acceptance before integration.
+An element of a cofinite restricted product lies in a stage allowing finitely
+many coordinates outside their distinguished subsets. Openness makes these
+stages an open, directed cover; compactness selects a single containing stage.
+For a continuous circle character, the centered small-arc kernel lemma then
+controls an open product of distinguished subgroups, leaving only finitely
+many relevant coordinates **on that product**. Orthogonality makes the
+coordinatewise bicharacter evaluation independent of any choice of finite
+support for its product.
 
-The motivating mathematical proof exposition at
-`FormalFrontier/source-nsw@6aa9219432580134ac086953d1fe98599c88d6e0:expositions/finite-restricted-product-pontryagin-duality.md`
-received independent review #936 and source-nsw issue #133 comment 8141.
-That review covers the Markdown mathematics only: it does not validate this
-Lean code or establish Lean/source correspondence or coverage.
+Restricting a global character to one-coordinate elements produces algebraic
+local characters. Bijectivity of the *actual* local maps chooses representing
+coordinates; the finite-tail condition together with the exact right
+annihilator places those coordinates in the representing restricted product.
+Compact-stage control and finite discrete character-domain coordinates supply
+the compact-open inverse-continuity tests. Swapping the two groups and using
+the left annihilator gives the symmetric construction; pointwise adjointness
+then explains the contravariant naturality square. See
+[`CharacterReconstruction.lean`](RestrictedProductDuality/CharacterReconstruction.lean),
+[`SymmetricDuality.lean`](RestrictedProductDuality/SymmetricDuality.lean) and
+[`Naturality.lean`](RestrictedProductDuality/Naturality.lean) for exact assumptions.
+
+**Motivation:** Jürgen Neukirch, Alexander Schmidt and Kay Wingberg,
+*Cohomology of Number Fields*, corrected second edition, version 2.3
+(May 2020), Proposition (1.1.13), pp. 10–11. This library proves a
+finite-coordinate **conditional specialization** only: it neither proves that
+general proposition nor the arithmetic inputs of (8.5.2). The formalization
+uses mathlib4 at the [pinned revision](lakefile.lean); the bibliography and
+scope are also recorded in [`formalization.yaml`](formalization.yaml).
 
 ## Public API and hypotheses
 
@@ -117,10 +141,9 @@ The project pins Lean `v4.34.0-rc2` in `lean-toolchain` and mathlib revision
 `lake-manifest.json`.
 
 ```sh
+elan toolchain install "$(cat lean-toolchain)"
 lake exe cache get
-LEAN_NUM_THREADS=2 lake -Kjobs=2 --wfail build
-LEAN_NUM_THREADS=2 lake -Kjobs=2 --wfail build RestrictedProductDualityTest
-lake env lean -T0 RestrictedProductDualityTest.lean
+LEAN_NUM_THREADS=2 lake --wfail build
 ```
 
 The cache fetch is mandatory and must succeed before a mathlib-dependent
@@ -146,24 +169,26 @@ infinite-index nontrivial cyclic duality in both extreme orientations and
 the symmetric direction, a nonidentity pointwise adjoint pair, and a cofinite
 map which fails subgroup preservation at index zero. The direct-import
 `NaturalityClients` now also apply the full square to the nonidentity pair.
-The original direct-import `Clients` and `SymmetricClients` still build.
+The direct-import `Clients` and `SymmetricClients` are included in the
+production build. Direct `lean -T0` checks are optional, not another required
+build of the default test target.
 The complete public/native reference and generation recipe are in
 [`docs/API.md`](docs/API.md) and [`docs/README.md`](docs/README.md). Neither
 certifies private proof bodies or a release.
 
 ## Publication lifecycle
 
-Release status is recorded externally against exact commits and trees; a
-development-main snapshot is not by itself evidence of an official release.
-Changes to documentation and metadata need whole-artifact exact-head independent
-review and maintainer acceptance on internal `main`. A separate reviewed
-stage-1 snapshot must be promoted to internal `release-prep`, bound to its exact
-full commit/tree by an official release record, and consumed at that exact
-commit. Distinct stage-2 publication uses a parentless `public-release` history
-without internal Forgejo URLs in public objects, separately reviewed complete
-artifact/rights evidence and private GitHub consumer checks. A prepared snapshot
-or schema-valid metadata alone passes none of those gates. Tags are deferred;
-source coverage remains a separate decision.
+An official release is an independently reviewed exact-tree snapshot with an
+external exact-commit acceptance and publication record; merging development
+`main` alone does not publish it. Each successor public-release commit preserves
+the **preceding official release** as its sole parent, without importing
+internal development history. Maintainer acceptance, protected integration and
+verified private GitHub mirroring are distinct steps; public visibility remains
+an operator decision. Build and complete transitive standard-axiom evidence
+(including private and generated declarations), independent review, rights
+clearance and source coverage are separate questions. No stored-proof replay,
+native documentation regeneration or repeat consumer build is required merely
+because this documentation changes.
 
 ## Layout
 

@@ -2,8 +2,9 @@
 
 The [complete mixed native reference](API.md) and [data manifest](api-manifest.json)
 cover all **12 shipped Lean modules** against the unchanged mathematical/pin
-input `ae1998d20adc0b4fea4b311818b9d1b0a2859825` (tree
-`fc6764ae85ce01f9741b1f86f4c588434a2f9c3b`). Seven production leaves
+input identified by `ae1998d20adc0b4fea4b311818b9d1b0a2859825` (tree
+`fc6764ae85ce01f9741b1f86f4c588434a2f9c3b`), not by the commit of a
+later documentation-only snapshot. Seven production leaves
 have 66 native declaration entries; the aggregate import root has none.
 Legacy `Clients` has six compatibility entries, `SymmetricClients` has none,
 and `NaturalityClients` has two named local entries. The separate default-built
@@ -21,9 +22,9 @@ fabricated Lean docstring**. All 49 native comments match the corresponding
 source bytes; no third-party docstrings, generated website, JS, fonts, or
 dependency assets are bundled. This is a **public/native filtered**
 reference, not a census of private declarations or compiler-generated proof
-fields. The prior ordinary PR8 review reports optional `docBlameThm` on **24
-undocumented transparent equations** (issue #1 comment 40197) and selected
-truthful-header warnings on ten leaves. This native catalogue counts **25
+fields. A separate historical `docBlameThm` diagnostic reported **24
+undocumented transparent equations** and selected truthful-header warnings
+on ten leaves. This native catalogue counts **25
 undocumented displayed entries**, including the `Clients` evaluation law;
 these are different diagnostics and neither number proves optional lint
 passes. Whether remaining missing native comments warrant later Lean edits
@@ -34,7 +35,7 @@ needs a separately scoped and reviewed source change.
 The 15 unchanged mathematical `.lean`/toolchain/config SHA-256 inputs are
 recorded in [`scripts/generate_api.py`](../scripts/generate_api.py) and in
 the [manifest](api-manifest.json). The historical source commit/tree are
-**labels for analyzed inputs**, not the eventual documentation candidate's
+**labels for analyzed inputs**, not the shipping documentation commit's
 commit identity; an external reviewer must bind the exact final artifact.
 The separately cloned upstream `leanprover/doc-gen4` revision is
 `97d4ecdfc8e09e7f511724c25e303d448de6a3db` (tree
@@ -96,8 +97,9 @@ independent runs retained for this candidate produced byte-identical raw
 records and databases (SQLite SHA-256
 `8c31eacd3446182cc1b93377312d8163ebf70c4b6a05bd4bf8c594771a160464`).
 This observed repeatability is not a claim that arbitrary machines or tool
-versions generate identical results; separate review must authenticate the
-run and bind the eventual candidate commit.
+versions generate identical results. The external raw records and SQLite
+database are needed for a data-only replay; these rendered files alone do not
+provide native-run provenance or an independent authentication of either run.
 
 ## Adapter scope and costs
 
@@ -129,35 +131,24 @@ constraint. No new recency benchmark or guessed memory peak is claimed.
 
 ## Attribution and rights
 
-**Authors: Formal Frontier Agents.** Original proof/code origins retained by
-the ordinary rights inventory (issue #1 comment 40038) are worker-a foundation
-`2290c6e810ebc4b5736df7b7c93d1a33e4f0957b`, worker-a reconstruction
-`c4b9eba5b1808eb51ecabbe66a809fcdef5d613e`, Beacon's symmetric work
-`8c4e0b137d1409921e60c6e5d2839e2caaa9f606` and naturality
-`ec22cd90722c495fd57d99877351b9fa9f3dbce3`, and worker-b PR8 client
-preparation `d69e71cc9cfa490376db400569be95c66975505d`.
-This original adaptation, source comments comparison and catalogue prose are
-authored by worker-b Hive Task
-`hive-request-c7ca28ca844342869a863efb7f45969528a9294c` (UID
-`18f200b6-23a9-4db1-a379-74a5b9db4cb8`).
-Beacon subsequently corrected lifecycle-status wording and the unsupported
-README scheduler-bound description, without changing Lean, pins or native outputs.
+**Authors: Formal Frontier Agents.** Project contributors developed the
+foundations and character reconstruction; Beacon developed the symmetric
+duality and naturality results and clarified the release lifecycle and measured
+build description. Later contributors prepared the public-import clients,
+native-reference adapter, source-comment comparison and original catalogue
+explanations; Folio provided the mathematical headline preparation. AI agents
+participated throughout the Lean, documentation and review work.
 
-The adapted generator/test expressions come from **accepted**
-`FormalFrontier/finite-group-tate-cohomology@61577f7cf2e02715f621a724aa692921ab6bbad9`,
-actually authored by Formal Frontier Worker B Hive Task
-`hive-request-381dc6f93292eb39ea2d5b25f09baacdc8b20d9e` (UID
-`cd8c84f8-2dbf-4399-9c70-1de364ffa99f`), adapting
-`FormalFrontier/polynomial-root-stability@95ac896f81a3190b2634a4246a3e924d2a267a61`
-and Anchor's ideal-completion Markdown recipe at
-`f0c8c34386109116e4912fb425a8ad15d9dc42a4`.
-They retain donor Apache-2.0 SPDX and contributor credit; no individual
-copyright owner or copyright waiver is invented. Project source docstrings
-and new catalogue prose are original Apache-2.0 contributions. Pinned
+The generator and tests adapt prior Formal Frontier work on finite-group Tate
+cohomology, in turn based on polynomial-root stability and Anchor's
+ideal-completion documentation recipe. They retain donor Apache-2.0 SPDX and
+collective contributor credit; no individual copyright holder or waiver is
+invented. Project source docstrings and catalogue prose are original Apache-2.0
+contributions. Pinned
 mathlib's `AddChar.zmodHom` has header authors **Yaël Dillies and Bhavik
 Mehta**; `AddChar.toMonoidHomMulEquiv` has header author **Michael Stoll**.
 The `Clients` bicharacter composes these *imported APIs*, not automatically
-copied implementations. No source-nsw exposition, NSW book asset, mathlib
+copied implementations. No private source exposition, NSW book asset, mathlib
 source text, dependency docstrings or generated upstream website assets are
 shipped. The existing [`LICENSE`](../LICENSE) and Lean/Lake headers remain
 byte-exact. Whole-artifact rights clearance and independent review must be

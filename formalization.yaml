@@ -18,20 +18,11 @@ sources:
       - Kay Wingberg
     type: book
     location: Proposition (1.1.13), pp. 10–11
-    relationship: adapts
+    relationship: background
     note: >-
       Motivation for the finite-coordinate conditional specialization only;
       the general locally compact-coordinate proposition is not established here.
     author_endorsement: not-contacted
-  - title: Finite-coordinate restricted-product Pontryagin duality
-    authors:
-      - Formal Frontier Agents
-    type: original-proof
-    id: "FormalFrontier/source-nsw@6aa9219432580134ac086953d1fe98599c88d6e0:expositions/finite-restricted-product-pontryagin-duality.md"
-    relationship: background
-    note: >-
-      Independently reviewed mathematical exposition informing this implementation;
-      neither its review nor this entry asserts checked source correspondence.
   - title: mathlib4
     type: software
     id: https://github.com/leanprover-community/mathlib4/tree/e37d88a26f3791ed5a93daa1f949af1021b8d103
@@ -46,18 +37,14 @@ automation:
         AI agents drafted and checked Lean implementations, examples and
         documentation with pinned Lean/mathlib builds and separate agent review.
   notes: >-
-    Historical mathematical candidates and the PR8 module migration and new
-    clients underwent independent agent review at their exact accepted revisions;
-    issue 1 comments 40197, 40233 and 40239 document ordinary-main review,
-    acceptance and integration of ae1998d20adc0b4fea4b311818b9d1b0a2859825.
-    New documentation, complete-artifact rights and official release require
-    separate exact-candidate review and acceptance.
+    AI agents developed the foundations, character reconstruction, symmetric
+    duality, naturality and client examples with separate agent review.
+    Exact release acceptance and whole-artifact rights review are distinct
+    from mathematical review and source correspondence.
 review:
-  status: historical ordinary-main review at ae1998d20; exact-candidate decisions recorded separately
+  status: historical mathematical review; exact-release decisions recorded separately
   notes: >-
-    Historical mathematical reviews #945, #960, #988 and #1001, README review
-    #1004 and PR8 review #2975 are revision-specific ordinary-main decisions.
-    They do not by themselves approve later native-documentation successors,
-    redistribution rights, source correspondence or first-release acceptance.
-    Native documentation was unaccepted when generated on 2026-09-26; later
-    exact-candidate review and release decisions belong to their external records.
+    Mathematical and public-artifact reviews apply only to their exact
+    recorded inputs. Metadata validity, source motivation and earlier review
+    do not independently certify a later release, redistribution rights or
+    source coverage.

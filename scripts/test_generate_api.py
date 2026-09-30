@@ -3,14 +3,9 @@
 # Authors: Formal Frontier Agents
 """Negative and source-only replay tests for the fixed native API adapter.
 
-Adapted by Hive Task hive-request-c7ca28ca844342869a863efb7f45969528a9294c
-(UID 18f200b6-23a9-4db1-a379-74a5b9db4cb8) from the accepted
-FormalFrontier/finite-group-tate-cohomology test at
-61577f7cf2e02715f621a724aa692921ab6bbad9, authored by worker-b Task
-hive-request-381dc6f93292eb39ea2d5b25f09baacdc8b20d9e (UID
-cd8c84f8-2dbf-4399-9c70-1de364ffa99f), with PolynomialRootStability
-95ac896f81a3190b2634a4246a3e924d2a267a61 / Anchor
-f0c8c34386109116e4912fb425a8ad15d9dc42a4 lineage.
+Adapted from the Formal Frontier finite-group Tate cohomology tests,
+following the polynomial-root stability and Anchor ideal-completion
+documentation lineage. See docs/README.md for contributor and rights context.
 """
 
 if not __debug__:
