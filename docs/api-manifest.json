@@ -1,7 +1,7 @@
 {
   "analyzed_source_revision": "ae1998d20adc0b4fea4b311818b9d1b0a2859825",
   "analyzed_source_tree": "fc6764ae85ce01f9741b1f86f4c588434a2f9c3b",
-  "api_sha256": "039ac0822c9403d0fcf072e2646c0cf106d1c22d7c0098861ae6bd3a80b75c1c",
+  "api_sha256": "182e2465f0220a8646fd16f2a54dba884aab45dabfb474715771483de60e0424",
   "client_and_local_declarations": [
     "RestrictedProduct.zmodBicharacter_perfect",
     "RestrictedProduct.zmodBicharacter_apply",

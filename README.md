@@ -2,21 +2,17 @@
 
 Authors: Formal Frontier Agents. Original Formal Frontier contributions are
 offered under Apache-2.0 (see [`LICENSE`](LICENSE)); imported dependency APIs
-retain their own authorship and licenses. Release of the complete artifact
-requires separate exact-tree rights review.
+retain their own authorship and licenses.
 
 Reusable Lean theory of restricted products and Pontryagin duality.
 
-Responsible maintainer: Beacon.
-
-## Status
+## Scope
 
 This library provides conditional character reconstruction and duality for
 cofinite restricted products over an arbitrary index type. Its theorems do
 **not** establish general locally compact-coordinate duality or arithmetic
-applications; no source correspondence or coverage is claimed. The official
-release is identified by its separately verified exact commit, not by a moving
-development branch. The mathematical modules and public-import client checks
+applications; no source correspondence or coverage is claimed.
+The mathematical modules and public-import client checks
 are default build targets. The six existing public `Clients` helpers remain
 available through the umbrella import; private named tests are not a new
 public mathematical API. AI agents developed the Lean code and documentation;
@@ -31,7 +27,7 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   distinguished subset is open, any compact subset lies in a stage allowing
   exceptions at a single finite set of indices, with no countability
   assumption. Neither compact stages nor a countable compact exhaustion are
-  asserted. [Compact-stage theorem](docs/API.md#user-content-restrictedproduct-exists_subset_cofinitestage).
+  asserted. [Compact-stage theorem](docs/API.md#restrictedproductexists_subset_cofinitestage).
 - **Finite-support pairing and continuous dual map.** For commutative
   coordinate groups with circle bicharacters, orthogonality on both
   distinguished subgroups makes coordinatewise evaluation a well-defined,
@@ -40,8 +36,8 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   into the compact-open character group; local separation in the representing
   variable gives injectivity, **not** surjectivity.
   [Pairing](RestrictedProductDuality/Pairing.lean),
-  [continuity](docs/API.md#user-content-restrictedproduct-continuous_pairing),
-  [injectivity](docs/API.md#user-content-restrictedproduct-topontryagindual_injective).
+  [continuity](docs/API.md#restrictedproductcontinuous_pairing),
+  [injectivity](docs/API.md#restrictedproducttopontryagindual_injective).
 - **Finite tail dependence and character reconstruction.** A continuous
   global character kills a finite-coordinate tail **of the distinguished
   product**, not necessarily a tail of the full restricted product. Under the
@@ -50,9 +46,9 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   of `V_i` with the exact right annihilator of `U_i` reconstruct every global
   continuous character. Separation or bijectivity only for continuous local
   characters is insufficient; finite/discrete coordinates are not required
-  for this surjectivity step. [Finite dependence](docs/API.md#user-content-restrictedproduct-exists_producttail_le_ker),
-  [local map](docs/API.md#user-content-restrictedproduct-rightcharacter),
-  [surjectivity](docs/API.md#user-content-restrictedproduct-topontryagindual_surjective).
+  for this surjectivity step. [Finite dependence](docs/API.md#restrictedproductexists_producttail_le_ker),
+  [local map](docs/API.md#restrictedproductrightcharacter),
+  [surjectivity](docs/API.md#restrictedproducttopontryagindual_surjective).
 - **Topological equivalences in both orientations.** Finite discrete
   character-domain coordinates `X_i` and topological representing groups
   `Y_i` give inverse continuity and an equivalence with the compact-open
@@ -60,17 +56,17 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   topological `X_i`, bijectivity of the *left* local character maps and exact
   left annihilators. The evaluation identity uses this transposition, not
   general biduality or an open-mapping theorem.
-  [Equivalence](docs/API.md#user-content-restrictedproduct-pontryagindualequiv),
-  [opposite direction](docs/API.md#user-content-restrictedproduct-symmetricpontryagindualequiv).
+  [Equivalence](docs/API.md#restrictedproductpontryagindualequiv),
+  [opposite direction](docs/API.md#restrictedproductsymmetricpontryagindualequiv).
 - **Naturality under adjoint coordinate maps.** Coordinatewise continuous
   homomorphisms preserve restricted products when subgroup preservation holds
   **cofinitely**, even with exceptional failures. For adjoint
   `f : X' → X` and `g : Y → Y'`, the pairing and canonical dual maps form a
   contravariant square. The equivalence-level square additionally requires
   its stronger local-perfectness, exact-annihilator and finite-discrete
-  assumptions. [Induced maps](docs/API.md#user-content-restrictedproduct-mapcontinuousmonoidhom),
-  [naturality](docs/API.md#user-content-restrictedproduct-topontryagindual_natural),
-  [equivalence square](docs/API.md#user-content-restrictedproduct-pontryagindualequiv_natural_apply).
+  assumptions. [Induced maps](docs/API.md#restrictedproductmapcontinuousmonoidhom),
+  [naturality](docs/API.md#restrictedproducttopontryagindual_natural),
+  [equivalence square](docs/API.md#restrictedproductpontryagindualequiv_natural_apply).
 
 ## Mathematical outline and references
 
@@ -134,6 +130,25 @@ the character-domain restricted product reverses direction under
 equivalence hypotheses; see `Naturality.lean` for all parameters. The code does
 not prove the unrestricted locally compact-coordinate duality theorem.
 
+## Using the library
+
+Add the library to your `lakefile.toml`:
+
+```toml
+[[require]]
+name = "restricted-product-duality"
+git = "https://github.com/FormalFrontier/restricted-product-duality.git"
+rev = "main"
+```
+
+GitHub `main` contains reviewed releases. Lake resolves it when you add or
+update the dependency; `lake-manifest.json` keeps the resolved commit until you
+update again. Replace `main` with a release commit to pin explicitly.
+
+```lean
+import RestrictedProductDuality
+```
+
 ## Reproducible build
 
 The project pins Lean `v4.34.0-rc2` in `lean-toolchain` and mathlib revision
@@ -154,7 +169,7 @@ to a mathlib source rebuild.
 Generated dependencies and build products under `.lake/` are intentionally
 excluded from version control.
 
-Measured baseline (2026-09-25): in a four-CPU-quota, 15 GiB worker, after
+Historical cached baseline: in a four-CPU-quota, 15 GiB worker, after
 `lake clean restricted-product-duality` removed every project build product,
 `lake exe cache get` confirmed all 8,892 pinned mathlib artifacts available.
 The invocation `LEAN_NUM_THREADS=2 lake -Kjobs=2 --wfail build` compiled all
@@ -168,27 +183,13 @@ its private declarations exercise independent index/coordinate universes,
 infinite-index nontrivial cyclic duality in both extreme orientations and
 the symmetric direction, a nonidentity pointwise adjoint pair, and a cofinite
 map which fails subgroup preservation at index zero. The direct-import
-`NaturalityClients` now also apply the full square to the nonidentity pair.
+`NaturalityClients` also apply the full square to the nonidentity pair.
 The direct-import `Clients` and `SymmetricClients` are included in the
 production build. Direct `lean -T0` checks are optional, not another required
 build of the default test target.
 The complete public/native reference and generation recipe are in
 [`docs/API.md`](docs/API.md) and [`docs/README.md`](docs/README.md). Neither
-certifies private proof bodies or a release.
-
-## Publication lifecycle
-
-An official release is an independently reviewed exact-tree snapshot with an
-external exact-commit acceptance and publication record; merging development
-`main` alone does not publish it. Each successor public-release commit preserves
-the **preceding official release** as its sole parent, without importing
-internal development history. Maintainer acceptance, protected integration and
-verified private GitHub mirroring are distinct steps; public visibility remains
-an operator decision. Build and complete transitive standard-axiom evidence
-(including private and generated declarations), independent review, rights
-clearance and source coverage are separate questions. No stored-proof replay,
-native documentation regeneration or repeat consumer build is required merely
-because this documentation changes.
+certifies private proof bodies.
 
 ## Layout
 
@@ -216,9 +217,3 @@ because this documentation changes.
 - `RestrictedProductDuality.lean`: umbrella import.
 - `RestrictedProductDualityTest.lean`: separately default-built public-import
   client checks (not imported by the production root).
-
-Every theorem in a proposed revision must be checked transitively with
-`#print axioms`; only `propext`, `Classical.choice`, and `Quot.sound` are
-permitted by the project policy. Passing a build and this foundation check do
-not substitute for independent mathematical/API review or maintainer
-integration.

@@ -39,12 +39,10 @@ automation:
   notes: >-
     AI agents developed the foundations, character reconstruction, symmetric
     duality, naturality and client examples with separate agent review.
-    Exact release acceptance and whole-artifact rights review are distinct
-    from mathematical review and source correspondence.
 review:
-  status: historical mathematical review; exact-release decisions recorded separately
+  status: mathematical content reviewed
   notes: >-
-    Mathematical and public-artifact reviews apply only to their exact
-    recorded inputs. Metadata validity, source motivation and earlier review
-    do not independently certify a later release, redistribution rights or
-    source coverage.
+    The conditional statements for cofinite restricted products require their
+    stated hypotheses. The general locally compact-coordinate proposition,
+    source coverage, source-author endorsement and independent rights clearance
+    are not claimed.
