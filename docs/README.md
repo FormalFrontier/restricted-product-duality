@@ -1,9 +1,16 @@
-# Native reference and reproducibility
+# Pinned duality reference and reproducibility
 
-The [complete mixed native reference](API.md) and [data manifest](api-manifest.json)
-cover all **12 shipped Lean modules** for the mathematical/pin input identified
-by `ae1998d20adc0b4fea4b311818b9d1b0a2859825` (tree
-`fc6764ae85ce01f9741b1f86f4c588434a2f9c3b`). Seven production leaves
+The [historical mixed native reference](API.md) and [data manifest](api-manifest.json)
+cover the **12 Lean modules of a fixed duality snapshot**, not the current
+whole-library API. All 15 mathematical/pin inputs match public revision
+[`fbdc1f29cfc71cc859ad58b626c847d162be6632`](https://github.com/FormalFrontier/restricted-product-duality/tree/fbdc1f29cfc71cc859ad58b626c847d162be6632).
+The later `PrincipalStage`, `FiniteStage` and T1 `CompactStage` additions are
+outside this catalogue; see the [current API outline](../README.md#public-api-and-hypotheses).
+The original analyzed-input label retained in the manifest and adapter is
+`ae1998d20adc0b4fea4b311818b9d1b0a2859825` (tree
+`fc6764ae85ce01f9741b1f86f4c588434a2f9c3b`). Equality of the mathematical
+inputs is not a claim that the original native export ran at public fbdc.
+At the fixed snapshot, seven production leaves
 have 66 native declaration entries; the aggregate import root has none.
 Legacy `Clients` has six compatibility entries, `SymmetricClients` has none,
 and `NaturalityClients` has two named local entries. The separate default-built
@@ -30,10 +37,13 @@ passes.
 
 ## Fixed tool and input
 
-The 15 unchanged mathematical `.lean`/toolchain/config SHA-256 inputs are
+The 15 fixed mathematical `.lean`/toolchain/config SHA-256 inputs are
 recorded in [`scripts/generate_api.py`](../scripts/generate_api.py) and in
-the [manifest](api-manifest.json). The source commit/tree above are
-**identifiers of analyzed inputs**, not the identity of this documentation.
+the [manifest](api-manifest.json). The adapter retains the original analyzed-input
+label above and refuses changed source bytes; it is not a generator for the
+current expanded API. The manifest's `api_sha256` describes the original
+rendered API at the fixed public revision, not this editorially qualified
+reference with public source links.
 The separately cloned upstream `leanprover/doc-gen4` revision is
 `97d4ecdfc8e09e7f511724c25e303d448de6a3db` (tree
 `ebf77f3e174c145c9ca2db0df1c18a78ae87c93b`) at Lean `v4.34.0-rc2`.
@@ -43,9 +53,23 @@ This library pins that Lean version and mathlib
 packages in `lake-manifest.json`; the source checkout and native generator
 need no other Formal Frontier library.
 
-First install pinned Lean and **successfully** fetch the matching precompiled
-mathlib cache in this project before *any* project build. Cache failure is a
-blocker, not permission to silently build mathlib from source:
+First create a **fresh, separate checkout** of the matching public revision.
+Do not run the fixed-input recipe in a current library checkout:
+
+```sh
+git clone https://github.com/FormalFrontier/restricted-product-duality.git /path/to/fresh/duality-reference
+cd /path/to/fresh/duality-reference
+git checkout --detach fbdc1f29cfc71cc859ad58b626c847d162be6632
+```
+
+The commands below use that checkout's source, adapter and original generated
+files. They reproduce the fixed catalogue, not the historical qualifications
+and public source links added to the current documentation. No new native
+export is claimed here.
+
+In that separate checkout, install pinned Lean and **successfully** fetch the
+matching precompiled mathlib cache before *any* project build. Cache failure
+is a blocker, not permission to silently build mathlib from source:
 
 ```sh
 elan toolchain install "$(cat lean-toolchain)"
@@ -59,6 +83,7 @@ checkout. Choose a **fresh external** `OUT` per run (never under this Git
 tree), and set `TOOL` to that checkout's `.lake/build/bin/doc-gen4`:
 
 ```sh
+# Original analyzed-input label required by the unchanged fixed adapter:
 REV=ae1998d20adc0b4fea4b311818b9d1b0a2859825
 OUT=/path/to/fresh/native-run
 TOOL=/path/to/separate/doc-gen4/.lake/build/bin/doc-gen4
@@ -86,10 +111,11 @@ python3 -B scripts/generate_api.py --native-data "$OUT/native-input" \
   --docgen-revision 97d4ecdfc8e09e7f511724c25e303d448de6a3db --check
 ```
 
-`example.invalid` is an inert native input identity, not a source link in
-the shipped Markdown. For a data-only comparison, keep the native SQLite
-database and all 12 raw record bytes from your run outside the shipped tree,
-along with the tool and dependency revisions. Rendered files alone do not
+`example.invalid` and `REV` supply the adapter's original inert native-input
+identity, not a public source location. The API page's source links instead
+use the matching full public fbdc commit. For a data-only comparison, keep the
+native SQLite database and all 12 raw record bytes from your run outside the
+shipped tree, along with the tool and dependency revisions. Rendered files alone do not
 contain the raw native inputs or independently authenticate a native run;
 identical outputs across other machines or tool versions are not guaranteed.
 
@@ -107,7 +133,8 @@ stale outputs. The adapter also works from a source-only archive without a Git
 executable or the source commit's parent. It is not a general Lean parser,
 proof checker, independent authentication of native inputs, or rights clearance.
 
-The cached baseline is `lake clean restricted-product-duality`,
+The historical measured baseline for these fixed inputs used
+`lake clean restricted-product-duality`,
 followed by successful `lake exe cache get` (8,892 matching artifacts) and
 `LEAN_NUM_THREADS=2 lake -Kjobs=2 --wfail build`: in a **four-CPU-quota,
 15 GiB** environment after cached dependencies, 12 modules and 2,855 Lake jobs

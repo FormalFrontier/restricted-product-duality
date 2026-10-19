@@ -2,9 +2,11 @@ version: "v0.4"
 project:
   name: Restricted-product duality
   description: >-
-    Finite-exceptional-stage control, circle-valued pairings, conditional
-    character reconstruction and symmetric Pontryagin duality, and contravariant
-    naturality for cofinite restricted products.
+    Compact finite-exceptional-stage control under T1 on a cofinite restricted
+    product or openness of its distinguished subsets, singleton principal-stage
+    homeomorphisms with ordinary products, compact-map finite restriction,
+    circle-valued pairings, conditional character reconstruction and symmetric
+    Pontryagin duality, and contravariant naturality.
   authors:
     - Formal Frontier Agents
   responsible_maintainers:
@@ -23,12 +25,24 @@ sources:
       Motivation for the finite-coordinate conditional specialization only;
       the general locally compact-coordinate proposition is not established here.
     author_endorsement: not-contacted
+  - title: A Concise Course in Algebraic Topology
+    authors:
+      - J. P. May
+    type: book
+    relationship: background
+    note: >-
+      Motivation for the ordinary finite-support-product viewpoint; no comparison
+      with compactly generated products, CW-complex or homotopy results is claimed.
+    author_endorsement: not-contacted
   - title: mathlib4
     type: software
     id: https://github.com/leanprover-community/mathlib4/tree/e37d88a26f3791ed5a93daa1f949af1021b8d103
     relationship: background
     license: Apache-2.0
-    note: Imported dependency for restricted products, Pontryagin duals and finite characters.
+    note: >-
+      Imported dependency for restricted products, Pontryagin duals and finite
+      characters. The restricted-product carrier, topology and principal inclusions
+      are from the formalization by Anatole Dedecker.
 automation:
   methods:
     - method: agent

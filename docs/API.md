@@ -1,38 +1,47 @@
 # Native API reference
 
-Fixed Lean `v4.34.0-rc2`, mathlib `e37d88a26f3791ed5a93daa1f949af1021b8d103`
-and separately pinned doc-gen4 `97d4ecdfc8e09e7f511724c25e303d448de6a3db`. These are the full
-displayed signatures, including implicit parameters and independent universes,
-of **all 74 entries in the native declarations tables for all 12 shipped modules**.
+This is a **historical, pinned duality reference**, not an inventory of the
+current library. Its mathematical and pin inputs match public revision
+[`fbdc1f29cfc71cc859ad58b626c847d162be6632`](https://github.com/FormalFrontier/restricted-product-duality/tree/fbdc1f29cfc71cc859ad58b626c847d162be6632).
+It does not catalogue the later `PrincipalStage` and `FiniteStage` modules or
+the additions to `CompactStage`; see the [current API outline](../README.md#public-api-and-hypotheses).
+
+At that snapshot, Lean `v4.34.0-rc2`, mathlib
+`e37d88a26f3791ed5a93daa1f949af1021b8d103` and separately pinned doc-gen4
+`97d4ecdfc8e09e7f511724c25e303d448de6a3db` give the displayed signatures,
+including implicit parameters and independent universes, of **all 74 entries
+in the native declarations tables for the snapshot's 12 modules**.
 All twelve native instance tables have zero rows. Two named `local instance`s
 in `NaturalityClients` occur in the native declarations table as `def` and
 `theorem`, not as instance-table rows; the local instance attribute is not
 asserted to be exported. The `Subgroup` lemma is retained across namespaces.
 This public/native filtered reference is not a census of private or
 compiler-generated proofs and does not certify axioms, source coverage
-or rights. [Reproduce and assess provenance](README.md).
+or rights. [Reproduce the fixed mathematical inputs and assess provenance](README.md).
 
-Source links target only the unchanged `.lean` files shipped here.
+All module and source-line links below target the matching public revision,
+not the current checkout. Matching inputs do not assert that the original
+native export ran at that public commit.
 **Native source docstring** matches an original Lean comment;
 **Original catalogue explanation** is newly written here for an
 entry without a source docstring, not a fabricated Lean docstring.
 
-## Native module inventory
+## Pinned native module inventory
 
-| Shipped module | Definitions | Theorems | Native instance-table rows |
+| Module at the pinned snapshot | Definitions | Theorems | Native instance-table rows |
 | --- | ---: | ---: | ---: |
-| [`RestrictedProductDuality.CompactStage`](../RestrictedProductDuality/CompactStage.lean) | 2 | 5 | 0 |
-| [`RestrictedProductDuality.SmallArc`](../RestrictedProductDuality/SmallArc.lean) | 0 | 1 | 0 |
-| [`RestrictedProductDuality.Pairing`](../RestrictedProductDuality/Pairing.lean) | 3 | 10 | 0 |
-| [`RestrictedProductDuality.TopologicalPairing`](../RestrictedProductDuality/TopologicalPairing.lean) | 2 | 4 | 0 |
-| [`RestrictedProductDuality.CharacterReconstruction`](../RestrictedProductDuality/CharacterReconstruction.lean) | 10 | 16 | 0 |
-| [`RestrictedProductDuality.SymmetricDuality`](../RestrictedProductDuality/SymmetricDuality.lean) | 2 | 6 | 0 |
-| [`RestrictedProductDuality.Naturality`](../RestrictedProductDuality/Naturality.lean) | 1 | 4 | 0 |
-| [`RestrictedProductDuality`](../RestrictedProductDuality.lean) | 0 | 0 | 0 |
-| [`RestrictedProductDuality.Clients`](../RestrictedProductDuality/Clients.lean) | 2 | 4 | 0 |
-| [`RestrictedProductDuality.SymmetricClients`](../RestrictedProductDuality/SymmetricClients.lean) | 0 | 0 | 0 |
-| [`RestrictedProductDuality.NaturalityClients`](../RestrictedProductDuality/NaturalityClients.lean) | 1 | 1 | 0 |
-| [`RestrictedProductDualityTest`](../RestrictedProductDualityTest.lean) | 0 | 0 | 0 |
+| [`RestrictedProductDuality.CompactStage`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean) | 2 | 5 | 0 |
+| [`RestrictedProductDuality.SmallArc`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SmallArc.lean) | 0 | 1 | 0 |
+| [`RestrictedProductDuality.Pairing`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean) | 3 | 10 | 0 |
+| [`RestrictedProductDuality.TopologicalPairing`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean) | 2 | 4 | 0 |
+| [`RestrictedProductDuality.CharacterReconstruction`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean) | 10 | 16 | 0 |
+| [`RestrictedProductDuality.SymmetricDuality`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean) | 2 | 6 | 0 |
+| [`RestrictedProductDuality.Naturality`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Naturality.lean) | 1 | 4 | 0 |
+| [`RestrictedProductDuality`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality.lean) | 0 | 0 | 0 |
+| [`RestrictedProductDuality.Clients`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean) | 2 | 4 | 0 |
+| [`RestrictedProductDuality.SymmetricClients`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricClients.lean) | 0 | 0 | 0 |
+| [`RestrictedProductDuality.NaturalityClients`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/NaturalityClients.lean) | 1 | 1 | 0 |
+| [`RestrictedProductDualityTest`](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDualityTest.lean) | 0 | 0 | 0 |
 
 ## Production API (66 native entries)
 
@@ -46,7 +55,7 @@ def RestrictedProduct.cofiniteStage {ι : Type u_1} {R : ι → Type u_2} {A : (
 
 **Native source docstring:** The cofinite stage on which coordinates outside `s` lie in the distinguished subsets.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L27) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L27) (native source start line).
 
 ### RestrictedProduct.mem_cofiniteStage
 
@@ -58,7 +67,7 @@ theorem RestrictedProduct.mem_cofiniteStage {ι : Type u_1} {R : ι → Type u_2
 
 **Original catalogue explanation (not a Lean docstring):** Membership in a cofinite stage means every coordinate outside its finite exceptional set lies in the distinguished subset.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L31) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L31) (native source start line).
 
 ### RestrictedProduct.cofiniteStage_mono
 
@@ -70,7 +79,7 @@ theorem RestrictedProduct.cofiniteStage_mono {ι : Type u_1} {R : ι → Type u_
 
 **Native source docstring:** Cofinite stages grow when their finite exceptional sets grow.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L36) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L36) (native source start line).
 
 ### RestrictedProduct.exceptionalFinset
 
@@ -82,7 +91,7 @@ noncomputable def RestrictedProduct.exceptionalFinset {ι : Type u_1} {R : ι �
 
 **Native source docstring:** A canonical finite exceptional set for an element of a cofinite restricted product.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L42) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L42) (native source start line).
 
 ### RestrictedProduct.mem_cofiniteStage_exceptionalFinset
 
@@ -94,7 +103,7 @@ theorem RestrictedProduct.mem_cofiniteStage_exceptionalFinset {ι : Type u_1} {R
 
 **Original catalogue explanation (not a Lean docstring):** Each restricted-product element belongs to the stage cut out by its own finite exceptional-coordinate set.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L46) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L46) (native source start line).
 
 ### RestrictedProduct.isOpen_cofiniteStage
 
@@ -106,7 +115,7 @@ theorem RestrictedProduct.isOpen_cofiniteStage {ι : Type u_1} {R : ι → Type 
 
 **Native source docstring:** A cofinite stage is open when all distinguished subsets are open.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L57) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L57) (native source start line).
 
 ### RestrictedProduct.exists_subset_cofiniteStage
 
@@ -121,7 +130,7 @@ theorem RestrictedProduct.exists_subset_cofiniteStage {ι : Type u_1} {R : ι �
 The index type is arbitrary. The proof uses the directed open cover by cofinite stages, so it
 does not require a countable exhaustion or a sigma-compactness assumption.
 
-[Source](../RestrictedProductDuality/CompactStage.lean#L63) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CompactStage.lean#L63) (native source start line).
 
 ### Subgroup.le_ker_of_mapsTo_centeredArc
 
@@ -134,7 +143,7 @@ theorem Subgroup.le_ker_of_mapsTo_centeredArc {G : Type u_1} [Group G] (S : Subg
 **Native source docstring:** A subgroup whose image under a circle-valued homomorphism lies in the centered `π / 2` arc
 is contained in the homomorphism's kernel.
 
-[Source](../RestrictedProductDuality/SmallArc.lean#L27) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SmallArc.lean#L27) (native source start line).
 
 ### RestrictedProduct.pairing_hasFiniteMulSupport
 
@@ -147,7 +156,7 @@ theorem RestrictedProduct.pairing_hasFiniteMulSupport {ι : Type u_1} {X : ι �
 **Native source docstring:** Orthogonality of the distinguished subgroups makes every restricted-product evaluation
 family finitely supported.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L33) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L33) (native source start line).
 
 ### RestrictedProduct.pairing
 
@@ -162,7 +171,7 @@ noncomputable def RestrictedProduct.pairing {ι : Type u_1} {X : ι → Type u_2
 The `finprod` agrees with the ordinary product over any finite set containing all coordinates
 where the local factor is not `1`.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L42) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L42) (native source start line).
 
 ### RestrictedProduct.pairing_eq_prod
 
@@ -175,7 +184,7 @@ theorem RestrictedProduct.pairing_eq_prod {ι : Type u_1} {X : ι → Type u_2} 
 **Native source docstring:** Evaluation is the ordinary product over any finite set outside which all local factors are
 `1`. In particular, its value is independent of a chosen finite exceptional presentation.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L50) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L50) (native source start line).
 
 ### RestrictedProduct.pairing_mulSingle_left
 
@@ -187,7 +196,7 @@ theorem RestrictedProduct.pairing_mulSingle_left {ι : Type u_1} {X : ι → Typ
 
 **Original catalogue explanation (not a Lean docstring):** A single nontrivial character-domain coordinate evaluates the global pairing by its corresponding local bicharacter.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L62) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L62) (native source start line).
 
 ### RestrictedProduct.pairing_mulSingle_right
 
@@ -199,7 +208,7 @@ theorem RestrictedProduct.pairing_mulSingle_right {ι : Type u_1} {X : ι → Ty
 
 **Original catalogue explanation (not a Lean docstring):** A single representing coordinate evaluates the global pairing by the corresponding local bicharacter.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L73) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L73) (native source start line).
 
 ### RestrictedProduct.pairing_one_left
 
@@ -211,7 +220,7 @@ theorem RestrictedProduct.pairing_one_left {ι : Type u_1} {X : ι → Type u_2}
 
 **Original catalogue explanation (not a Lean docstring):** The global pairing is one when its first argument is the identity.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L83) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L83) (native source start line).
 
 ### RestrictedProduct.pairing_one_right
 
@@ -223,7 +232,7 @@ theorem RestrictedProduct.pairing_one_right {ι : Type u_1} {X : ι → Type u_2
 
 **Original catalogue explanation (not a Lean docstring):** The global pairing is one when its second argument is the identity.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L88) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L88) (native source start line).
 
 ### RestrictedProduct.pairing_mul_left
 
@@ -235,7 +244,7 @@ theorem RestrictedProduct.pairing_mul_left {ι : Type u_1} {X : ι → Type u_2}
 
 **Original catalogue explanation (not a Lean docstring):** The global pairing multiplies pointwise under multiplication in its first argument.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L93) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L93) (native source start line).
 
 ### RestrictedProduct.pairing_mul_right
 
@@ -247,7 +256,7 @@ theorem RestrictedProduct.pairing_mul_right {ι : Type u_1} {X : ι → Type u_2
 
 **Original catalogue explanation (not a Lean docstring):** The global pairing multiplies pointwise under multiplication in its second argument.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L101) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L101) (native source start line).
 
 ### RestrictedProduct.pairingMonoidHom
 
@@ -259,7 +268,7 @@ noncomputable def RestrictedProduct.pairingMonoidHom {ι : Type u_1} {X : ι →
 
 **Native source docstring:** The character of the first restricted product determined by an element of the second one.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L109) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L109) (native source start line).
 
 ### RestrictedProduct.pairingMonoidHom_apply
 
@@ -271,7 +280,7 @@ theorem RestrictedProduct.pairingMonoidHom_apply {ι : Type u_1} {X : ι → Typ
 
 **Original catalogue explanation (not a Lean docstring):** Evaluating the pairing monoid homomorphism at a first-product element yields the global pairing with its fixed second-product element.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L117) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L117) (native source start line).
 
 ### RestrictedProduct.pairingHom
 
@@ -283,7 +292,7 @@ noncomputable def RestrictedProduct.pairingHom {ι : Type u_1} {X : ι → Type 
 
 **Native source docstring:** The global pairing, bundled as a homomorphism into the algebraic character group.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L124) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L124) (native source start line).
 
 ### RestrictedProduct.pairingHom_apply
 
@@ -295,7 +304,7 @@ theorem RestrictedProduct.pairingHom_apply {ι : Type u_1} {X : ι → Type u_2}
 
 **Original catalogue explanation (not a Lean docstring):** The curried pairing homomorphism evaluates to the underlying global bicharacter at both arguments.
 
-[Source](../RestrictedProductDuality/Pairing.lean#L132) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Pairing.lean#L132) (native source start line).
 
 ### RestrictedProduct.continuous_pairing
 
@@ -308,7 +317,7 @@ theorem RestrictedProduct.continuous_pairing {ι : Type u_1} {X : ι → Type u_
 **Native source docstring:** The pairing induced by jointly continuous local bicharacters is jointly continuous on the two
 cofinite restricted products.
 
-[Source](../RestrictedProductDuality/TopologicalPairing.lean#L33) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean#L33) (native source start line).
 
 ### RestrictedProduct.pairingCharacter
 
@@ -321,7 +330,7 @@ noncomputable def RestrictedProduct.pairingCharacter {ι : Type u_1} {X : ι →
 **Native source docstring:** The continuous character of the first restricted product determined by an element of the
 second restricted product.
 
-[Source](../RestrictedProductDuality/TopologicalPairing.lean#L62) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean#L62) (native source start line).
 
 ### RestrictedProduct.pairingCharacter_apply
 
@@ -333,7 +342,7 @@ theorem RestrictedProduct.pairingCharacter_apply {ι : Type u_1} {X : ι → Typ
 
 **Original catalogue explanation (not a Lean docstring):** Evaluation of the constructed continuous character at a first-product element is the global pairing.
 
-[Source](../RestrictedProductDuality/TopologicalPairing.lean#L72) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean#L72) (native source start line).
 
 ### RestrictedProduct.toPontryaginDual
 
@@ -347,7 +356,7 @@ noncomputable def RestrictedProduct.toPontryaginDual {ι : Type u_1} {X : ι →
 dual of the first. This construction assumes orthogonality and continuity, but not perfectness or
 exact-annihilator hypotheses.
 
-[Source](../RestrictedProductDuality/TopologicalPairing.lean#L81) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean#L81) (native source start line).
 
 ### RestrictedProduct.toPontryaginDual_apply
 
@@ -359,7 +368,7 @@ theorem RestrictedProduct.toPontryaginDual_apply {ι : Type u_1} {X : ι → Typ
 
 **Original catalogue explanation (not a Lean docstring):** Evaluating the canonical continuous dual map on a representing element and a character-domain element gives the global pairing.
 
-[Source](../RestrictedProductDuality/TopologicalPairing.lean#L98) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean#L98) (native source start line).
 
 ### RestrictedProduct.toPontryaginDual_injective
 
@@ -372,7 +381,7 @@ theorem RestrictedProduct.toPontryaginDual_injective {ι : Type u_1} {X : ι →
 **Native source docstring:** Local separation in the second variable makes the canonical map to the Pontryagin dual
 injective.
 
-[Source](../RestrictedProductDuality/TopologicalPairing.lean#L108) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/TopologicalPairing.lean#L108) (native source start line).
 
 ### RestrictedProduct.rightCharacter
 
@@ -384,7 +393,7 @@ noncomputable def RestrictedProduct.rightCharacter {X : Type u_4} {Y : Type u_5}
 
 **Native source docstring:** The character of `X` represented by `y` through a multiplicative bicharacter.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L34) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L34) (native source start line).
 
 ### RestrictedProduct.rightCharacter_apply
 
@@ -396,7 +405,7 @@ theorem RestrictedProduct.rightCharacter_apply {X : Type u_4} {Y : Type u_5} [Co
 
 **Original catalogue explanation (not a Lean docstring):** A local right character evaluated on the left group element is the original local bicharacter value.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L44) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L44) (native source start line).
 
 ### RestrictedProduct.rightAnnihilator
 
@@ -408,7 +417,7 @@ def RestrictedProduct.rightAnnihilator {X : Type u_4} {Y : Type u_5} [CommGroup 
 
 **Native source docstring:** The right annihilator of a subgroup under a multiplicative bicharacter.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L50) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L50) (native source start line).
 
 ### RestrictedProduct.mem_rightAnnihilator
 
@@ -420,7 +429,7 @@ theorem RestrictedProduct.mem_rightAnnihilator {X : Type u_4} {Y : Type u_5} [Co
 
 **Original catalogue explanation (not a Lean docstring):** Membership in the right annihilator is equivalent to pairing to one with every element of the chosen left subgroup.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L58) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L58) (native source start line).
 
 ### RestrictedProduct.structureMapMonoidHom
 
@@ -432,7 +441,7 @@ def RestrictedProduct.structureMapMonoidHom {ι : Type u_1} {X : ι → Type u_2
 
 **Native source docstring:** The distinguished product, bundled as a homomorphism into the cofinite restricted product.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L64) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L64) (native source start line).
 
 ### RestrictedProduct.structureMapMonoidHom_apply
 
@@ -444,7 +453,7 @@ theorem RestrictedProduct.structureMapMonoidHom_apply {ι : Type u_1} {X : ι �
 
 **Original catalogue explanation (not a Lean docstring):** The distinguished product's structure map evaluates coordinatewise by the underlying subgroup inclusion.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L70) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L70) (native source start line).
 
 ### RestrictedProduct.productTail
 
@@ -456,7 +465,7 @@ def RestrictedProduct.productTail {ι : Type u_1} {X : ι → Type u_2} [(i : ι
 
 **Native source docstring:** Elements of the distinguished product which are `1` on `s`.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L75) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L75) (native source start line).
 
 ### RestrictedProduct.restrictedProductTail
 
@@ -468,7 +477,7 @@ def RestrictedProduct.restrictedProductTail {ι : Type u_1} {X : ι → Type u_2
 
 **Native source docstring:** The product tail, embedded as a subgroup of the cofinite restricted product.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L79) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L79) (native source start line).
 
 ### RestrictedProduct.mem_productTail
 
@@ -480,7 +489,7 @@ theorem RestrictedProduct.mem_productTail {ι : Type u_1} {X : ι → Type u_2} 
 
 **Original catalogue explanation (not a Lean docstring):** Membership in the product tail means every coordinate in the selected finite set equals one.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L83) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L83) (native source start line).
 
 ### RestrictedProduct.structureMapMonoidHom_pi_mulSingle
 
@@ -492,7 +501,7 @@ theorem RestrictedProduct.structureMapMonoidHom_pi_mulSingle {ι : Type u_1} {X 
 
 **Original catalogue explanation (not a Lean docstring):** The structure map sends a single distinguished subgroup coordinate to the corresponding single restricted-product coordinate.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L89) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L89) (native source start line).
 
 ### RestrictedProduct.exists_productTail_le_ker
 
@@ -509,7 +518,7 @@ The index type is arbitrary.  The proof pulls a centered small arc back to the p
 finite cylinder contained in that preimage, and applies `Subgroup.le_ker_of_mapsTo_centeredArc` to
 the corresponding product tail.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L100) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L100) (native source start line).
 
 ### RestrictedProduct.exists_restrictedProductTail_subset_of_mem_nhds
 
@@ -522,7 +531,7 @@ theorem RestrictedProduct.exists_restrictedProductTail_subset_of_mem_nhds {ι : 
 **Native source docstring:** Every identity neighborhood in a cofinite restricted product with open distinguished
 subgroups contains an embedded product tail.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L134) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L134) (native source start line).
 
 ### RestrictedProduct.characterTestSet
 
@@ -535,7 +544,7 @@ def RestrictedProduct.characterTestSet {ι : Type u_1} {X : ι → Type u_2} [(i
 **Native source docstring:** A compact-open test set: the whole distinguished product together with the full
 single-coordinate copies indexed by `s`.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L156) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L156) (native source start line).
 
 ### RestrictedProduct.isCompact_characterTestSet
 
@@ -547,7 +556,7 @@ theorem RestrictedProduct.isCompact_characterTestSet {ι : Type u_1} {X : ι →
 
 **Native source docstring:** For finite discrete coordinates, `characterTestSet` is compact.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L164) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L164) (native source start line).
 
 ### RestrictedProduct.coordinateCharacter
 
@@ -560,7 +569,7 @@ noncomputable def RestrictedProduct.coordinateCharacter {ι : Type u_1} {X : ι 
 **Native source docstring:** The local coordinate character obtained by restricting a global character to a
 single-coordinate copy.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L177) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L177) (native source start line).
 
 ### RestrictedProduct.coordinateCharacter_apply
 
@@ -572,7 +581,7 @@ theorem RestrictedProduct.coordinateCharacter_apply {ι : Type u_1} {X : ι → 
 
 **Original catalogue explanation (not a Lean docstring):** The coordinate character obtained by probing a global character at a single coordinate evaluates at that coordinate's element.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L185) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L185) (native source start line).
 
 ### RestrictedProduct.reconstructedCoordinate
 
@@ -585,7 +594,7 @@ noncomputable def RestrictedProduct.reconstructedCoordinate {ι : Type u_1} {X :
 **Native source docstring:** The coordinate recovered from a global character through an explicitly bijective local
 character map.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L190) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L190) (native source start line).
 
 ### RestrictedProduct.reconstructedCoordinate_spec
 
@@ -597,7 +606,7 @@ theorem RestrictedProduct.reconstructedCoordinate_spec {ι : Type u_1} {X : ι �
 
 **Original catalogue explanation (not a Lean docstring):** The reconstructed representing coordinate has the specified local right-character values on every coordinate-domain element.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L198) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L198) (native source start line).
 
 ### RestrictedProduct.finset_prod_mulSingle_apply
 
@@ -609,7 +618,7 @@ theorem RestrictedProduct.finset_prod_mulSingle_apply {ι : Type u_1} {X : ι �
 
 **Original catalogue explanation (not a Lean docstring):** At a coordinate in the selected finite set, the finite product of single-coordinate elements has the prescribed value; elsewhere it is one.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L209) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L209) (native source start line).
 
 ### RestrictedProduct.toPontryaginDual_surjective
 
@@ -626,7 +635,7 @@ This proof works for arbitrary index types.  Local perfectness is the actual bij
 map `Y i →* (X i →* Circle)` defined by the bicharacter; no nondegeneracy or cardinality shortcut
 is used.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L230) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L230) (native source start line).
 
 ### RestrictedProduct.toPontryaginDual_bijective
 
@@ -639,7 +648,7 @@ theorem RestrictedProduct.toPontryaginDual_bijective {ι : Type u_1} {X : ι →
 **Native source docstring:** Under explicit local perfectness and exact right-annihilator hypotheses, the canonical map is
 bijective.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L304) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L304) (native source start line).
 
 ### RestrictedProduct.toPontryaginDualMulEquiv
 
@@ -651,7 +660,7 @@ noncomputable def RestrictedProduct.toPontryaginDualMulEquiv {ι : Type u_1} {X 
 
 **Native source docstring:** The algebraic equivalence underlying restricted-product character reconstruction.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L319) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L319) (native source start line).
 
 ### RestrictedProduct.toPontryaginDualMulEquiv_apply
 
@@ -663,7 +672,7 @@ theorem RestrictedProduct.toPontryaginDualMulEquiv_apply {ι : Type u_1} {X : ι
 
 **Original catalogue explanation (not a Lean docstring):** The algebraic equivalence acts on a representing element through the canonical continuous dual map.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L330) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L330) (native source start line).
 
 ### RestrictedProduct.continuous_toPontryaginDualMulEquiv_symm
 
@@ -677,7 +686,7 @@ theorem RestrictedProduct.continuous_toPontryaginDualMulEquiv_symm {ι : Type u_
 reconstruction map is continuous.  The proof uses explicit compact-open test sets and product
 tails; it does not use an open-mapping theorem.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L341) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L341) (native source start line).
 
 ### RestrictedProduct.pontryaginDualEquiv
 
@@ -691,7 +700,7 @@ noncomputable def RestrictedProduct.pontryaginDualEquiv {ι : Type u_1} {X : ι 
 local perfectness and exact annihilators, yield a topological multiplicative equivalence with the
 compact-open Pontryagin dual.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L425) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L425) (native source start line).
 
 ### RestrictedProduct.pontryaginDualEquiv_apply
 
@@ -703,7 +712,7 @@ theorem RestrictedProduct.pontryaginDualEquiv_apply {ι : Type u_1} {X : ι → 
 
 **Original catalogue explanation (not a Lean docstring):** The topological multiplicative equivalence acts through the same canonical continuous dual map.
 
-[Source](../RestrictedProductDuality/CharacterReconstruction.lean#L441) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/CharacterReconstruction.lean#L441) (native source start line).
 
 ### RestrictedProduct.leftAnnihilator
 
@@ -715,7 +724,7 @@ noncomputable def RestrictedProduct.leftAnnihilator {X : Type u_4} {Y : Type u_5
 
 **Native source docstring:** The left annihilator of a subgroup under a multiplicative bicharacter.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L32) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L32) (native source start line).
 
 ### RestrictedProduct.mem_leftAnnihilator
 
@@ -727,7 +736,7 @@ theorem RestrictedProduct.mem_leftAnnihilator {X : Type u_4} {Y : Type u_5} [Com
 
 **Original catalogue explanation (not a Lean docstring):** Membership in the left annihilator is equivalent to pairing to one with every element of the chosen right subgroup.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L37) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L37) (native source start line).
 
 ### RestrictedProduct.orthogonal_rightCharacter
 
@@ -740,7 +749,7 @@ theorem RestrictedProduct.orthogonal_rightCharacter {ι : Type u_1} {X : ι → 
 **Native source docstring:** Orthogonality is preserved when a bicharacter is viewed in the opposite
 direction through `rightCharacter`.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L43) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L43) (native source start line).
 
 ### RestrictedProduct.pairing_rightCharacter
 
@@ -753,7 +762,7 @@ theorem RestrictedProduct.pairing_rightCharacter {ι : Type u_1} {X : ι → Typ
 **Native source docstring:** Transposing every local bicharacter does not change the global pairing's
 evaluation.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L51) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L51) (native source start line).
 
 ### RestrictedProduct.continuous_rightCharacter
 
@@ -766,7 +775,7 @@ theorem RestrictedProduct.continuous_rightCharacter {ι : Type u_1} {X : ι → 
 **Native source docstring:** Joint continuity is preserved by transposing the two inputs of a local
 bicharacter.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L60) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L60) (native source start line).
 
 ### RestrictedProduct.symmetricPontryaginDualEquiv
 
@@ -779,7 +788,7 @@ noncomputable def RestrictedProduct.symmetricPontryaginDualEquiv {ι : Type u_1}
 **Native source docstring:** The symmetric restricted-product duality equivalence, constructed directly
 from left local perfectness and the reverse exact-annihilator equality.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L68) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L68) (native source start line).
 
 ### RestrictedProduct.symmetricPontryaginDualEquiv_apply
 
@@ -792,7 +801,7 @@ theorem RestrictedProduct.symmetricPontryaginDualEquiv_apply {ι : Type u_1} {X 
 **Native source docstring:** Evaluation of the symmetric equivalence is the original global pairing
 with its arguments in their original order.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L82) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L82) (native source start line).
 
 ### RestrictedProduct.pontryaginDualEquiv_apply_eq_symmetric
 
@@ -806,7 +815,7 @@ theorem RestrictedProduct.pontryaginDualEquiv_apply_eq_symmetric {ι : Type u_1}
 the same evaluation pairing.  This is a direct computation, not an application
 of a general biduality equivalence.
 
-[Source](../RestrictedProductDuality/SymmetricDuality.lean#L97) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/SymmetricDuality.lean#L97) (native source start line).
 
 ### RestrictedProduct.mapContinuousMonoidHom
 
@@ -820,7 +829,7 @@ def RestrictedProduct.mapContinuousMonoidHom {ι : Type u_1} {X : ι → Type u_
 subgroups at cofinitely many indices induces a continuous homomorphism of
 cofinite restricted products.
 
-[Source](../RestrictedProductDuality/Naturality.lean#L34) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Naturality.lean#L34) (native source start line).
 
 ### RestrictedProduct.mapContinuousMonoidHom_apply
 
@@ -832,7 +841,7 @@ theorem RestrictedProduct.mapContinuousMonoidHom_apply {ι : Type u_1} {X : ι �
 
 **Original catalogue explanation (not a Lean docstring):** The induced continuous restricted-product homomorphism evaluates each coordinate through its original coordinate map.
 
-[Source](../RestrictedProductDuality/Naturality.lean#L48) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Naturality.lean#L48) (native source start line).
 
 ### RestrictedProduct.pairing_mapContinuousMonoidHom
 
@@ -845,7 +854,7 @@ theorem RestrictedProduct.pairing_mapContinuousMonoidHom {ι : Type u_1} {X : ι
 **Native source docstring:** Coordinatewise adjoint maps carry the global restricted-product pairing
 to the global pairing.
 
-[Source](../RestrictedProductDuality/Naturality.lean#L57) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Naturality.lean#L57) (native source start line).
 
 ### RestrictedProduct.toPontryaginDual_natural
 
@@ -859,7 +868,7 @@ theorem RestrictedProduct.toPontryaginDual_natural {ι : Type u_1} {X : ι → T
 the representing coordinates correspond to contravariant Pontryagin-dual maps
 on the character-domain coordinates.
 
-[Source](../RestrictedProductDuality/Naturality.lean#L74) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Naturality.lean#L74) (native source start line).
 
 ### RestrictedProduct.pontryaginDualEquiv_natural_apply
 
@@ -871,7 +880,7 @@ theorem RestrictedProduct.pontryaginDualEquiv_natural_apply {ι : Type u_1} {X :
 
 **Native source docstring:** Pointwise naturality of the restricted-product duality equivalence.
 
-[Source](../RestrictedProductDuality/Naturality.lean#L103) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Naturality.lean#L103) (native source start line).
 
 ## Legacy client and scoped local entries (8 native entries)
 
@@ -885,7 +894,7 @@ noncomputable def RestrictedProduct.punitBicharacter : PUnit.{u_1 + 1} →* PUni
 
 **Native source docstring:** The unique bicharacter between trivial groups, used to exercise index-size edge cases.
 
-[Source](../RestrictedProductDuality/Clients.lean#L60) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean#L60) (native source start line).
 
 ### RestrictedProduct.punitBicharacter_perfect
 
@@ -898,7 +907,7 @@ theorem RestrictedProduct.punitBicharacter_perfect : Function.Bijective ⇑(righ
 **Native source docstring:** The trivial bicharacter is locally perfect because both its source and character group are
 singletons.
 
-[Source](../RestrictedProductDuality/Clients.lean#L63) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean#L63) (native source start line).
 
 ### RestrictedProduct.punit_rightAnnihilator
 
@@ -910,7 +919,7 @@ theorem RestrictedProduct.punit_rightAnnihilator : ⊤ = rightAnnihilator ⊤ pu
 
 **Native source docstring:** The full subgroup of the trivial group is its own right annihilator.
 
-[Source](../RestrictedProductDuality/Clients.lean#L76) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean#L76) (native source start line).
 
 ### RestrictedProduct.zmodBicharacter
 
@@ -922,7 +931,7 @@ noncomputable def RestrictedProduct.zmodBicharacter (n : ℕ) [NeZero n] : Multi
 
 **Native source docstring:** The standard symmetric bicharacter on a finite cyclic group, in multiplicative notation.
 
-[Source](../RestrictedProductDuality/Clients.lean#L90) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean#L90) (native source start line).
 
 ### RestrictedProduct.zmodBicharacter_apply
 
@@ -934,7 +943,7 @@ theorem RestrictedProduct.zmodBicharacter_apply (n : ℕ) [NeZero n] (x y : Mult
 
 **Original catalogue explanation (not a Lean docstring):** Evaluation of the cyclic multiplicative bicharacter is the standard finite-character value from the two underlying residues.
 
-[Source](../RestrictedProductDuality/Clients.lean#L97) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean#L97) (native source start line).
 
 ### RestrictedProduct.zmodBicharacter_perfect
 
@@ -947,7 +956,7 @@ theorem RestrictedProduct.zmodBicharacter_perfect (n : ℕ) [NeZero n] : Functio
 **Native source docstring:** The standard cyclic bicharacter induces the actual bijection onto circle-valued
 characters.
 
-[Source](../RestrictedProductDuality/Clients.lean#L103) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/Clients.lean#L103) (native source start line).
 
 ### RestrictedProduct.zmodTwoTopologicalSpaceNaturality
 
@@ -959,7 +968,7 @@ def RestrictedProduct.zmodTwoTopologicalSpaceNaturality : TopologicalSpace (Mult
 
 **Native source docstring:** The discrete topology for cyclic naturality clients, scoped to this file.
 
-[Source](../RestrictedProductDuality/NaturalityClients.lean#L31) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/NaturalityClients.lean#L31) (native source start line).
 
 ### RestrictedProduct.zmodTwoDiscreteTopologyNaturality
 
@@ -971,7 +980,7 @@ theorem RestrictedProduct.zmodTwoDiscreteTopologyNaturality : DiscreteTopology (
 
 **Native source docstring:** The corresponding discrete-topology witness for cyclic naturality clients.
 
-[Source](../RestrictedProductDuality/NaturalityClients.lean#L34) (native source start line).
+[Source](https://github.com/FormalFrontier/restricted-product-duality/blob/fbdc1f29cfc71cc859ad58b626c847d162be6632/RestrictedProductDuality/NaturalityClients.lean#L34) (native source start line).
 
 ## Default-built public-import test (0 native entries)
 

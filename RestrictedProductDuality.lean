@@ -5,6 +5,8 @@ Authors: Formal Frontier Agents
 module
 
 public import RestrictedProductDuality.CompactStage
+public import RestrictedProductDuality.PrincipalStage
+public import RestrictedProductDuality.FiniteStage
 public import RestrictedProductDuality.CharacterReconstruction
 public import RestrictedProductDuality.Clients
 public import RestrictedProductDuality.Pairing

@@ -4,7 +4,8 @@ Authors: Formal Frontier Agents. Original Formal Frontier contributions are
 offered under Apache-2.0 (see [`LICENSE`](LICENSE)); imported dependency APIs
 retain their own authorship and licenses.
 
-Reusable Lean theory of restricted products and Pontryagin duality.
+Reusable Lean theory of restricted products, ordinary finite-support stages and
+Pontryagin duality.
 
 ## Scope
 
@@ -23,11 +24,25 @@ see [`formalization.yaml`](formalization.yaml) for methods and bibliography.
 These constructions use mathlib's restricted products, circle-valued
 characters and compact-open Pontryagin dual; they do not redefine those APIs.
 
-- **Compact subsets occupy one finite-exceptional stage.** When every
-  distinguished subset is open, any compact subset lies in a stage allowing
-  exceptions at a single finite set of indices, with no countability
-  assumption. Neither compact stages nor a countable compact exhaustion are
-  asserted. [Compact-stage theorem](docs/API.md#restrictedproductexists_subset_cofinitestage).
+- **Compact subsets occupy one finite-exceptional stage.** Any compact subset
+  of a **T1 cofinite restricted product** lies in one finite-exceptional stage,
+  with arbitrary distinguished subsets and arbitrary index type. Only the
+  restricted product, not each factor, is required to be T1. The existing
+  theorem for **open distinguished subsets** remains available without a T1
+  hypothesis. Neither compact stages nor a countable compact exhaustion are
+  asserted. [Compact-stage theorems](RestrictedProductDuality/CompactStage.lean).
+- **Singleton stages are ordinary products.** For chosen points `b i` and any
+  set `F` of free coordinates, restriction is a named homeomorphism from the
+  singleton principal stage to the ordinary dependent product over `F`.
+  Its inverse inserts `b i` outside `F`; no finiteness or separation is needed.
+  Finite insertions embed with range exactly the corresponding cofinite stage,
+  and these ordinary finite products detect continuity out of the cofinite
+  restricted product. [Principal comparison](RestrictedProductDuality/PrincipalStage.lean).
+- **Compact maps factor by finite restriction.** A continuous map from any
+  compact space to a **T1 singleton cofinite restricted product** factors
+  through an ordinary finite product. The continuous factor is exactly the
+  original coordinate function restricted to the chosen finite set.
+  [Compact-map factorization](RestrictedProductDuality/FiniteStage.lean).
 - **Finite-support pairing and continuous dual map.** For commutative
   coordinate groups with circle bicharacters, orthogonality on both
   distinguished subgroups makes coordinatewise evaluation a well-defined,
@@ -73,6 +88,18 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
 An element of a cofinite restricted product lies in a stage allowing finitely
 many coordinates outside their distinguished subsets. Openness makes these
 stages an open, directed cover; compactness selects a single containing stage.
+Alternatively, under T1 on the restricted product alone, failure of finite
+containment would give an infinite sequence with distinct exceptional
+coordinates. Every subset of its range has finite, hence closed, preimage in
+each principal stage. Finality would make that range closed and discrete,
+contradicting compactness. The singleton principal comparison identifies the
+free coordinates with an ordinary product and turns containment of a compact
+map's range into factorization by finite coordinate restriction.
+
+These are ordinary topological products and Mathlib's restricted-product final
+topology, not compactly generated products or a comparison with their colimits.
+No CGWH, CW-complex or homotopy-theoretic conclusion is asserted.
+
 For a continuous circle character, the centered small-arc kernel lemma then
 controls an open product of distinguished subgroups, leaving only finitely
 many relevant coordinates **on that product**. Orthogonality makes the
@@ -98,13 +125,27 @@ finite-coordinate **conditional specialization** only: it neither proves that
 general proposition nor the arithmetic inputs of (8.5.2). The formalization
 uses mathlib4 at the [pinned revision](lakefile.lean); the bibliography and
 scope are also recorded in [`formalization.yaml`](formalization.yaml).
+The carrier, final topology and principal inclusions reuse Mathlib's
+restricted-product formalization by Anatole Dedecker. The ordinary
+finite-support-product viewpoint is motivated by J. P. May,
+*A Concise Course in Algebraic Topology*. The T1 compactness argument above
+and the ordinary-product comparisons concern this topological setting, not
+compactly generated replacements.
 
 ## Public API and hypotheses
 
 Import `RestrictedProductDuality` for the full API, or directly import one of
 the modules below. For arbitrary cofinite index types, `cofiniteStage` and
-`exists_subset_cofiniteStage` control compact subsets when each distinguished
-set is **open**. `Subgroup.le_ker_of_mapsTo_centeredArc` supplies the small-arc
+`exists_subset_cofiniteStage_of_t1` control compact subsets when the restricted
+product is **T1**. The original `exists_subset_cofiniteStage` instead assumes
+that each distinguished set is **open**, without requiring T1.
+`singletonPrincipalHomeomorph` provides restriction, inverse-insertion,
+coordinate, extensionality and uniqueness formulas for arbitrary free sets.
+`singletonFinsetInsert` has embedding, continuity, range and two restriction
+identities; `continuous_dom_singleton_iff` expresses finality on ordinary finite
+products. `exists_singletonFinsetInsert_factorization` constructs a continuous
+finite restriction of a compact map, together with its insertion identity.
+`Subgroup.le_ker_of_mapsTo_centeredArc` supplies the small-arc
 kernel argument. `pairing`, `pairing_eq_prod` and `pairingHom` evaluate a
 finite-support circle-valued bicharacter; orthogonality of the two distinguished
 subgroups makes the support finite. `continuous_pairing` requires joint local
@@ -182,19 +223,30 @@ scheduler or memory bound. This is a baseline, not a speedup claim.
 its private declarations exercise independent index/coordinate universes,
 infinite-index nontrivial cyclic duality in both extreme orientations and
 the symmetric direction, a nonidentity pointwise adjoint pair, and a cofinite
-map which fails subgroup preservation at index zero. The direct-import
+map which fails subgroup preservation at index zero. Its canonical circle
+example has nonopen singleton basepoints and a nonconstant compact
+single-coordinate range; it applies both T1 compact containment and compact-map
+factorization through exact finite restriction. The direct-import
 `NaturalityClients` also apply the full square to the nonidentity pair.
 The direct-import `Clients` and `SymmetricClients` are included in the
 production build. Direct `lean -T0` checks are optional, not another required
 build of the default test target.
-The complete public/native reference and generation recipe are in
-[`docs/API.md`](docs/API.md) and [`docs/README.md`](docs/README.md). Neither
+A historical, pinned duality public/native reference is in
+[`docs/API.md`](docs/API.md), with a separate fixed-public-revision reproduction
+recipe in [`docs/README.md`](docs/README.md). It is not a current whole-library
+inventory and omits the later principal/finite-stage API; neither document
 certifies private proof bodies.
 
 ## Layout
 
 - `RestrictedProductDuality/CompactStage.lean`: finite stages and compact-set
-  control.
+  control, either for open distinguished subsets or under T1 on the restricted
+  product.
+- `RestrictedProductDuality/PrincipalStage.lean`: arbitrary-set singleton
+  principal homeomorphism, finite insertion embeddings and ordinary-product
+  finality.
+- `RestrictedProductDuality/FiniteStage.lean`: compact-map factorization by
+  ordinary finite coordinate restriction.
 - `RestrictedProductDuality/SmallArc.lean`: the small-circle-arc annihilation
   lemma.
 - `RestrictedProductDuality/Pairing.lean`: finite-support evaluation and the
