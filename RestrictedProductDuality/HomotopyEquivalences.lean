@@ -106,7 +106,6 @@ theorem pointMapHomotopyEquiv_symm_toFun :
   rfl
 
 /-- Evaluation of the forward equivalence at any coordinate. -/
-@[simp]
 theorem pointMapHomotopyEquiv_apply (x : PointProduct b) (i : ι) :
     pointMapHomotopyEquiv b c f g hf hg Hgf Hfg x i = f i (x i) := by
   calc
@@ -116,7 +115,6 @@ theorem pointMapHomotopyEquiv_apply (x : PointProduct b) (i : ι) :
     _ = f i (x i) := pointMap_apply b c f hf x i
 
 /-- Evaluation of the inverse equivalence at any coordinate. -/
-@[simp]
 theorem pointMapHomotopyEquiv_symm_apply (y : PointProduct c) (i : ι) :
     (pointMapHomotopyEquiv b c f g hf hg Hgf Hfg).symm y i = g i (y i) := by
   calc
@@ -126,7 +124,6 @@ theorem pointMapHomotopyEquiv_symm_apply (y : PointProduct c) (i : ι) :
     _ = g i (y i) := pointMap_apply c b g hg y i
 
 /-- The equivalence preserves the canonical chosen point. -/
-@[simp]
 theorem pointMapHomotopyEquiv_base :
     pointMapHomotopyEquiv b c f g hf hg Hgf Hfg (RestrictedProduct.singletonBasepoint b) =
       RestrictedProduct.singletonBasepoint c := by
@@ -138,7 +135,6 @@ theorem pointMapHomotopyEquiv_base :
     _ = RestrictedProduct.singletonBasepoint c := pointMap_base b c f hf
 
 /-- The inverse equivalence preserves the canonical chosen point. -/
-@[simp]
 theorem pointMapHomotopyEquiv_symm_base :
     (pointMapHomotopyEquiv b c f g hf hg Hgf Hfg).symm
         (RestrictedProduct.singletonBasepoint c) = RestrictedProduct.singletonBasepoint b := by

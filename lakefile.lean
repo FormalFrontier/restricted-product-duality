@@ -8,6 +8,7 @@ open Lake DSL
 
 package "restricted-product-duality" where
   version := v!"0.1.0"
+  lintDriver := "batteries/runLinter"
   leanOptions := #[
     ⟨`autoImplicit, false⟩,
     ⟨`relaxedAutoImplicit, false⟩,
@@ -23,4 +24,5 @@ require mathlib from git
 lean_lib RestrictedProductDuality
 
 @[default_target]
-lean_lib RestrictedProductDualityTest
+lean_lib RestrictedProductDualityTest where
+  leanOptions := #[⟨`weak.linter.privateModule, false⟩]

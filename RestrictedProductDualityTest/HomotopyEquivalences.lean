@@ -22,7 +22,6 @@ All real topology and algebra instances are the usual ones.
 @[expose] public section
 
 -- The examples in this module are intentionally private.
-set_option linter.privateModule false
 
 set_option warningAsError true
 

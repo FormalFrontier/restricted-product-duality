@@ -8,16 +8,18 @@ public import RestrictedProductDuality.Clients
 public import RestrictedProductDuality.SymmetricDuality
 
 /-!
-# Clients for symmetric restricted-product duality
+# Cyclic local perfectness and symmetric restricted-product duality
 
-These examples exercise the directly constructed symmetric equivalence at
-empty and genuinely infinite index types.
+The standard cyclic bicharacter is perfect in its left variable for every nonzero
+modulus. This supplies the local perfectness used by the symmetric restricted-product
+duality construction. Private constructions retain the empty PUnit, finite nontrivial
+cyclic, and infinite PUnit index cases.
+
+The cyclic bicharacter reuses Mathlib's `AddChar.zmod`, through the API in
+`RestrictedProductDuality.Clients`.
 -/
 
 public section
-
--- The symmetric-duality examples in this module are intentionally private.
-set_option linter.privateModule false
 
 set_option warningAsError true
 
@@ -51,7 +53,11 @@ private theorem punit_leftAnnihilator :
   ext x
   simp [leftAnnihilator, punitBicharacter, mem_rightAnnihilator]
 
-private theorem zmodBicharacter_leftPerfect (n : ℕ) [NeZero n] :
+/-- The standard cyclic bicharacter is bijective onto its circle-valued algebraic
+character group in the left variable. Together with `zmodBicharacter_perfect`, this
+provides local perfectness in both variables and supplies the left-perfectness
+hypothesis of `symmetricPontryaginDualEquiv`. -/
+theorem zmodBicharacter_leftPerfect (n : ℕ) [NeZero n] :
     Function.Bijective (zmodBicharacter n) := by
   have hsymm : zmodBicharacter n = rightCharacter (zmodBicharacter n) := by
     apply MonoidHom.ext

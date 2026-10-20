@@ -23,7 +23,6 @@ straight-line formula. All real topology and algebra instances are the usual one
 -/
 
 -- The examples in this module are intentionally private.
-set_option linter.privateModule false
 
 set_option warningAsError true
 

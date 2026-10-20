@@ -61,10 +61,10 @@ private def oneAtZero : PointProduct realBase :=
 private theorem oneAtZero_apply (n : ℕ) :
     oneAtZero n = if n = 0 then 1 else 0 := by
   by_cases hn : n = 0
-  · rw [if_pos hn]
+  · rw [ite_eq_left hn]
     exact singletonFinsetInsert_apply_of_mem realBase {0} (fun _ ↦ (1 : ℝ)) n
       (Finset.mem_singleton.mpr hn)
-  · rw [if_neg hn]
+  · rw [ite_eq_right hn]
     exact singletonFinsetInsert_apply_of_notMem realBase {0} (fun _ ↦ (1 : ℝ)) n
       (fun hn' ↦ hn (Finset.mem_singleton.mp hn'))
 
@@ -77,9 +77,9 @@ private theorem oneAtZero_contraction (t : I) :
     productContraction (t, oneAtZero) 0 = 1 - (t : ℝ) ∧
       ∀ n : ℕ, n ≠ 0 → productContraction (t, oneAtZero) n = 0 := by
   constructor
-  · rw [productContraction_apply, oneAtZero_apply, if_pos rfl, mul_one]
+  · rw [productContraction_apply, oneAtZero_apply, ite_eq_left rfl, mul_one]
   · intro n hn
-    rw [productContraction_apply, oneAtZero_apply, if_neg hn, mul_zero]
+    rw [productContraction_apply, oneAtZero_apply, ite_eq_right hn, mul_zero]
 
 private theorem oneAtZero_endpoints :
     productContraction (0, oneAtZero) 0 = 1 ∧
@@ -88,7 +88,7 @@ private theorem oneAtZero_endpoints :
   · calc
       productContraction (0, oneAtZero) 0 = oneAtZero 0 :=
         congrArg (fun x : PointProduct realBase ↦ x 0) (productContraction.apply_zero oneAtZero)
-      _ = 1 := by rw [oneAtZero_apply, if_pos rfl]
+      _ = 1 := by rw [oneAtZero_apply, ite_eq_left rfl]
   · simpa only [ContinuousMap.const_apply, singletonBasepoint_apply, realBase] using
       congrArg (fun x : PointProduct realBase ↦ x 0) (productContraction.apply_one oneAtZero)
 

@@ -25,7 +25,6 @@ index type; the exceptional map deliberately fails subgroup preservation at zero
 -/
 
 -- The examples in this module are intentionally private.
-set_option linter.privateModule false
 
 set_option warningAsError true
 
