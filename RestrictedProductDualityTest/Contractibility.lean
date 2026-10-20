@@ -7,6 +7,7 @@ module
 import RestrictedProductDuality
 import Mathlib.Topology.Homotopy.Affine
 import Mathlib.Topology.Algebra.Ring.Real
+import Mathlib.Topology.Algebra.Module.LocallyConvex
 
 /-!
 # Real finite-support contractions
@@ -18,6 +19,10 @@ The same construction includes the empty index type.
 
 The real homotopy is Mathlib's `ContinuousMap.Homotopy.affine`, whose value is
 `Path.segment x 0 t`, or equivalently `(1 - (t : ℝ)) * x`.
+
+The same real and empty-index products illustrate path connectedness and local path
+connectedness. For discrete natural-number factors, the singleton cofinite restricted
+product is locally path connected but not path connected.
 -/
 
 noncomputable section
@@ -113,5 +118,43 @@ private theorem emptyContraction_fixed (t : I) :
 
 private theorem emptyProduct_contractibleSpace : ContractibleSpace (PointProduct emptyBase) := by
   exact contractibleSpace_of_basedContractions emptyBase (fun _ ↦ realContraction)
+
+/-- The usual real finite-support product is path connected. -/
+private theorem realProduct_pathConnectedSpace :
+    PathConnectedSpace (PointProduct realBase) := by
+  exact (RestrictedProduct.SingletonPathComponents.pathConnectedSpace_iff realBase).mpr
+    (fun _ ↦ inferInstance)
+
+/-- The usual real finite-support product is locally path connected. -/
+private theorem realProduct_locallyPathConnectedSpace :
+    LocallyPathConnectedSpace (PointProduct realBase) := by
+  exact (RestrictedProduct.SingletonPathComponents.locallyPathConnectedSpace_iff realBase).mpr
+    (fun _ ↦ inferInstance)
+
+/-- The empty-index singleton cofinite product is path connected. -/
+private theorem emptyProduct_pathConnectedSpace :
+    PathConnectedSpace (PointProduct emptyBase) := by
+  exact (RestrictedProduct.SingletonPathComponents.pathConnectedSpace_iff emptyBase).mpr
+    (fun i ↦ Empty.elim i)
+
+/-- The empty-index singleton cofinite product is locally path connected. -/
+private theorem emptyProduct_locallyPathConnectedSpace :
+    LocallyPathConnectedSpace (PointProduct emptyBase) := by
+  exact (RestrictedProduct.SingletonPathComponents.locallyPathConnectedSpace_iff emptyBase).mpr
+    (fun i ↦ Empty.elim i)
+
+/-- Discrete natural-number factors distinguish local path connectedness from path connectedness. -/
+private theorem natProduct_locallyPathConnectedSpace_not_pathConnectedSpace :
+    LocallyPathConnectedSpace (PointProduct (fun _ : ℕ ↦ (0 : ℕ))) ∧
+      ¬ PathConnectedSpace (PointProduct (fun _ : ℕ ↦ (0 : ℕ))) := by
+  constructor
+  · exact (RestrictedProduct.SingletonPathComponents.locallyPathConnectedSpace_iff
+      (fun _ : ℕ ↦ (0 : ℕ))).mpr (fun _ ↦ inferInstance)
+  · intro h
+    have : PathConnectedSpace ℕ :=
+      (RestrictedProduct.SingletonPathComponents.pathConnectedSpace_iff
+        (fun _ : ℕ ↦ (0 : ℕ))).mp h 0
+    have : Subsingleton ℕ := subsingleton_of_preconnected_totallyDisconnected
+    exact Nat.zero_ne_one (Subsingleton.elim 0 1)
 
 end RestrictedProductTest.Contractibility
