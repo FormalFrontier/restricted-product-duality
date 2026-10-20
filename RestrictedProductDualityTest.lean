@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 import RestrictedProductDuality
+import RestrictedProductDualityTest.BasedHomotopy
 import Mathlib.Analysis.Complex.Circle
 import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 import Mathlib.Topology.Connected.Clopen

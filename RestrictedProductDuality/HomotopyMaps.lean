@@ -103,6 +103,18 @@ theorem Homotopic.map (f : C(X, Y)) (hf : f x = y) {p q : GenLoop N X x}
   change (f.comp p.1).HomotopicRel (f.comp q.1) (Cube.boundary N)
   exact h.comp_continuousMap f
 
+/-- A homotopy fixed at the source point gives homotopic postcompositions of any
+based cube map, without a positivity assumption on its index type. -/
+theorem map_homotopic (f g : C(X, Y)) (hf : f x = y) (hg : g x = y)
+    (H : ContinuousMap.HomotopyRel f g ({x} : Set X)) (p : GenLoop N X x) :
+    GenLoop.Homotopic (map f hf p) (map g hg p) := by
+  change (f.comp p.1).HomotopicRel (g.comp p.1) (Cube.boundary N)
+  refine ⟨{ H.toHomotopy.compContinuousMap p.1 with prop' := ?_ }⟩
+  intro t a ha
+  change H (t, p a) = f (p a)
+  rw [GenLoop.boundary p a ha]
+  exact H.eq_fst t (Set.mem_singleton_iff.mpr rfl)
+
 end GenLoop
 
 namespace HomotopyGroup
@@ -200,6 +212,23 @@ theorem map_comp (N : Type s) [DecidableEq N] [Nonempty N]
       (Eq.trans (α := HomotopyGroup N Z z)
         (map_class N g hg (GenLoop.map f hf p)).symm
         (congrArg (map N g hg) (map_class N f hf p).symm)))
+
+/-- Maps homotopic relative to the source point induce the same homomorphism on
+positive homotopy groups. -/
+theorem map_eq_of_homotopyRel (N : Type s) [DecidableEq N] [Nonempty N]
+    (f g : C(X, Y)) (hf : f x = y) (hg : g x = y)
+    (H : ContinuousMap.HomotopyRel f g ({x} : Set X)) :
+    map N f hf = map N g hg := by
+  apply MonoidHom.ext
+  intro a
+  refine Quotient.inductionOn
+    (motive := fun a : HomotopyGroup N X x ↦ map N f hf a = map N g hg a) a ?_
+  intro p
+  exact Eq.trans (α := HomotopyGroup N Y y)
+    (map_class N f hf p)
+    (Eq.trans (α := HomotopyGroup N Y y)
+      (Quotient.sound (GenLoop.map_homotopic f g hf hg H p))
+      (map_class N g hg p).symm)
 
 /-- In dimension one, based postcomposition agrees with Mathlib's fundamental-group
 map, under Mathlib's comparison with generalized loops. -/
@@ -319,6 +348,16 @@ theorem pathMap_comp {A : Type v} {B : Type w} {D : Type z}
   refine Quotient.inductionOn q ?_
   intro a
   rfl
+
+/-- Homotopic continuous maps induce the same function on path components. -/
+theorem pathMap_eq_of_homotopy {A : Type v} {B : Type w}
+    [TopologicalSpace A] [TopologicalSpace B] (f g : C(A, B))
+    (H : ContinuousMap.Homotopy f g) : pathMap f = pathMap g := by
+  funext q
+  induction q using ZerothHomotopy.rec with
+  | mk a =>
+    rw [pathMap_mk, pathMap_mk]
+    exact ZerothHomotopy.sound (H.evalAt a)
 
 /-- The coordinate path-component arrows preserve the singleton class defaults. -/
 theorem componentMap_membership (b : ∀ i, X i) (c : ∀ i, Y i)

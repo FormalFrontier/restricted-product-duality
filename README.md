@@ -67,6 +67,16 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   restricted products. Based postcomposition has representative, identity and
   composition laws and agrees with Mathlib's fundamental-group map in dimension
   one. [Homotopy naturality](RestrictedProductDuality/HomotopyMaps.lean).
+- **Based coordinate homotopies assemble jointly.** For arbitrary factor
+  topologies and any possibly empty factor index, continuous coordinate
+  `HomotopyRel`s fixed at the chosen source points assemble to
+  `pointMapHomotopyRel` between the canonical singleton-cofinite `pointMap`s.
+  The `pointMapHomotopyRel_apply` formula holds at every time and coordinate;
+  `pointMapHomotopyRel_base` fixes the canonical point throughout. Based-homotopic
+  families induce equal path-component maps and equal positive homotopy-group
+  homomorphisms for any nonempty cube-index type with its supplied decidable
+  equality. No T1, local compactness, countability, CW or local path-connectedness
+  hypothesis is needed. [Based homotopies](RestrictedProductDuality/BasedHomotopy.lean).
 - **Finite-support pairing and continuous dual map.** For commutative
   coordinate groups with circle bicharacters, orthogonality on both
   distinguished subgroups makes coordinatewise evaluation a well-defined,
@@ -317,6 +327,9 @@ certifies private proof bodies.
   restricted products, with representative and inverse characterizations.
 - `RestrictedProductDuality/HomotopyMaps.lean`: based postcomposition, its
   fundamental-group compatibility and both coordinate-comparison naturality squares.
+- `RestrictedProductDuality/BasedHomotopy.lean`: joint coordinatewise based
+  homotopies, all-time coordinate and basepoint formulas, and invariance of the
+  induced path-component and positive homotopy-group maps.
 - `RestrictedProductDuality/SmallArc.lean`: the small-circle-arc annihilation
   lemma.
 - `RestrictedProductDuality/Pairing.lean`: finite-support evaluation and the

@@ -8,8 +8,9 @@ project:
     for singleton cofinite products without separation hypotheses, compact-map
     finite restriction, homotopy groups of T1 singleton cofinite restricted products,
     based postcomposition and naturality of both homotopy comparisons,
-    circle-valued pairings, conditional character reconstruction and symmetric
-    Pontryagin duality, and contravariant naturality.
+    coordinatewise based homotopies and homotopy-invariant induced maps without
+    separation hypotheses, circle-valued pairings, conditional character
+    reconstruction and symmetric Pontryagin duality, and contravariant naturality.
   authors:
     - Formal Frontier Agents
   responsible_maintainers:
