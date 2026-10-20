@@ -77,6 +77,19 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   homomorphisms for any nonempty cube-index type with its supplied decidable
   equality. No T1, local compactness, countability, CW or local path-connectedness
   hypothesis is needed. [Based homotopies](RestrictedProductDuality/BasedHomotopy.lean).
+- **Based coordinate homotopy equivalences induce product homotopy equivalences.**
+  Given chosen points `b i`, `c i`, based continuous maps `f i : X i → Y i`
+  and `g i : Y i → X i` with `hf i : f i (b i) = c i` and
+  `hg i : g i (c i) = b i`, and coordinate homotopies from `g i ∘ f i` to
+  `id` relative to `{b i}` and from `f i ∘ g i` to `id` relative to `{c i}`,
+  `pointMapHomotopyEquiv` constructs Mathlib's `ContinuousMap.HomotopyEquiv`
+  between the singleton-cofinite restricted products with their canonical final
+  topologies. Its forward and inverse maps are exactly `pointMap b c f hf`
+  and `pointMap c b g hg`, with coordinate and chosen-point formulas in both
+  directions. The index type may be empty, and the index and two factor
+  universes are independent. No separation, local compactness, countability,
+  finite-index or CW hypothesis is required.
+  [Homotopy equivalences](RestrictedProductDuality/HomotopyEquivalences.lean).
 - **Bottom restricted products are finitely supported coordinates.** For a
   dependent family `G i` of `MulOneClass` factors, the cofinite restricted product
   at the bottom submonoids is multiplicatively equivalent to
@@ -165,6 +178,14 @@ on that finite set, followed by continuous finite insertion, joins them exactly
 when all coordinate endpoints are joined. This argument needs no compact-family
 finite-stage theorem or T1 hypothesis.
 
+For coordinate inverse homotopies, `pointMapHomotopyRel` keeps the same finite
+set of exceptional coordinates throughout the unit interval. Joint continuity
+uses finite insertion and a compact-open observer, requiring local compactness
+only of the interval, not of the factors. The resulting relative homotopies
+are then viewed as ordinary homotopies to construct the stock homotopy
+equivalence. This is a homotopy equivalence of spaces with based forward and
+inverse maps, not a type equivalence or a new homotopy-group comparison.
+
 For a continuous circle character, the centered small-arc kernel lemma then
 controls an open product of distinguished subgroups, leaving only finitely
 many relevant coordinates **on that product**. Orthogonality makes the
@@ -199,7 +220,9 @@ comparison and Mathlib's homotopy groups by Roberto Alvarez. The ordinary
 finite-support-product viewpoint is motivated by J. P. May,
 *A Concise Course in Algebraic Topology*. The T1 compactness argument above
 and the ordinary-product comparisons concern this topological setting, not
-compactly generated replacements.
+compactly generated replacements. The homotopy-equivalence construction reuses
+Mathlib's homotopy equivalences and relative homotopies by Shing Tak Lam,
+together with this library's based coordinate maps and joint homotopies.
 
 ## Public API and hypotheses
 
@@ -234,6 +257,19 @@ arrows, with evaluation and identity/composition formulas.
 `canonicalEquiv_naturality` and `homotopyGroupSingletonMulEquiv_naturality`
 express the two comparison squares. No map needs factorwise T1; the positive
 square has precisely the two restricted-product T1 assumptions of its comparisons.
+`RestrictedProduct.SingletonNaturality.pointMapHomotopyEquiv b c f g hf hg Hgf Hfg`
+constructs the homotopy equivalence from the two based map families and their
+relative inverse homotopies. Its `pointMapHomotopyEquiv_toFun` and
+`pointMapHomotopyEquiv_symm_toFun` lemmas identify the forward and inverse
+continuous maps with the corresponding `pointMap`s; `pointMapHomotopyEquiv_apply`
+and `pointMapHomotopyEquiv_symm_apply` compute every coordinate. The
+`pointMapHomotopyEquiv_base` and `pointMapHomotopyEquiv_symm_base` lemmas
+preserve the canonical points in both directions. This constructor adds no
+restricted-product T1 assumption. For zero-based real families over `ℕ`,
+doubling and halving give an example with time-independent inverse homotopies:
+the point equal to one at coordinate zero and zero elsewhere has forward
+coordinate two and inverse coordinate one half at zero. The same construction
+also applies to the empty index type.
 `Subgroup.le_ker_of_mapsTo_centeredArc` supplies the small-arc
 kernel argument. `pairing`, `pairing_eq_prod` and `pairingHom` evaluate a
 finite-support circle-valued bicharacter; orthogonality of the two distinguished
@@ -330,7 +366,7 @@ homotopy class is inferred from these space maps. The direct-import
 The direct-import `Clients` and `SymmetricClients` are included in the
 production build. Direct `lean -T0` checks are optional, not another required
 build of the default test target.
-A historical, pinned duality public/native reference is in
+A pinned duality API reference is in
 [`docs/API.md`](docs/API.md), with a separate fixed-public-revision reproduction
 recipe in [`docs/README.md`](docs/README.md). It is not a current whole-library
 inventory and omits the later principal/finite-stage API; neither document
@@ -361,6 +397,9 @@ certifies private proof bodies.
 - `RestrictedProductDuality/BasedHomotopy.lean`: joint coordinatewise based
   homotopies, all-time coordinate and basepoint formulas, and invariance of the
   induced path-component and positive homotopy-group maps.
+- `RestrictedProductDuality/HomotopyEquivalences.lean`: homotopy equivalences
+  from based coordinate maps and relative inverse homotopies, with forward,
+  inverse, coordinate and chosen-point formulas for arbitrary factor topologies.
 - `RestrictedProductDuality/SmallArc.lean`: the small-circle-arc annihilation
   lemma.
 - `RestrictedProductDuality/Pairing.lean`: finite-support evaluation and the
