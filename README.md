@@ -13,6 +13,9 @@ This library provides conditional character reconstruction and duality for
 cofinite restricted products over an arbitrary index type. Its theorems do
 **not** establish general locally compact-coordinate duality or arithmetic
 applications; no source correspondence or coverage is claimed.
+The contractibility result takes chosen coordinate homotopies from identity to
+constant chosen-point maps, fixing those points throughout; unbased factor
+`ContractibleSpace` assumptions alone are not the input.
 The mathematical modules and public-import client checks
 are default build targets. The six existing public `Clients` helpers remain
 available through the umbrella import; private named tests are not a new
@@ -87,6 +90,15 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   directions. Index and factor universes are independent, the index may be
   empty, and no T1, local compactness, countability or CW hypothesis is needed.
   [Based homeomorphisms](RestrictedProductDuality/BasedHomeomorphisms.lean).
+- **Chosen based contractions give product contractibility.** For arbitrary
+  factor topologies and chosen points `b i`, a chosen `HomotopyRel` in each factor
+  from its identity to the constant map at `b i`, fixing `b i` throughout,
+  induces `pointContraction` on the singleton-cofinite restricted product with
+  its original final topology. Its coordinates are the chosen factor contractions;
+  it fixes the canonical point and yields `ContractibleSpace`. Index and factor
+  universes are independent, and the index may be empty. No T1, local compactness,
+  finiteness or CW hypothesis is needed.
+  [Based contractions](RestrictedProductDuality/Contractibility.lean).
 - **Based coordinate homotopy equivalences induce product homotopy equivalences.**
   Given chosen points `b i`, `c i`, based continuous maps `f i : X i → Y i`
   and `g i : Y i → X i` with `hf i : f i (b i) = c i` and
@@ -419,6 +431,9 @@ certifies private proof bodies.
 - `RestrictedProductDuality/BasedHomeomorphisms.lean`: based coordinate
   homeomorphisms of singleton cofinite products, with forward/inverse continuous-map,
   coordinate and canonical-point formulas.
+- `RestrictedProductDuality/Contractibility.lean`: contraction fixing the canonical
+  point from chosen based coordinate contractions, its coordinate formula and the
+  resulting `ContractibleSpace` corollary.
 - `RestrictedProductDuality/HomotopyEquivalences.lean`: homotopy equivalences
   from based coordinate maps and relative inverse homotopies, with forward,
   inverse, coordinate and chosen-point formulas for arbitrary factor topologies.

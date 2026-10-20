@@ -6,6 +6,7 @@ module
 
 public import RestrictedProductDuality.CompactStage
 public import RestrictedProductDuality.PrincipalStage
+public import RestrictedProductDuality.Contractibility
 public import RestrictedProductDuality.PathComponents
 public import RestrictedProductDuality.FiniteStage
 public import RestrictedProductDuality.HomotopyGroups

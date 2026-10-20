@@ -304,6 +304,17 @@ theorem pointMap_id (b : ∀ i, X i) :
   intro i
   rfl
 
+/-- Constant coordinate maps induce the constant map at the canonical target point. -/
+@[simp]
+theorem pointMap_const (b : ∀ i, X i) (c : ∀ i, Y i) :
+    pointMap b c (fun i ↦ ContinuousMap.const (X i) (c i)) (fun _ ↦ rfl) =
+      ContinuousMap.const (PointProduct b) (RestrictedProduct.singletonBasepoint c) := by
+  apply ContinuousMap.ext
+  intro x
+  apply RestrictedProduct.ext
+  intro i
+  rfl
+
 /-- The stock restricted-product arrow respects composition of based maps. -/
 theorem pointMap_comp {Z : ι → Type z} [∀ i, TopologicalSpace (Z i)]
     (b : ∀ i, X i) (c : ∀ i, Y i) (d : ∀ i, Z i)
