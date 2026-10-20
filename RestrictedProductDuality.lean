@@ -9,6 +9,7 @@ public import RestrictedProductDuality.PrincipalStage
 public import RestrictedProductDuality.PathComponents
 public import RestrictedProductDuality.FiniteStage
 public import RestrictedProductDuality.HomotopyGroups
+public import RestrictedProductDuality.HomotopyMaps
 public import RestrictedProductDuality.CharacterReconstruction
 public import RestrictedProductDuality.Clients
 public import RestrictedProductDuality.Pairing

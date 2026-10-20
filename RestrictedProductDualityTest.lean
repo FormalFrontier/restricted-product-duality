@@ -542,3 +542,241 @@ private theorem canonical_full_tuple : canonicalEquiv base zeroTrueClass = zeroT
     simp [zeroTrue, hn, base]
 
 end RestrictedProductTest.PathComponents
+
+namespace RestrictedProductTest.SingleCoordinate
+open Filter RestrictedProduct
+open RestrictedProduct.SingletonNaturality
+
+private def circleSquare : Circle →ₜ* Circle := (ContinuousMonoidHom.id Circle) ^ 2
+private def circleSquareMap : C(Circle, Circle) :=
+  ⟨circleSquare, circleSquare.continuous⟩
+private theorem circleSquare_apply (z : Circle) : circleSquare z = z ^ 2 :=
+  ContinuousMonoidHom.pow_apply (ContinuousMonoidHom.id Circle) 2 z
+private theorem circleSquare_based : circleSquareMap (1 : Circle) = 1 :=
+  map_one circleSquare
+
+private def squaredCircleLoop : GenLoop (Fin 1) Circle 1 :=
+  GenLoop.map circleSquareMap circleSquare_based circleOnceAround
+
+-- The target tuple is supported at coordinate zero.
+private def squaredClassTuple :
+    Πʳ _n : ℕ, [HomotopyGroup (Fin 1) Circle 1,
+      (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1))] :=
+  RestrictedProduct.mulSingle
+    (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+    0 (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle 1)
+
+private def circleProductSquare :
+    C(RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase,
+      RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase) :=
+  pointMap coordinateBase coordinateBase (fun _ ↦ circleSquareMap)
+    (fun _ ↦ circleSquare_based)
+
+private def squaredProductLoop : GenLoop (Fin 1)
+    (RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase)
+    (RestrictedProduct.singletonBasepoint coordinateBase) :=
+  GenLoop.map circleProductSquare
+    (pointMap_base coordinateBase coordinateBase (fun _ ↦ circleSquareMap)
+      (fun _ ↦ circleSquare_based)) singleCoordinateOnceAround
+
+private def squaredTupleByFactors :
+    Πʳ _n : ℕ, [HomotopyGroup (Fin 1) Circle 1,
+      (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1))] :=
+  homotopyTupleMap (Fin 1) coordinateBase coordinateBase (fun _ ↦ circleSquareMap)
+    (fun _ ↦ circleSquare_based) onceAroundClassTuple
+
+/-- The other vertical route is the same full tuple. -/
+private theorem circle_square_factor_tuple :
+    squaredTupleByFactors = squaredClassTuple := by
+  apply RestrictedProduct.ext
+  intro n
+  have happly : squaredTupleByFactors n =
+      HomotopyGroup.map (Fin 1) (x := coordinateBase n) (y := coordinateBase n)
+        circleSquareMap circleSquare_based (onceAroundClassTuple n) :=
+    homotopyTupleMap_apply (Fin 1) coordinateBase coordinateBase (fun _ ↦ circleSquareMap)
+      (fun _ ↦ circleSquare_based) onceAroundClassTuple n
+  refine Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase n)) happly ?_
+  by_cases hn : n = 0
+  · subst n
+    have hsource : onceAroundClassTuple 0 =
+        (circleOnceAroundClass : HomotopyGroup (Fin 1) Circle (coordinateBase 0)) := by
+      change (RestrictedProduct.mulSingle
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 circleOnceAroundClass) 0 = circleOnceAroundClass
+      exact RestrictedProduct.mulSingle_eq_same
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 circleOnceAroundClass
+    have htarget : squaredClassTuple 0 =
+        (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle (coordinateBase 0)) := by
+      change (RestrictedProduct.mulSingle
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle 1)) 0 =
+          (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle 1)
+      exact RestrictedProduct.mulSingle_eq_same
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle 1)
+    exact Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase 0))
+      (congrArg (HomotopyGroup.map (Fin 1) (x := coordinateBase 0) (y := coordinateBase 0)
+        circleSquareMap circleSquare_based) hsource)
+      (Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase 0))
+        (HomotopyGroup.map_class (Fin 1) circleSquareMap circleSquare_based circleOnceAround)
+        htarget.symm)
+  · have hsource : onceAroundClassTuple n =
+        (1 : HomotopyGroup (Fin 1) Circle (coordinateBase n)) := by
+      change (RestrictedProduct.mulSingle
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 circleOnceAroundClass) n = (1 : HomotopyGroup (Fin 1) Circle 1)
+      exact RestrictedProduct.mulSingle_eq_of_ne
+        (G := fun _ : ℕ ↦ HomotopyGroup (Fin 1) Circle 1)
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        (i := 0) (j := n) circleOnceAroundClass hn
+    have htarget : squaredClassTuple n =
+        (1 : HomotopyGroup (Fin 1) Circle (coordinateBase n)) := by
+      change (RestrictedProduct.mulSingle
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle 1)) n =
+          (1 : HomotopyGroup (Fin 1) Circle 1)
+      exact RestrictedProduct.mulSingle_eq_of_ne
+        (G := fun _ : ℕ ↦ HomotopyGroup (Fin 1) Circle 1)
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        (i := 0) (j := n)
+        (⟦squaredCircleLoop⟧ : HomotopyGroup (Fin 1) Circle 1) hn
+    exact Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase n))
+      (congrArg (HomotopyGroup.map (Fin 1) (x := coordinateBase n) (y := coordinateBase n)
+        circleSquareMap circleSquare_based) hsource)
+      (Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase n))
+        (map_one (HomotopyGroup.map (Fin 1) (x := coordinateBase n) (y := coordinateBase n)
+          circleSquareMap circleSquare_based)) htarget.symm)
+
+/-- The image comparison is the entire tuple supported at zero of the squared loop class.
+No assertion that that class is nonidentity is part of this header. -/
+private theorem circle_square_full_tuple :
+    RestrictedProduct.homotopyGroupSingletonMulEquiv (Fin 1) coordinateBase
+        (⟦squaredProductLoop⟧ : HomotopyGroup (Fin 1)
+          (RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase)
+          (RestrictedProduct.singletonBasepoint coordinateBase)) =
+      squaredClassTuple := by
+  let := coordinateProductT1
+  have hclass :
+      HomotopyGroup.map (Fin 1) circleProductSquare
+          (pointMap_base coordinateBase coordinateBase (fun _ ↦ circleSquareMap)
+            (fun _ ↦ circleSquare_based))
+          (⟦singleCoordinateOnceAround⟧ : HomotopyGroup (Fin 1)
+            (RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase)
+            (singletonBasepoint coordinateBase)) =
+        (⟦squaredProductLoop⟧ : HomotopyGroup (Fin 1)
+          (RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase)
+          (singletonBasepoint coordinateBase)) :=
+    HomotopyGroup.map_class (Fin 1) circleProductSquare
+      (pointMap_base coordinateBase coordinateBase (fun _ ↦ circleSquareMap)
+        (fun _ ↦ circleSquare_based)) singleCoordinateOnceAround
+  refine Eq.trans (α := Πʳ _n : ℕ, [HomotopyGroup (Fin 1) Circle 1,
+      (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1))])
+    (congrArg (fun a : HomotopyGroup (Fin 1)
+        (RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase)
+        (singletonBasepoint coordinateBase) ↦
+      RestrictedProduct.homotopyGroupSingletonMulEquiv (Fin 1) coordinateBase a)
+      hclass.symm) ?_
+  refine Eq.trans (α := Πʳ _n : ℕ, [HomotopyGroup (Fin 1) Circle 1,
+      (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1))])
+    (homotopyGroupSingletonMulEquiv_naturality (Fin 1)
+      coordinateBase coordinateBase (fun _ ↦ circleSquareMap) (fun _ ↦ circleSquare_based)
+      (⟦singleCoordinateOnceAround⟧ : HomotopyGroup (Fin 1)
+        (RestrictedProduct.SingletonPathComponents.PointProduct coordinateBase)
+        (singletonBasepoint coordinateBase))) ?_
+  exact Eq.trans (α := Πʳ _n : ℕ, [HomotopyGroup (Fin 1) Circle 1,
+      (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1))])
+    (congrArg (homotopyTupleMap (Fin 1) coordinateBase coordinateBase
+      (fun _ ↦ circleSquareMap) (fun _ ↦ circleSquare_based))
+      homotopyGroupSingletonMulEquiv_onceAround)
+    circle_square_factor_tuple
+
+end RestrictedProductTest.SingleCoordinate
+
+namespace RestrictedProductTest.PathComponents
+open RestrictedProduct.SingletonPathComponents
+open RestrictedProduct.SingletonNaturality
+
+private def trueBase : ℕ → Bool := fun _ ↦ true
+private def boolNotMap : C(Bool, Bool) := ContinuousMap.equivFnOfDiscrete.symm Bool.not
+private theorem boolNot_based : boolNotMap false = true := rfl
+
+private def boolProductNot : C(PointProduct base, PointProduct trueBase) :=
+  pointMap base trueBase (fun _ ↦ boolNotMap) (fun _ ↦ boolNot_based)
+
+private def boolImagePoint : PointProduct trueBase := boolProductNot zeroTrue
+private def boolImageClass : ZerothHomotopy (PointProduct trueBase) :=
+  pathMap boolProductNot zeroTrueClass
+private def boolImageByFactors : ComponentProduct trueBase :=
+  componentMap base trueBase (fun _ ↦ boolNotMap) (fun _ ↦ boolNot_based) zeroTrueTuple
+
+private def zeroFalse : PointProduct trueBase :=
+  RestrictedProduct.singletonFinsetInsert trueBase ({0} : Finset ℕ) (fun _ ↦ false)
+
+private def zeroFalseTuple : ComponentProduct trueBase :=
+  RestrictedProduct.mk
+    (fun n : ℕ ↦ if n = 0 then ZerothHomotopy.mk false else ZerothHomotopy.mk true)
+    ((({0} : Finset ℕ).eventually_cofinite_notMem).mono fun n hn ↦
+      Set.mem_singleton_iff.mpr
+        (ite_eq_right (fun hn0 : n = 0 ↦ hn (Finset.mem_singleton.mpr hn0))))
+
+private def trueDefaultTuple : ComponentProduct trueBase :=
+  RestrictedProduct.structureMap (fun _ : ℕ ↦ ZerothHomotopy Bool)
+    (fun _ ↦ ({ZerothHomotopy.mk true} : Set (ZerothHomotopy Bool))) Filter.cofinite
+    (fun _ ↦ ⟨ZerothHomotopy.mk true, Set.mem_singleton _⟩)
+
+/-- The map changes the actual full point, including its canonical default. -/
+private theorem bool_not_point : boolImagePoint = zeroFalse := by
+  apply RestrictedProduct.ext
+  intro n
+  have happly : boolImagePoint n = boolNotMap (zeroTrue n) :=
+    pointMap_apply base trueBase (fun _ ↦ boolNotMap) (fun _ ↦ boolNot_based) zeroTrue n
+  refine Eq.trans (α := Bool) happly ?_
+  by_cases hn : n = 0
+  · subst n
+    have hsource : zeroTrue 0 = true :=
+      RestrictedProduct.singletonFinsetInsert_apply_of_mem base {0} (fun _ ↦ true) 0
+        (Finset.mem_singleton.mpr rfl)
+    have htarget : zeroFalse 0 = false :=
+      RestrictedProduct.singletonFinsetInsert_apply_of_mem trueBase {0} (fun _ ↦ false) 0
+        (Finset.mem_singleton.mpr rfl)
+    have hnot : boolNotMap true = false := rfl
+    exact Eq.trans (α := Bool) (congrArg boolNotMap hsource)
+      (Eq.trans (α := Bool) hnot htarget.symm)
+  · have hmem : n ∉ ({0} : Finset ℕ) := fun h ↦ hn (Finset.mem_singleton.mp h)
+    have hsource : zeroTrue n = false :=
+      RestrictedProduct.singletonFinsetInsert_apply_of_notMem base {0} (fun _ ↦ true) n hmem
+    have htarget : zeroFalse n = true :=
+      RestrictedProduct.singletonFinsetInsert_apply_of_notMem trueBase {0} (fun _ ↦ false) n hmem
+    exact Eq.trans (α := Bool) (congrArg boolNotMap hsource)
+      (Eq.trans (α := Bool) boolNot_based htarget.symm)
+
+/-- The factorwise image of the entire source tuple is that same target tuple. -/
+private theorem bool_not_factor_tuple :
+    boolImageByFactors = zeroFalseTuple := by
+  have htrue : boolNotMap true = false := rfl
+  have hfalse : boolNotMap false = true := rfl
+  apply RestrictedProduct.ext
+  intro n
+  have happly : boolImageByFactors n = pathMap boolNotMap (zeroTrueTuple n) :=
+    componentMap_apply base trueBase (fun _ ↦ boolNotMap) (fun _ ↦ boolNot_based)
+      zeroTrueTuple n
+  refine Eq.trans (α := ZerothHomotopy Bool) happly ?_
+  change pathMap boolNotMap
+      (if n = 0 then ZerothHomotopy.mk true else ZerothHomotopy.mk false) =
+    (if n = 0 then ZerothHomotopy.mk false else ZerothHomotopy.mk true)
+  split_ifs
+  · exact Eq.trans (α := ZerothHomotopy Bool) (pathMap_mk boolNotMap true)
+      (congrArg (ZerothHomotopy.mk (X := Bool)) htrue)
+  · exact Eq.trans (α := ZerothHomotopy Bool) (pathMap_mk boolNotMap false)
+      (congrArg (ZerothHomotopy.mk (X := Bool)) hfalse)
+
+/-- The comparison of the image class is the entire false-at-zero/true-elsewhere tuple. -/
+private theorem bool_not_full_tuple :
+    canonicalEquiv trueBase boolImageClass = zeroFalseTuple := by
+  have h := canonicalEquiv_naturality base trueBase (fun _ ↦ boolNotMap)
+    (fun _ ↦ boolNot_based) zeroTrueClass
+  rw [canonical_full_tuple] at h
+  exact h.trans bool_not_factor_tuple
+
+end RestrictedProductTest.PathComponents

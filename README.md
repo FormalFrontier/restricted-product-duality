@@ -59,6 +59,14 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   nonempty type with decidable equality; neither it nor the factor index need be
   finite. No separation of individual factors is assumed.
   [Homotopy comparison](RestrictedProductDuality/HomotopyGroups.lean).
+- **Homotopy comparisons are natural under based coordinate maps.** Continuous
+  coordinate maps satisfying every equation `f i (b i) = c i` induce commuting
+  squares for both comparisons. The path-component square includes empty index
+  types and needs no separation. The positive square uses arbitrary nonempty
+  cube-index types with the same decidable equality and requires T1 of both
+  restricted products. Based postcomposition has representative, identity and
+  composition laws and agrees with Mathlib's fundamental-group map in dimension
+  one. [Homotopy naturality](RestrictedProductDuality/HomotopyMaps.lean).
 - **Finite-support pairing and continuous dual map.** For commutative
   coordinate groups with circle bicharacters, orthogonality on both
   distinguished subgroups makes coordinatewise evaluation a well-defined,
@@ -180,6 +188,16 @@ The usual positive finite degrees specialize this to `N = Fin (n+1)`.
 Its representative and arbitrary-class coordinate formulas, inverse reconstruction,
 inverse characterizations, `joined_iff`, existence and uniqueness lemmas allow use
 without unfolding quotient descent or choosing representatives.
+`GenLoop.map` postcomposes based cube maps for every cube-index type;
+`HomotopyGroup.map` bundles the induced homomorphism for any nonempty cube index.
+The latter's `map_class`, `map_id`, `map_comp` and
+`pi1MulEquivFundamentalGroup_map` give its characteristic computations.
+In `RestrictedProduct.SingletonNaturality`, `pointMap`, `pathMap`, `componentMap`
+and `homotopyTupleMap` name the stock continuous, quotient and restricted-product
+arrows, with evaluation and identity/composition formulas.
+`canonicalEquiv_naturality` and `homotopyGroupSingletonMulEquiv_naturality`
+express the two comparison squares. No map needs factorwise T1; the positive
+square has precisely the two restricted-product T1 assumptions of its comparisons.
 `Subgroup.le_ker_of_mapsTo_centeredArc` supplies the small-arc
 kernel argument. `pairing`, `pairing_eq_prod` and `pairingHom` evaluate a
 finite-support circle-valued bicharacter; orthogonality of the two distinguished
@@ -267,7 +285,11 @@ image is the bottom-subgroup tuple with identity coordinates outside `{0}`
 and the Circle loop class at zero. This equation does not assert a
 classification of Circle homotopy classes. A Nat-indexed discrete-Bool example
 computes the full path-class tuple of the point which is true only at zero, with a
-separate nonvacuity proof distinguishing the Bool path classes. The direct-import
+separate nonvacuity proof distinguishing the Bool path classes. The same Circle
+representative also exercises the coordinatewise square map
+`z ↦ z^2`, and Bool negation changes the default from false to true. In each case
+both routes compute an explicit whole target tuple. No nonidentity positive
+homotopy class is inferred from these space maps. The direct-import
 `NaturalityClients` also apply the full square to the nonidentity pair.
 The direct-import `Clients` and `SymmetricClients` are included in the
 production build. Direct `lean -T0` checks are optional, not another required
@@ -293,6 +315,8 @@ certifies private proof bodies.
 - `RestrictedProductDuality/HomotopyGroups.lean`: coordinate homomorphism and
   multiplicative comparison for homotopy groups of T1 singleton cofinite
   restricted products, with representative and inverse characterizations.
+- `RestrictedProductDuality/HomotopyMaps.lean`: based postcomposition, its
+  fundamental-group compatibility and both coordinate-comparison naturality squares.
 - `RestrictedProductDuality/SmallArc.lean`: the small-circle-arc annihilation
   lemma.
 - `RestrictedProductDuality/Pairing.lean`: finite-support evaluation and the

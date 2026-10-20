@@ -7,6 +7,7 @@ project:
     homeomorphisms with ordinary products, coordinatewise path-component comparison
     for singleton cofinite products without separation hypotheses, compact-map
     finite restriction, homotopy groups of T1 singleton cofinite restricted products,
+    based postcomposition and naturality of both homotopy comparisons,
     circle-valued pairings, conditional character reconstruction and symmetric
     Pontryagin duality, and contravariant naturality.
   authors:
@@ -37,7 +38,9 @@ sources:
       with compactly generated products or CW weak products is claimed. The
       homotopy comparison concerns only the ordinary singleton cofinite restricted
       product with its T1 hypothesis. The path-component comparison uses ordinary
-      products and the quotient by paths, not connected components.
+      products and the quotient by paths, not connected components. Naturality holds
+      under coordinatewise continuous maps preserving every chosen point; the
+      positive comparison square requires T1 of both restricted products.
     author_endorsement: not-contacted
   - title: mathlib4
     type: software
@@ -49,7 +52,9 @@ sources:
       homotopy groups, relative homotopies, Pontryagin duals and finite characters.
       The restricted-product carrier, topology and principal inclusions are from the
       formalization by Anatole Dedecker; homotopy groups are from Roberto Alvarez's
-      formalization.
+      formalization. Based postcomposition also reuses the fundamental-group
+      formalization by Mark Lavrentyev and contributors, the path-component
+      formalization by Patrick Massot and contributors, and relative homotopies.
 automation:
   methods:
     - method: agent
