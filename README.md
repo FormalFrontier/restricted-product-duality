@@ -77,6 +77,28 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   homomorphisms for any nonempty cube-index type with its supplied decidable
   equality. No T1, local compactness, countability, CW or local path-connectedness
   hypothesis is needed. [Based homotopies](RestrictedProductDuality/BasedHomotopy.lean).
+- **Bottom restricted products are finitely supported coordinates.** For a
+  dependent family `G i` of `MulOneClass` factors, the cofinite restricted product
+  at the bottom submonoids is multiplicatively equivalent to
+  `Multiplicative (DFinsupp (fun i ↦ Additive (G i)))`, preserving every coordinate
+  and its nonidentity support set. Index and factor universes are independent,
+  and the index may be empty. Bundled evaluation and pointwise family-map
+  naturality use `Monoid` factors. For `Group` factors the same comparison applies
+  to the bottom-subgroup restricted product with its original pointwise group
+  operations. No commutativity or topology is required; this is not a categorical
+  coproduct of noncommutative groups.
+  [Finite-support coordinates](RestrictedProductDuality/FiniteSupport.lean).
+- **Homotopy groups in DFinsupp coordinates.** Composing the singleton homotopy
+  comparison above with the algebraic coordinate comparison gives a multiplicative
+  equivalence to `Multiplicative (DFinsupp (fun i ↦ Additive (HomotopyGroup N (R i) (b i))))`.
+  The factors retain their given topologies and basepoints; the hypothesis is
+  **T1 on the original singleton cofinite restricted product**. The cube index
+  `N` is arbitrary and nonempty with its given decidable equality, and the cube,
+  factor and family-index universes are independent. Coordinate-class evaluation,
+  an inverse characterization, uniqueness and class-support formulas use the
+  existing homotopy comparison; no factor separation, CW/CGWH, commutativity or
+  homotopy-group classification assumption is added.
+  [Composite comparison](RestrictedProductDuality/HomotopyGroupsFiniteSupport.lean).
 - **Finite-support pairing and continuous dual map.** For commutative
   coordinate groups with circle bicharacters, orthogonality on both
   distinguished subgroups makes coordinatewise evaluation a well-defined,
@@ -169,7 +191,11 @@ general proposition nor the arithmetic inputs of (8.5.2). The formalization
 uses mathlib4 at the [pinned revision](lakefile.lean); the bibliography and
 scope are also recorded in [`formalization.yaml`](formalization.yaml).
 The carrier, final topology and principal inclusions reuse Mathlib's
-restricted-product formalization by Anatole Dedecker. The ordinary
+restricted-product formalization by Anatole Dedecker. The algebraic
+finite-support coordinates use Mathlib's dependent finitely supported functions
+by Johannes Hölzl and Kenny Lau and additive/multiplicative type tags by Mario
+Carneiro. The homotopy-coordinate composite reuses the singleton homotopy
+comparison and Mathlib's homotopy groups by Roberto Alvarez. The ordinary
 finite-support-product viewpoint is motivated by J. P. May,
 *A Concise Course in Algebraic Topology*. The T1 compactness argument above
 and the ordinary-product comparisons concern this topological setting, not
@@ -311,6 +337,11 @@ inventory and omits the later principal/finite-stage API; neither document
 certifies private proof bodies.
 
 ## Layout
+
+| Finite-support module | Contents |
+| --- | --- |
+| [`FiniteSupport`](RestrictedProductDuality/FiniteSupport.lean) | Bottom-submonoid coordinates at `MulOneClass`, bundled evaluation and family maps at `Monoid`, and direct use for bottom-subgroup products at `Group`. |
+| [`HomotopyGroupsFiniteSupport`](RestrictedProductDuality/HomotopyGroupsFiniteSupport.lean) | Composition of the singleton homotopy comparison with finite-support coordinates, for arbitrary nonempty cube index with decidable equality and T1 on the original singleton cofinite restricted product. |
 
 - `RestrictedProductDuality/CompactStage.lean`: finite stages and compact-set
   control, either for open distinguished subsets or under T1 on the restricted

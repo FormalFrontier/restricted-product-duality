@@ -6,6 +6,7 @@ module
 
 import RestrictedProductDuality
 import RestrictedProductDualityTest.BasedHomotopy
+import RestrictedProductDualityTest.FiniteSupport
 import Mathlib.Analysis.Complex.Circle
 import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 import Mathlib.Topology.Connected.Clopen

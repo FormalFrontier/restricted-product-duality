@@ -11,6 +11,8 @@ public import RestrictedProductDuality.FiniteStage
 public import RestrictedProductDuality.HomotopyGroups
 public import RestrictedProductDuality.HomotopyMaps
 public import RestrictedProductDuality.BasedHomotopy
+public import RestrictedProductDuality.FiniteSupport
+public import RestrictedProductDuality.HomotopyGroupsFiniteSupport
 public import RestrictedProductDuality.CharacterReconstruction
 public import RestrictedProductDuality.Clients
 public import RestrictedProductDuality.Pairing
