@@ -115,7 +115,8 @@ theorem exists_productTail_le_ker
   have harc : Circle.centeredArc (Real.pi / 2) ∈ 𝓝 (1 : Circle) :=
     (Circle.isOpen_centeredArc _).mem_nhds (by
       rw [Circle.mem_centeredArc (by nlinarith [Real.pi_pos])]
-      simp
+      simp only [Circle.coe_one, Complex.arg_one, abs_zero, Nat.ofNat_pos,
+        div_pos_iff_of_pos_right]
       positivity)
   have hpre : f ⁻¹' Circle.centeredArc (Real.pi / 2) ∈ 𝓝 (1 : ∀ i, U i) :=
     hf.continuousAt (by
@@ -363,7 +364,8 @@ theorem continuous_toPontryaginDualMulEquiv_symm
   have h1Ω : (1 : PontryaginDual (Πʳ i, [X i, U i])) ∈ Ω := by
     intro x hx
     rw [Circle.mem_centeredArc (by nlinarith [Real.pi_pos])]
-    simp
+    simp only [PontryaginDual.one_apply, Circle.coe_one, Complex.arg_one, abs_zero,
+      Nat.ofNat_pos, div_pos_iff_of_pos_right]
     positivity
   apply Filter.mem_of_superset (hΩopen.mem_nhds h1Ω)
   intro χ hχ

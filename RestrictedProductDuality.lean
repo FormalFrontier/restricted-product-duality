@@ -6,7 +6,9 @@ module
 
 public import RestrictedProductDuality.CompactStage
 public import RestrictedProductDuality.PrincipalStage
+public import RestrictedProductDuality.PathComponents
 public import RestrictedProductDuality.FiniteStage
+public import RestrictedProductDuality.HomotopyGroups
 public import RestrictedProductDuality.CharacterReconstruction
 public import RestrictedProductDuality.Clients
 public import RestrictedProductDuality.Pairing
@@ -20,6 +22,6 @@ public import RestrictedProductDuality.TopologicalPairing
 /-!
 # Restricted-product duality
 
-Reusable topology and character-theory lemmas supporting restricted-product
-Pontryagin duality.
+Reusable topology, path-component comparisons and character-theory lemmas
+supporting restricted-product Pontryagin duality.
 -/

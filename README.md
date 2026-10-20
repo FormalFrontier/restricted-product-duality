@@ -4,8 +4,8 @@ Authors: Formal Frontier Agents. Original Formal Frontier contributions are
 offered under Apache-2.0 (see [`LICENSE`](LICENSE)); imported dependency APIs
 retain their own authorship and licenses.
 
-Reusable Lean theory of restricted products, ordinary finite-support stages and
-Pontryagin duality.
+Reusable Lean theory of restricted products, ordinary finite-support stages,
+path components, homotopy groups and Pontryagin duality.
 
 ## Scope
 
@@ -38,11 +38,27 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   Finite insertions embed with range exactly the corresponding cofinite stage,
   and these ordinary finite products detect continuity out of the cofinite
   restricted product. [Principal comparison](RestrictedProductDuality/PrincipalStage.lean).
+- **Path components are coordinatewise.** For arbitrary spaces and chosen points,
+  the stock path-component quotient of the singleton cofinite restricted product
+  is canonically equivalent, as a set, to the cofinite restricted product of the
+  factor path-component quotients at their chosen-point classes. Both index and
+  factor universes are independent; no separation, local path connectedness,
+  finiteness or nonemptiness hypothesis is needed. The inverse chooses points
+  only at finitely many exceptional coordinates. This is not a comparison with
+  connected components or a statement about positive homotopy groups.
+  [Path-component comparison](RestrictedProductDuality/PathComponents.lean).
 - **Compact maps factor by finite restriction.** A continuous map from any
   compact space to a **T1 singleton cofinite restricted product** factors
   through an ordinary finite product. The continuous factor is exactly the
   original coordinate function restricted to the chosen finite set.
   [Compact-map factorization](RestrictedProductDuality/FiniteStage.lean).
+- **Homotopy groups have finite coordinate support.** For pointed spaces whose
+  singleton cofinite restricted product is **T1**, coordinate evaluation gives a
+  named multiplicative equivalence with the algebraic restricted product of the
+  factor homotopy groups at their bottom subgroups. The cube index is an arbitrary
+  nonempty type with decidable equality; neither it nor the factor index need be
+  finite. No separation of individual factors is assumed.
+  [Homotopy comparison](RestrictedProductDuality/HomotopyGroups.lean).
 - **Finite-support pairing and continuous dual map.** For commutative
   coordinate groups with circle bicharacters, orthogonality on both
   distinguished subgroups makes coordinatewise evaluation a well-defined,
@@ -98,7 +114,16 @@ map's range into factorization by finite coordinate restriction.
 
 These are ordinary topological products and Mathlib's restricted-product final
 topology, not compactly generated products or a comparison with their colimits.
-No CGWH, CW-complex or homotopy-theoretic conclusion is asserted.
+For homotopy groups, compactness of the cube places each representative in a
+finite stage. Coordinate homotopies are assembled only over the union of two
+finite representative stages, and finite insertion reconstructs representatives
+from finitely supported coordinate classes. Multiplication uses Mathlib's
+concatenation convention. No CGWH or CW-complex comparison is asserted.
+For path components, two endpoints
+already lie in the union of their finite supports. A product of coordinate paths
+on that finite set, followed by continuous finite insertion, joins them exactly
+when all coordinate endpoints are joined. This argument needs no compact-family
+finite-stage theorem or T1 hypothesis.
 
 For a continuous circle character, the centered small-arc kernel lemma then
 controls an open product of distinguished subgroups, leaving only finitely
@@ -145,6 +170,16 @@ coordinate, extensionality and uniqueness formulas for arbitrary free sets.
 identities; `continuous_dom_singleton_iff` expresses finality on ordinary finite
 products. `exists_singletonFinsetInsert_factorization` constructs a continuous
 finite restriction of a compact map, together with its insertion identity.
+`homotopyGroupSingletonHom` descends coordinate evaluation to homotopy classes;
+`homotopyGroupSingletonMulEquiv` gives the resulting multiplicative equivalence.
+Its representative application formula, inverse characterization and uniqueness
+are stated for `HomotopyGroup N`, with arbitrary nonempty cube index `N`.
+The usual positive finite degrees specialize this to `N = Fin (n+1)`.
+`RestrictedProduct.SingletonPathComponents.canonicalEquiv` compares the stock
+`ZerothHomotopy` of `PointProduct b` with the set-valued `ComponentProduct b`.
+Its representative and arbitrary-class coordinate formulas, inverse reconstruction,
+inverse characterizations, `joined_iff`, existence and uniqueness lemmas allow use
+without unfolding quotient descent or choosing representatives.
 `Subgroup.le_ker_of_mapsTo_centeredArc` supplies the small-arc
 kernel argument. `pairing`, `pairing_eq_prod` and `pairingHom` evaluate a
 finite-support circle-valued bicharacter; orthogonality of the two distinguished
@@ -226,7 +261,13 @@ the symmetric direction, a nonidentity pointwise adjoint pair, and a cofinite
 map which fails subgroup preservation at index zero. Its canonical circle
 example has nonopen singleton basepoints and a nonconstant compact
 single-coordinate range; it applies both T1 compact containment and compact-map
-factorization through exact finite restriction. The direct-import
+factorization through exact finite restriction. The same single-coordinate
+once-around Circle representative also exercises the homotopy comparison: its
+image is the bottom-subgroup tuple with identity coordinates outside `{0}`
+and the Circle loop class at zero. This equation does not assert a
+classification of Circle homotopy classes. A Nat-indexed discrete-Bool example
+computes the full path-class tuple of the point which is true only at zero, with a
+separate nonvacuity proof distinguishing the Bool path classes. The direct-import
 `NaturalityClients` also apply the full square to the nonidentity pair.
 The direct-import `Clients` and `SymmetricClients` are included in the
 production build. Direct `lean -T0` checks are optional, not another required
@@ -245,8 +286,13 @@ certifies private proof bodies.
 - `RestrictedProductDuality/PrincipalStage.lean`: arbitrary-set singleton
   principal homeomorphism, finite insertion embeddings and ordinary-product
   finality.
+- `RestrictedProductDuality/PathComponents.lean`: singleton cofinite path-component
+  equivalence, coordinate formulas, finite inverse reconstruction and uniqueness.
 - `RestrictedProductDuality/FiniteStage.lean`: compact-map factorization by
   ordinary finite coordinate restriction.
+- `RestrictedProductDuality/HomotopyGroups.lean`: coordinate homomorphism and
+  multiplicative comparison for homotopy groups of T1 singleton cofinite
+  restricted products, with representative and inverse characterizations.
 - `RestrictedProductDuality/SmallArc.lean`: the small-circle-arc annihilation
   lemma.
 - `RestrictedProductDuality/Pairing.lean`: finite-support evaluation and the

@@ -8,6 +8,12 @@ open Lake DSL
 
 package "restricted-product-duality" where
   version := v!"0.1.0"
+  leanOptions := #[
+    ⟨`autoImplicit, false⟩,
+    ⟨`relaxedAutoImplicit, false⟩,
+    ⟨`weak.linter.mathlibStandardSet, true⟩,
+    ⟨`weak.linter.style.header, false⟩
+  ]
 
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git" @

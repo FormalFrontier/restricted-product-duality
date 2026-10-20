@@ -6,7 +6,9 @@ module
 
 import RestrictedProductDuality
 import Mathlib.Analysis.Complex.Circle
+import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 import Mathlib.Topology.Connected.Clopen
+import Mathlib.Topology.Connected.TotallyDisconnected
 import Mathlib.Topology.Order.IntermediateValue
 
 /-!
@@ -16,6 +18,9 @@ These private audit handles compile using only the public umbrella import. In
 particular, the cyclic examples have nontrivial coordinate groups and infinite
 index type; the exceptional map deliberately fails subgroup preservation at zero.
 -/
+
+-- The examples in this module are intentionally private.
+set_option linter.privateModule false
 
 set_option warningAsError true
 
@@ -316,3 +321,224 @@ private theorem singleCoordinate_factorization :
   exact exists_singletonFinsetInsert_factorization coordinateBase singleCoordinateUse.2.1
 
 end RestrictedProductTest.SingleCoordinate
+
+namespace RestrictedProductTest.SingleCoordinate
+
+open Filter RestrictedProduct
+
+/-- The chosen subtype point, with everywhere-singleton membership. -/
+private def coordinateBasepoint :
+    RestrictedProduct (fun _ : ℕ ↦ Circle)
+      (fun n ↦ ({coordinateBase n} : Set Circle)) cofinite :=
+  ⟨coordinateBase,
+    Filter.Eventually.of_forall (fun n ↦ Set.mem_singleton (coordinateBase n))⟩
+
+/-- The chosen coordinate point is the canonical singleton basepoint. -/
+private theorem coordinateBasepoint_eq_singletonBasepoint :
+    coordinateBasepoint = singletonBasepoint coordinateBase :=
+  rfl
+
+private theorem singleCoordinateMap_one :
+    singleCoordinateMap 1 = coordinateBasepoint := by
+  apply RestrictedProduct.ext
+  intro n
+  by_cases hn : n = 0
+  · subst n
+    exact singleCoordinateMap_zero 1
+  · exact singleCoordinateMap_of_ne_zero 1 n hn
+
+private def circleAngle : C((Fin 1 → unitInterval), ℝ) where
+  toFun t := (2 * Real.pi) * (t 0 : ℝ)
+  continuous_toFun :=
+    continuous_const.mul (continuous_subtype_val.comp (continuous_apply 0))
+
+private def circleLoopMap : C((Fin 1 → unitInterval), Circle) :=
+  Circle.exp.comp circleAngle
+
+/-- The once-around Circle loop indexed by `Fin 1`. -/
+private def circleOnceAround : GenLoop (Fin 1) Circle 1 :=
+  ⟨circleLoopMap, by
+    intro t ht
+    rcases ht with ⟨i, hi⟩
+    have hi0 : i = (0 : Fin 1) := Subsingleton.elim _ _
+    subst i
+    rcases hi with hi | hi
+    · change Circle.exp ((2 * Real.pi) * (t 0 : ℝ)) = 1
+      rw [hi]
+      change Circle.exp ((2 * Real.pi) * (0 : ℝ)) = 1
+      simpa only [mul_zero] using Circle.exp_zero
+    · change Circle.exp ((2 * Real.pi) * (t 0 : ℝ)) = 1
+      rw [hi]
+      change Circle.exp ((2 * Real.pi) * (1 : ℝ)) = 1
+      simpa only [mul_one] using Circle.exp_two_pi⟩
+
+/-- Insert the once-around Circle loop in coordinate zero. -/
+private def singleCoordinateOnceAround :
+    GenLoop (Fin 1)
+      (RestrictedProduct (fun _ : ℕ ↦ Circle)
+        (fun n ↦ ({coordinateBase n} : Set Circle)) cofinite)
+      coordinateBasepoint :=
+  ⟨(⟨singleCoordinateMap, continuous_singleCoordinateMap⟩ :
+      C(Circle, RestrictedProduct (fun _ : ℕ ↦ Circle)
+        (fun n ↦ ({coordinateBase n} : Set Circle)) cofinite)).comp circleLoopMap,
+    by
+      intro t ht
+      change singleCoordinateMap (circleLoopMap t) = coordinateBasepoint
+      have hcircle : circleLoopMap t = 1 := GenLoop.boundary circleOnceAround t ht
+      exact (congrArg singleCoordinateMap hcircle).trans singleCoordinateMap_one⟩
+
+private def circleOnceAroundClass : HomotopyGroup (Fin 1) Circle 1 :=
+  ⟦circleOnceAround⟧
+
+private def singleCoordinateOnceAroundClass :
+    HomotopyGroup (Fin 1)
+      (RestrictedProduct (fun _ : ℕ ↦ Circle)
+        (fun n ↦ ({coordinateBase n} : Set Circle)) cofinite)
+      coordinateBasepoint :=
+  ⟦singleCoordinateOnceAround⟧
+
+/-- The class family supported in coordinate zero at the bottom subgroups. -/
+private def onceAroundClassTuple :
+    Πʳ _n : ℕ, [HomotopyGroup (Fin 1) Circle 1,
+      (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1))] :=
+  RestrictedProduct.mulSingle
+    (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+    0 circleOnceAroundClass
+
+/-- Explicit cofinite membership with exceptional set contained in {0}. -/
+private theorem onceAroundClassTuple_bottom_membership :
+    ∀ᶠ n : ℕ in cofinite,
+      onceAroundClassTuple n ∈
+        (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)) := by
+  filter_upwards [({0} : Finset ℕ).eventually_cofinite_notMem] with n hn
+  apply Subgroup.mem_bot.mpr
+  exact RestrictedProduct.mulSingle_eq_of_ne
+    (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+    circleOnceAroundClass (by simpa only [Finset.mem_singleton] using hn)
+
+private theorem singleCoordinateOnceAround_coordinate_zero :
+    singletonCoordinateGenLoop (Fin 1) coordinateBase singleCoordinateOnceAround 0 =
+      circleOnceAround := by
+  apply GenLoop.ext
+  intro t
+  exact Eq.trans (α := Circle)
+    (singletonCoordinateGenLoop_apply (Fin 1) coordinateBase singleCoordinateOnceAround 0 t)
+    (singleCoordinateMap_zero (circleLoopMap t))
+
+private theorem singleCoordinateOnceAround_coordinate_of_ne_zero (n : ℕ) (hn : n ≠ 0) :
+    singletonCoordinateGenLoop (Fin 1) coordinateBase singleCoordinateOnceAround n =
+      (GenLoop.const : GenLoop (Fin 1) Circle (coordinateBase n)) := by
+  apply GenLoop.ext
+  intro t
+  exact Eq.trans (α := Circle)
+    (singletonCoordinateGenLoop_apply (Fin 1) coordinateBase singleCoordinateOnceAround n t)
+    (singleCoordinateMap_of_ne_zero (circleLoopMap t) n hn)
+
+/-- The single-coordinate loop maps to the tuple of its Circle quotient class.
+No nonidentity-class assertion is made. -/
+private theorem homotopyGroupSingletonMulEquiv_onceAround :
+    homotopyGroupSingletonMulEquiv (Fin 1) coordinateBase
+        (⟦singleCoordinateOnceAround⟧ : HomotopyGroup (Fin 1)
+          (RestrictedProduct (fun _ : ℕ ↦ Circle)
+            (fun n ↦ ({coordinateBase n} : Set Circle)) cofinite)
+          coordinateBasepoint) =
+      RestrictedProduct.mulSingle
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 (⟦circleOnceAround⟧ : HomotopyGroup (Fin 1) Circle 1) := by
+  let := coordinateProductT1
+  apply RestrictedProduct.ext
+  intro n
+  refine Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase n))
+    (homotopyGroupSingletonMulEquiv_apply (Fin 1) coordinateBase
+      singleCoordinateOnceAround n) ?_
+  by_cases hn : n = 0
+  · subst n
+    exact Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase 0))
+      (congrArg (fun p : GenLoop (Fin 1) Circle (coordinateBase 0) ↦
+        (⟦p⟧ : HomotopyGroup (Fin 1) Circle (coordinateBase 0)))
+        singleCoordinateOnceAround_coordinate_zero)
+      (RestrictedProduct.mulSingle_eq_same
+        (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+        0 circleOnceAroundClass).symm
+  · exact Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase n))
+      (congrArg (fun p : GenLoop (Fin 1) Circle (coordinateBase n) ↦
+        (⟦p⟧ : HomotopyGroup (Fin 1) Circle (coordinateBase n)))
+        (singleCoordinateOnceAround_coordinate_of_ne_zero n hn))
+      (Eq.trans (α := HomotopyGroup (Fin 1) Circle (coordinateBase n))
+        (HomotopyGroup.one_def
+          (N := Fin 1) (X := Circle) (x := coordinateBase n)).symm
+        (RestrictedProduct.mulSingle_eq_of_ne
+          (G := fun _ : ℕ ↦ HomotopyGroup (Fin 1) Circle 1)
+          (fun _ : ℕ ↦ (⊥ : Subgroup (HomotopyGroup (Fin 1) Circle 1)))
+          (i := 0) (j := n)
+          (⟦circleOnceAround⟧ : HomotopyGroup (Fin 1) Circle 1) hn).symm)
+
+end RestrictedProductTest.SingleCoordinate
+
+namespace RestrictedProductTest.PathComponents
+
+open RestrictedProduct.SingletonPathComponents
+
+-- Witnesses of Mathlib's discrete Bool topology; no topology instance is introduced.
+@[instance_reducible]
+private def topologyWitness : TopologicalSpace Bool := inferInstance
+
+private theorem discreteWitness : DiscreteTopology Bool := inferInstance
+
+/-- The distinguished family for the countably infinite discrete-Bool example. -/
+private def base : ℕ → Bool := fun _ ↦ false
+
+/-- The single-coordinate point of the infinite-index restricted product, via finite insertion. -/
+private def zeroTrue : PointProduct base :=
+  RestrictedProduct.singletonFinsetInsert base ({0} : Finset ℕ) (fun _ ↦ true)
+
+/-- The all-false point, using the stock structure map; no pointed-space API is needed. -/
+private def allFalse : PointProduct base :=
+  RestrictedProduct.structureMap (fun _ : ℕ ↦ Bool)
+    (fun _ ↦ ({false} : Set Bool)) Filter.cofinite
+    (fun _ ↦ ⟨false, Set.mem_singleton false⟩)
+
+/-- The path class of the single-coordinate point. -/
+private def zeroTrueClass : ZerothHomotopy (PointProduct base) := ZerothHomotopy.mk zeroTrue
+
+private def allFalseClass : ZerothHomotopy (PointProduct base) := ZerothHomotopy.mk allFalse
+
+/-- The target class family, true at zero and false elsewhere, with cofinite membership. -/
+private def zeroTrueTuple : ComponentProduct base :=
+  RestrictedProduct.mk
+    (fun n : ℕ ↦ if n = 0 then ZerothHomotopy.mk true else ZerothHomotopy.mk false)
+    ((({0} : Finset ℕ).eventually_cofinite_notMem).mono fun n hn ↦
+      Set.mem_singleton_iff.mpr
+        (ite_eq_right (fun hn0 : n = 0 ↦ hn (Finset.mem_singleton.mpr hn0))))
+
+/-- The default target class family, via the structure map. -/
+private def defaultTuple : ComponentProduct base :=
+  RestrictedProduct.structureMap (fun _ : ℕ ↦ ZerothHomotopy Bool)
+    (fun _ ↦ ({ZerothHomotopy.mk false} : Set (ZerothHomotopy Bool))) Filter.cofinite
+    (fun _ ↦ ⟨ZerothHomotopy.mk false, Set.mem_singleton _⟩)
+
+/-- A Bool-valued path is constant, so the two coordinate path classes differ. -/
+private theorem path_classes_distinct :
+    (ZerothHomotopy.mk true : ZerothHomotopy Bool) ≠ ZerothHomotopy.mk false := by
+  intro h
+  obtain ⟨p⟩ : Joined true false := Quotient.exact h
+  have hp : p 0 = p 1 :=
+    IsPreconnected.constant isPreconnected_univ p.continuous.continuousOn
+      (Set.mem_univ _) (Set.mem_univ _)
+  have htf : true = false := by simpa only [Path.source, Path.target] using hp
+  exact Bool.noConfusion htf
+
+/-- The comparison sends the single-coordinate point to its full prescribed tuple. -/
+private theorem canonical_full_tuple : canonicalEquiv base zeroTrueClass = zeroTrueTuple := by
+  apply RestrictedProduct.ext
+  intro n
+  rw [zeroTrueClass, representative_coordinate_apply]
+  by_cases hn : n = 0
+  · subst n
+    simp [zeroTrue, zeroTrueTuple]
+  · change ZerothHomotopy.mk (zeroTrue n) =
+      (if n = 0 then ZerothHomotopy.mk true else ZerothHomotopy.mk false)
+    rw [ite_eq_right hn]
+    simp [zeroTrue, hn, base]
+
+end RestrictedProductTest.PathComponents
