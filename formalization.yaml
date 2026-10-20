@@ -9,11 +9,15 @@ project:
     finite restriction, homotopy groups of T1 singleton cofinite restricted products,
     based postcomposition and naturality of both homotopy comparisons,
     coordinatewise based homotopies and homotopy-invariant induced maps without
-    separation hypotheses, homotopy equivalences of canonical singleton cofinite
-    restricted products induced by based coordinate maps and relative inverse
+    separation hypotheses, based coordinate homeomorphisms of singleton cofinite
+    products with their canonical final topologies and both-direction continuous-map,
+    coordinate and chosen-point formulas, homotopy equivalences of canonical singleton
+    cofinite restricted products induced by based coordinate maps and relative inverse
     homotopies, with forward, inverse and basepoint formulas for arbitrary factor
-    topologies and possibly empty index types, circle-valued pairings, conditional character
-    reconstruction and symmetric Pontryagin duality, and contravariant naturality.
+    topologies and possibly empty index types, algebraic finite-support coordinates
+    and their composite homotopy comparison under the same T1 hypothesis,
+    circle-valued pairings, conditional character reconstruction and symmetric
+    Pontryagin duality, and contravariant naturality.
   authors:
     - Formal Frontier Agents
   responsible_maintainers:
@@ -58,10 +62,11 @@ sources:
       formalization by Anatole Dedecker; homotopy groups are from Roberto Alvarez's
       formalization. Based postcomposition also reuses the fundamental-group
       formalization by Mark Lavrentyev and contributors, the path-component
-      formalization by Patrick Massot and contributors. The homotopy-equivalence
-      construction reuses homotopy equivalences and relative homotopies by
-      Shing Tak Lam, together with this library's based coordinate maps and
-      joint homotopies.
+      formalization by Patrick Massot and contributors. Based product homeomorphisms
+      reuse Mathlib's Homeomorph and continuous-map structures with the coordinatewise
+      restricted-product map construction. The homotopy-equivalence construction
+      reuses homotopy equivalences and relative homotopies by Shing Tak Lam,
+      together with this library's based coordinate maps and joint homotopies.
 automation:
   methods:
     - method: agent

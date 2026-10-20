@@ -6,6 +6,7 @@ module
 
 import RestrictedProductDuality
 import RestrictedProductDualityTest.BasedHomotopy
+public import RestrictedProductDualityTest.BasedHomeomorphisms
 public import RestrictedProductDualityTest.HomotopyEquivalences
 import RestrictedProductDualityTest.FiniteSupport
 import Mathlib.Analysis.Complex.Circle

@@ -77,6 +77,16 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   homomorphisms for any nonempty cube-index type with its supplied decidable
   equality. No T1, local compactness, countability, CW or local path-connectedness
   hypothesis is needed. [Based homotopies](RestrictedProductDuality/BasedHomotopy.lean).
+- **Based coordinate homeomorphisms preserve singleton cofinite products.**
+  Given arbitrary factor spaces, chosen points `b i`, `c i` and homeomorphisms
+  `e i` satisfying `e i (b i) = c i`, `pointMapHomeomorph b c e he` bundles
+  `PointProduct b ≃ₜ PointProduct c` with the canonical restricted-product final
+  topologies. Its forward and inverse continuous maps are exactly `pointMap`
+  for `e i` and `(e i).symm`; inverse basedness follows from the displayed
+  equations. Coordinate and canonical-point formulas are available in both
+  directions. Index and factor universes are independent, the index may be
+  empty, and no T1, local compactness, countability or CW hypothesis is needed.
+  [Based homeomorphisms](RestrictedProductDuality/BasedHomeomorphisms.lean).
 - **Based coordinate homotopy equivalences induce product homotopy equivalences.**
   Given chosen points `b i`, `c i`, based continuous maps `f i : X i → Y i`
   and `g i : Y i → X i` with `hf i : f i (b i) = c i` and
@@ -220,7 +230,10 @@ comparison and Mathlib's homotopy groups by Roberto Alvarez. The ordinary
 finite-support-product viewpoint is motivated by J. P. May,
 *A Concise Course in Algebraic Topology*. The T1 compactness argument above
 and the ordinary-product comparisons concern this topological setting, not
-compactly generated replacements. The homotopy-equivalence construction reuses
+compactly generated replacements. The based product homeomorphisms reuse
+Mathlib's `Homeomorph` and continuous-map structures together with the library's
+coordinatewise restricted-product `pointMap` construction.
+The homotopy-equivalence construction reuses
 Mathlib's homotopy equivalences and relative homotopies by Shing Tak Lam,
 together with this library's based coordinate maps and joint homotopies.
 
@@ -257,6 +270,12 @@ arrows, with evaluation and identity/composition formulas.
 `canonicalEquiv_naturality` and `homotopyGroupSingletonMulEquiv_naturality`
 express the two comparison squares. No map needs factorwise T1; the positive
 square has precisely the two restricted-product T1 assumptions of its comparisons.
+`pointMapHomeomorph` in the same namespace bundles based coordinate
+homeomorphisms without those comparison hypotheses. Its
+`_toContinuousMap` and `_symm_toContinuousMap` lemmas identify both directions
+with the corresponding `pointMap`; `_apply`, `_symm_apply`, `_base` and
+`_symm_base` give the coordinate and canonical-point formulas. The existing
+`pointMap_id` and `pointMap_comp` laws govern the underlying continuous maps.
 `RestrictedProduct.SingletonNaturality.pointMapHomotopyEquiv b c f g hf hg Hgf Hfg`
 constructs the homotopy equivalence from the two based map families and their
 relative inverse homotopies. Its `pointMapHomotopyEquiv_toFun` and
@@ -397,6 +416,9 @@ certifies private proof bodies.
 - `RestrictedProductDuality/BasedHomotopy.lean`: joint coordinatewise based
   homotopies, all-time coordinate and basepoint formulas, and invariance of the
   induced path-component and positive homotopy-group maps.
+- `RestrictedProductDuality/BasedHomeomorphisms.lean`: based coordinate
+  homeomorphisms of singleton cofinite products, with forward/inverse continuous-map,
+  coordinate and canonical-point formulas.
 - `RestrictedProductDuality/HomotopyEquivalences.lean`: homotopy equivalences
   from based coordinate maps and relative inverse homotopies, with forward,
   inverse, coordinate and chosen-point formulas for arbitrary factor topologies.

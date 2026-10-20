@@ -11,6 +11,7 @@ public import RestrictedProductDuality.FiniteStage
 public import RestrictedProductDuality.HomotopyGroups
 public import RestrictedProductDuality.HomotopyMaps
 public import RestrictedProductDuality.BasedHomotopy
+public import RestrictedProductDuality.BasedHomeomorphisms
 public import RestrictedProductDuality.HomotopyEquivalences
 public import RestrictedProductDuality.FiniteSupport
 public import RestrictedProductDuality.HomotopyGroupsFiniteSupport
