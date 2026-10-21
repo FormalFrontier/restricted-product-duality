@@ -1,7 +1,7 @@
 # Restricted-product duality
 
 Reusable Lean theory of cofinite restricted products: ordinary finite-support
-stages, path components, homotopy groups and conditional Pontryagin duality.
+stages and their colimit, path components, homotopy groups and conditional Pontryagin duality.
 The library uses Mathlib's restricted products, circle characters and
 compact-open dual, rather than redefining them. The [mathematical guide](docs/mathematical-guide.md)
 contains the detailed statements, API formulas, examples and proof outlines.
@@ -34,6 +34,14 @@ contains the detailed statements, API formulas, examples and proof outlines.
   topological sum `Σ s : Finset ι, ∀ j : s, X j` are quotient maps. Individual
   finite insertions are embeddings, not generally surjective.
   [Connectivity](RestrictedProductDuality/Connectivity.lean).
+- **Finite-stage colimit.** For given points `b i`, the original singleton
+  cofinite restricted product is the colimit in `TopCat` of its ordinary finite
+  Pi products under insertion of the given points. Compatible continuous stage
+  maps descend uniquely, with computation on every finite insertion. The direct
+  continuous-map API allows an independent, unbased observer universe; categorical
+  cocones belong to the fixed `TopCat` universe of the diagram. No separation or
+  nonempty-index assumption is needed.
+  [Colimit and descent](RestrictedProductDuality/FiniteStageColimit.lean).
 - **Positive homotopy groups have finite support.** For a **T1 original
   singleton cofinite restricted product**, coordinate evaluation gives a
   multiplicative equivalence with the bottom-subgroup restricted product of
@@ -169,6 +177,7 @@ is for a fixed public revision and omits later principal/finite-stage API.
 | [`RestrictedProductDuality.PathComponents`](RestrictedProductDuality/PathComponents.lean) | singleton cofinite path-component equivalence, coordinate formulas, finite inverse reconstruction and uniqueness. |
 | [`RestrictedProductDuality.Connectivity`](RestrictedProductDuality/Connectivity.lean) | quotient coordinate evaluations and whole finite-stage-sum insertion map, factorwise path-connectedness and local-path-connectedness characterizations, and their forward instances. |
 | [`RestrictedProductDuality.FiniteStage`](RestrictedProductDuality/FiniteStage.lean) | compact-map factorization by ordinary finite coordinate restriction. |
+| [`RestrictedProductDuality.FiniteStageColimit`](RestrictedProductDuality/FiniteStageColimit.lean) | finite Pi inclusion diagram, canonical cocone, continuous descent and categorical colimit with stage computation and uniqueness. |
 | [`RestrictedProductDuality.HomotopyGroups`](RestrictedProductDuality/HomotopyGroups.lean) | coordinate homomorphism and multiplicative comparison for homotopy groups of T1 singleton cofinite restricted products, with representative and inverse characterizations. |
 | [`RestrictedProductDuality.HomotopyMaps`](RestrictedProductDuality/HomotopyMaps.lean) | all-index quotient postcomposition and laws, positive homomorphism compatibility, empty-dimensional path-component naturality, fundamental-group compatibility and both coordinate-comparison squares. |
 | [`RestrictedProductDuality.BasedHomotopy`](RestrictedProductDuality/BasedHomotopy.lean) | joint coordinatewise based homotopies, all-time coordinate and basepoint formulas, and invariance of the induced path-component and positive homotopy-group maps. |
@@ -190,6 +199,7 @@ is for a fixed public revision and omits later principal/finite-stage API.
 | [`RestrictedProductDualityTest.BasedHomotopy`](RestrictedProductDualityTest/BasedHomotopy.lean) | Real straight-line based homotopy from identity to doubling and its coordinate formulas. |
 | [`RestrictedProductDualityTest.Contractibility`](RestrictedProductDualityTest/Contractibility.lean) | Based real contractions, empty-index cases, and path/local-path-connectedness examples. |
 | [`RestrictedProductDualityTest.FiniteSupport`](RestrictedProductDualityTest/FiniteSupport.lean) | Independently constructed sparse integer coordinates and empty-index comparison. |
+| [`RestrictedProductDualityTest.FiniteStageColimit`](RestrictedProductDualityTest/FiniteStageColimit.lean) | Original real-plane coordinate cocone and nonconstant categorical descent, with the empty-index one-stage boundary. |
 | [`RestrictedProductDualityTest.HomotopyEquivalences`](RestrictedProductDualityTest/HomotopyEquivalences.lean) | Based doubling/halving homotopy equivalence on real families and the empty index. |
 | [`RestrictedProductDualityTest.HomotopyMaps`](RestrictedProductDualityTest/HomotopyMaps.lean) | Private discrete Bool dimension-zero example: distinct quotient/path classes, both images, four comparison values and the off-basepoint square. |
 

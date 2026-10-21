@@ -11,6 +11,7 @@ import RestrictedProductDualityTest.HomotopyMaps
 public import RestrictedProductDualityTest.BasedHomeomorphisms
 public import RestrictedProductDualityTest.HomotopyEquivalences
 import RestrictedProductDualityTest.FiniteSupport
+import RestrictedProductDualityTest.FiniteStageColimit
 import Mathlib.Analysis.Complex.Circle
 import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 import Mathlib.Topology.Connected.Clopen

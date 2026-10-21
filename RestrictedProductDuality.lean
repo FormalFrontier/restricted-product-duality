@@ -10,6 +10,7 @@ public import RestrictedProductDuality.Contractibility
 public import RestrictedProductDuality.PathComponents
 public import RestrictedProductDuality.Connectivity
 public import RestrictedProductDuality.FiniteStage
+public import RestrictedProductDuality.FiniteStageColimit
 public import RestrictedProductDuality.HomotopyGroups
 public import RestrictedProductDuality.HomotopyMaps
 public import RestrictedProductDuality.BasedHomotopy
@@ -30,6 +31,6 @@ public import RestrictedProductDuality.TopologicalPairing
 /-!
 # Restricted-product duality
 
-Reusable topology, path-component comparisons and character-theory lemmas
-supporting restricted-product Pontryagin duality.
+Reusable topology, finite-stage colimits, path-component comparisons and
+character-theory lemmas supporting restricted-product Pontryagin duality.
 -/

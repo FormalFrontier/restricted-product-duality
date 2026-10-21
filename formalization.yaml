@@ -5,8 +5,10 @@ project:
     Compact finite-exceptional-stage control under T1 on a cofinite restricted
     product or openness of its distinguished subsets, singleton principal-stage
     homeomorphisms with ordinary products, coordinatewise path-component comparison
-    for singleton cofinite products without separation hypotheses, compact-map
-    finite restriction, homotopy groups of T1 singleton cofinite restricted products,
+    for singleton cofinite products without separation hypotheses, their categorical
+    colimit of ordinary finite Pi products and unique continuous descent from
+    compatible stage maps, compact-map finite restriction, homotopy groups of T1
+    singleton cofinite restricted products,
     based postcomposition on generalized-loop homotopy quotients for arbitrary
     cube-index types, identity and composition laws and invariance under homotopies
     relative to the source point, compatibility with positive induced homomorphisms,
@@ -71,6 +73,8 @@ sources:
       restricted-product map construction. The homotopy-equivalence construction
       reuses homotopy equivalences and relative homotopies by Shing Tak Lam,
       together with this library's based coordinate maps and joint homotopies.
+      Finite-stage colimits reuse Mathlib's topological category, cocone and colimit
+      structures, sum-indexed continuous maps and quotient-map continuous lifting.
 automation:
   methods:
     - method: agent
