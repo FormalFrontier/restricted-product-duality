@@ -7,7 +7,11 @@ project:
     homeomorphisms with ordinary products, coordinatewise path-component comparison
     for singleton cofinite products without separation hypotheses, compact-map
     finite restriction, homotopy groups of T1 singleton cofinite restricted products,
-    based postcomposition and naturality of both homotopy comparisons,
+    based postcomposition on generalized-loop homotopy quotients for arbitrary
+    cube-index types, identity and composition laws and invariance under homotopies
+    relative to the source point, compatibility with positive induced homomorphisms,
+    empty-dimensional path-component naturality and naturality of both
+    restricted-product homotopy comparisons,
     coordinatewise based homotopies and homotopy-invariant induced maps without
     separation hypotheses, based coordinate homeomorphisms of singleton cofinite
     products with their canonical final topologies and both-direction continuous-map,

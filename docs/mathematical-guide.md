@@ -294,8 +294,13 @@ The usual positive finite degrees specialize this to `N = Fin (n+1)`.
 Its representative and arbitrary-class coordinate formulas, inverse reconstruction,
 inverse characterizations, `joined_iff`, existence and uniqueness lemmas allow use
 without unfolding quotient descent or choosing representatives.
-`GenLoop.map` postcomposes based cube maps for every cube-index type;
-`HomotopyGroup.map` bundles the induced homomorphism for any nonempty cube index.
+`GenLoop.map` postcomposes based cube maps for every cube-index type.
+`HomotopyGroup.mapFun` acts on their homotopy quotient without decidable equality
+or nonemptiness of that index, with representative, constant, identity, composition
+and relative-homotopy laws. Its empty-index and `Fin 0` comparisons intertwine it
+with the generic `SingletonNaturality.pathMap`. With the given decidable equality
+and nonemptiness, `coe_map_eq_mapFun` identifies the underlying function of
+`HomotopyGroup.map`, the positive induced homomorphism.
 The latter's `map_class`, `map_id`, `map_comp` and
 `pi1MulEquivFundamentalGroup_map` give its characteristic computations.
 In `RestrictedProduct.SingletonNaturality`, `pointMap`, `pathMap`, `componentMap`

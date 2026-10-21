@@ -7,6 +7,7 @@ module
 import RestrictedProductDuality
 import RestrictedProductDualityTest.BasedHomotopy
 import RestrictedProductDualityTest.Contractibility
+import RestrictedProductDualityTest.HomotopyMaps
 public import RestrictedProductDualityTest.BasedHomeomorphisms
 public import RestrictedProductDualityTest.HomotopyEquivalences
 import RestrictedProductDualityTest.FiniteSupport

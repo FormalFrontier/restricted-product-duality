@@ -43,6 +43,18 @@ contains the detailed statements, API formulas, examples and proof outlines.
   necessarily finite; no factor T1, CW/CGWH or classification assumption.
   [Comparison](RestrictedProductDuality/HomotopyGroups.lean),
   [DFinsupp composite](RestrictedProductDuality/HomotopyGroupsFiniteSupport.lean).
+- **Based maps act on homotopy quotients in every dimension.** For arbitrary
+  spaces, chosen points `x`, `y` and continuous `f` with `f x = y`,
+  `HomotopyGroup.mapFun N f hf` acts on the generalized-loop quotient for any
+  cube-index type `N`, with independent source, target and cube universes.
+  Representative, constant-class, identity, composition and relative-to-`{x}`
+  homotopy laws need no decidable equality or nonemptiness of `N`. Under the
+  given positive-index dictionaries it is the existing homomorphism's function.
+  For empty `N`, including `Fin 0`, the canonical path-component comparison
+  intertwines it with the path-component map. Discrete Bool negation computes
+  two distinct quotient/path classes, four comparison values and the off-basepoint
+  square, not a nontrivial positive homotopy group.
+  [Maps on homotopy quotients and zeroth naturality](RestrictedProductDuality/HomotopyMaps.lean).
 - **Based naturality and joint homotopies.** Continuous coordinate maps preserving every
   chosen point give both comparison squares. The path-component square needs
   no separation; the positive square requires T1 of **both** original products.
@@ -158,7 +170,7 @@ is for a fixed public revision and omits later principal/finite-stage API.
 | [`RestrictedProductDuality.Connectivity`](RestrictedProductDuality/Connectivity.lean) | quotient coordinate evaluations and whole finite-stage-sum insertion map, factorwise path-connectedness and local-path-connectedness characterizations, and their forward instances. |
 | [`RestrictedProductDuality.FiniteStage`](RestrictedProductDuality/FiniteStage.lean) | compact-map factorization by ordinary finite coordinate restriction. |
 | [`RestrictedProductDuality.HomotopyGroups`](RestrictedProductDuality/HomotopyGroups.lean) | coordinate homomorphism and multiplicative comparison for homotopy groups of T1 singleton cofinite restricted products, with representative and inverse characterizations. |
-| [`RestrictedProductDuality.HomotopyMaps`](RestrictedProductDuality/HomotopyMaps.lean) | based postcomposition, its fundamental-group compatibility and both coordinate-comparison naturality squares. |
+| [`RestrictedProductDuality.HomotopyMaps`](RestrictedProductDuality/HomotopyMaps.lean) | all-index quotient postcomposition and laws, positive homomorphism compatibility, empty-dimensional path-component naturality, fundamental-group compatibility and both coordinate-comparison squares. |
 | [`RestrictedProductDuality.BasedHomotopy`](RestrictedProductDuality/BasedHomotopy.lean) | joint coordinatewise based homotopies, all-time coordinate and basepoint formulas, and invariance of the induced path-component and positive homotopy-group maps. |
 | [`RestrictedProductDuality.BasedHomeomorphisms`](RestrictedProductDuality/BasedHomeomorphisms.lean) | based coordinate homeomorphisms of singleton cofinite products, with forward/inverse continuous-map, coordinate and canonical-point formulas. |
 | [`RestrictedProductDuality.Contractibility`](RestrictedProductDuality/Contractibility.lean) | contraction fixing the canonical point from chosen based coordinate contractions, its coordinate formula and the resulting `ContractibleSpace` corollary. |
@@ -179,6 +191,7 @@ is for a fixed public revision and omits later principal/finite-stage API.
 | [`RestrictedProductDualityTest.Contractibility`](RestrictedProductDualityTest/Contractibility.lean) | Based real contractions, empty-index cases, and path/local-path-connectedness examples. |
 | [`RestrictedProductDualityTest.FiniteSupport`](RestrictedProductDualityTest/FiniteSupport.lean) | Independently constructed sparse integer coordinates and empty-index comparison. |
 | [`RestrictedProductDualityTest.HomotopyEquivalences`](RestrictedProductDualityTest/HomotopyEquivalences.lean) | Based doubling/halving homotopy equivalence on real families and the empty index. |
+| [`RestrictedProductDualityTest.HomotopyMaps`](RestrictedProductDualityTest/HomotopyMaps.lean) | Private discrete Bool dimension-zero example: distinct quotient/path classes, both images, four comparison values and the off-basepoint square. |
 
 ## Conventions and limitations
 

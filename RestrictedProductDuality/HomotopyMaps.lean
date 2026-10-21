@@ -10,8 +10,10 @@ public import RestrictedProductDuality.PathComponents
 /-!
 # Naturality of singleton restricted-product homotopy comparisons
 
-Based continuous postcomposition acts on generalized loops and on the stock homotopy
-groups indexed by any nonempty type. Coordinate evaluation commutes with this action,
+Based continuous postcomposition acts on generalized loops and their homotopy
+quotients for every cube-index type, and on the stock homotopy groups when the index
+is nonempty. In dimension zero it agrees with the path-component map. Coordinate
+evaluation commutes with this action,
 both for the set-valued path-component comparison and for the multiplicative positive
 homotopy-group comparison. The latter square requires T1 of both restricted products,
 exactly as the two comparison maps do; the induced maps themselves need no separation.
@@ -123,20 +125,92 @@ variable {X : Type v} {Y : Type w} {Z : Type z}
 variable [TopologicalSpace X] [TopologicalSpace Y] [TopologicalSpace Z]
 variable {x : X} {y : Y} {z : Z}
 
+/-- Based postcomposition on the generalized-loop homotopy quotient for any
+cube-index type, including an empty type. No group structure is required. -/
+def mapFun (N : Type s) (f : C(X, Y)) (hf : f x = y) :
+    HomotopyGroup N X x → HomotopyGroup N Y y :=
+  @Quotient.map (GenLoop N X x) (GenLoop N Y y)
+    (GenLoop.Homotopic.setoid N x) (GenLoop.Homotopic.setoid N y)
+    (GenLoop.map f hf) (by
+      intro p q h
+      change GenLoop.Homotopic p q at h
+      change GenLoop.Homotopic (GenLoop.map f hf p) (GenLoop.map f hf q)
+      exact GenLoop.Homotopic.map f hf h)
+
+/-- Compute based postcomposition on a representative class. -/
+@[simp]
+theorem mapFun_class (N : Type s) (f : C(X, Y)) (hf : f x = y)
+    (p : GenLoop N X x) :
+    mapFun N f hf (⟦p⟧ : HomotopyGroup N X x) =
+      (⟦GenLoop.map f hf p⟧ : HomotopyGroup N Y y) :=
+  rfl
+
+/-- The chosen constant class maps to the chosen constant class. -/
+theorem mapFun_const (N : Type s) (f : C(X, Y)) (hf : f x = y) :
+    mapFun N f hf (⟦GenLoop.const⟧ : HomotopyGroup N X x) =
+      (⟦GenLoop.const⟧ : HomotopyGroup N Y y) := by
+  rw [mapFun_class, GenLoop.map_const]
+
+/-- The identity acts as the identity on the homotopy quotient in every dimension. -/
+@[simp]
+theorem mapFun_id (N : Type s) :
+    mapFun N (ContinuousMap.id X) (x := x) rfl = id := by
+  funext a
+  change mapFun N (ContinuousMap.id X) rfl a = a
+  refine Quotient.inductionOn
+    (motive := fun a : HomotopyGroup N X x ↦ mapFun N (ContinuousMap.id X) rfl a = a)
+    a ?_
+  intro p
+  exact Eq.trans (α := HomotopyGroup N X x)
+    (mapFun_class N (ContinuousMap.id X) rfl p)
+    (congrArg (fun r : GenLoop N X x ↦ (⟦r⟧ : HomotopyGroup N X x))
+      (GenLoop.map_id p))
+
+/-- Based postcomposition on the homotopy quotient respects composition. -/
+theorem mapFun_comp (N : Type s) (g : C(Y, Z)) (hg : g y = z)
+    (f : C(X, Y)) (hf : f x = y) :
+    mapFun N (g.comp f) ((congrArg g hf).trans hg) =
+      (mapFun N g hg) ∘ (mapFun N f hf) := by
+  funext a
+  change mapFun N (g.comp f) ((congrArg g hf).trans hg) a =
+    mapFun N g hg (mapFun N f hf a)
+  refine Quotient.inductionOn
+    (motive := fun a : HomotopyGroup N X x ↦
+      mapFun N (g.comp f) ((congrArg g hf).trans hg) a =
+        mapFun N g hg (mapFun N f hf a)) a ?_
+  intro p
+  exact Eq.trans (α := HomotopyGroup N Z z)
+    (mapFun_class N (g.comp f) ((congrArg g hf).trans hg) p)
+    (Eq.trans (α := HomotopyGroup N Z z)
+      (congrArg (fun r : GenLoop N Z z ↦ (⟦r⟧ : HomotopyGroup N Z z))
+        (GenLoop.map_comp g hg f hf p))
+      (Eq.trans (α := HomotopyGroup N Z z)
+        (mapFun_class N g hg (GenLoop.map f hf p)).symm
+        (congrArg (mapFun N g hg) (mapFun_class N f hf p).symm)))
+
+/-- Maps homotopic relative to the chosen source point act identically on the
+homotopy quotient, without a positivity assumption on the cube index. -/
+theorem mapFun_eq_of_homotopyRel (N : Type s) (f g : C(X, Y))
+    (hf : f x = y) (hg : g x = y)
+    (H : ContinuousMap.HomotopyRel f g ({x} : Set X)) :
+    mapFun N f hf = mapFun N g hg := by
+  funext a
+  refine Quotient.inductionOn
+    (motive := fun a : HomotopyGroup N X x ↦ mapFun N f hf a = mapFun N g hg a) a ?_
+  intro p
+  exact Eq.trans (α := HomotopyGroup N Y y)
+    (mapFun_class N f hf p)
+    (Eq.trans (α := HomotopyGroup N Y y)
+      (Quotient.sound (GenLoop.map_homotopic f g hf hg H p))
+      (mapFun_class N g hg p).symm)
+
 /-- Based postcomposition on the stock quotient, with its canonical positive group
 structure. Multiplication uses the stock reversed concatenation convention. -/
 def map (N : Type s) [DecidableEq N] [Nonempty N]
     (f : C(X, Y)) (hf : f x = y) :
     HomotopyGroup N X x →* HomotopyGroup N Y y :=
   -- Retain the homotopy-group carriers when using the underlying quotient API.
-  let classMap : HomotopyGroup N X x → HomotopyGroup N Y y :=
-    @Quotient.map (GenLoop N X x) (GenLoop N Y y)
-      (GenLoop.Homotopic.setoid N x) (GenLoop.Homotopic.setoid N y)
-      (GenLoop.map f hf) (by
-        intro p q h
-        change GenLoop.Homotopic p q at h
-        change GenLoop.Homotopic (GenLoop.map f hf p) (GenLoop.map f hf q)
-        exact GenLoop.Homotopic.map f hf h)
+  let classMap : HomotopyGroup N X x → HomotopyGroup N Y y := mapFun N f hf
   { toFun := classMap
     map_one' := by
       have hclass :
@@ -166,6 +240,13 @@ def map (N : Type s) [DecidableEq N] [Nonempty N]
           (GenLoop.map_transAt f hf j q p))
         (HomotopyGroup.mul_spec (N := N) (X := Y) (x := y)
           (i := j) (p := GenLoop.map f hf p) (q := GenLoop.map f hf q)).symm }
+
+/-- The positive homomorphism has the all-index map as its underlying function,
+with the given decidable equality and the canonical homotopy-group structures. -/
+theorem coe_map_eq_mapFun (N : Type s) [DecidableEq N] [Nonempty N]
+    (f : C(X, Y)) (hf : f x = y) :
+    (map N f hf : HomotopyGroup N X x → HomotopyGroup N Y y) = mapFun N f hf :=
+  rfl
 
 /-- Compute the induced homomorphism on a representative. -/
 @[simp]
@@ -565,3 +646,34 @@ theorem homotopyGroupSingletonMulEquiv_naturality
                   (RestrictedProduct.singletonBasepoint b))) i).symm))))
 
 end RestrictedProduct.SingletonNaturality
+
+namespace HomotopyGroup
+
+variable {X : Type v} {Y : Type w}
+variable [TopologicalSpace X] [TopologicalSpace Y]
+variable {x : X} {y : Y}
+
+/-- For an empty cube-index type, postcomposition agrees with the existing
+path-component map under Mathlib's empty-dimensional comparison. -/
+theorem equivZerothHomotopyOfIsEmpty_mapFun (N : Type s) [IsEmpty N]
+    (f : C(X, Y)) (hf : f x = y) (a : HomotopyGroup N X x) :
+    homotopyGroupEquivZerothHomotopyOfIsEmpty N y (mapFun N f hf a) =
+      RestrictedProduct.SingletonNaturality.pathMap f
+        (homotopyGroupEquivZerothHomotopyOfIsEmpty N x a) := by
+  refine Quotient.inductionOn a ?_
+  intro p
+  exact Eq.trans (α := ZerothHomotopy Y)
+    (congrArg (homotopyGroupEquivZerothHomotopyOfIsEmpty N y)
+      (mapFun_class N f hf p))
+    (RestrictedProduct.SingletonNaturality.pathMap_mk f (p 0)).symm
+
+/-- In dimension zero, postcomposition agrees with the existing path-component map
+under Mathlib's canonical comparison. -/
+theorem pi0EquivZerothHomotopy_mapFun (f : C(X, Y)) (hf : f x = y)
+    (a : HomotopyGroup (Fin 0) X x) :
+    pi0EquivZerothHomotopy (X := Y) (x := y) (mapFun (Fin 0) f hf a) =
+      RestrictedProduct.SingletonNaturality.pathMap f
+        (pi0EquivZerothHomotopy (X := X) (x := x) a) := by
+  exact equivZerothHomotopyOfIsEmpty_mapFun (Fin 0) f hf a
+
+end HomotopyGroup
