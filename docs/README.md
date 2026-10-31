@@ -52,9 +52,12 @@ The fixed library snapshot pins that Lean version and mathlib
 `e37d88a26f3791ed5a93daa1f949af1021b8d103` with eight other resolved
 packages in its `lake-manifest.json`; the source checkout and native generator
 need no other Formal Frontier library. The current library retains the same Lean
-version and has Mathlib as its only direct dependency, now pinned to
-`83abb3e776bdefcbc447a1e44d0debe4010039e5`; see the current
-[`lakefile.lean`](../lakefile.lean) and [manifest](../lake-manifest.json).
+version and pins Mathlib to `83abb3e776bdefcbc447a1e44d0debe4010039e5`. It also
+directly depends on Fundamental Groupoids at
+`2d276f19865bb972d0b07221e0979083fff06c4c`, with GroupTheory at
+`da81dc691eabf38306f427465ea8a4af350f0aef` transitively; see the current
+[`lakefile.lean`](../lakefile.lean) and [manifest](../lake-manifest.json). These
+current dependencies are not inputs to the fixed-reference recipe below.
 
 First create a **fresh, separate checkout** of the matching public revision.
 Do not run the fixed-input recipe in a current library checkout:

@@ -9,11 +9,11 @@ project:
     colimit of ordinary finite Pi products and unique continuous descent from
     compatible stage maps, compact-map finite restriction, homotopy groups of T1
     singleton cofinite restricted products,
-    based postcomposition on generalized-loop homotopy quotients for arbitrary
-    cube-index types, identity and composition laws and invariance under homotopies
-    relative to the source point, compatibility with positive induced homomorphisms,
-    empty-dimensional path-component naturality and naturality of both
-    restricted-product homotopy comparisons,
+    re-exports of Fundamental Groupoids' based postcomposition on generalized-loop
+    homotopy quotients for arbitrary cube-index types, with identity, composition,
+    based-homotopy and positive-homomorphism laws, together with empty-dimensional
+    path-component naturality and naturality of both restricted-product homotopy
+    comparisons,
     coordinatewise based homotopies and homotopy-invariant induced maps without
     separation hypotheses, based coordinate homeomorphisms of singleton cofinite
     products with their canonical final topologies and both-direction continuous-map,
@@ -75,6 +75,21 @@ sources:
       together with this library's based coordinate maps and joint homotopies.
       Finite-stage colimits reuse Mathlib's topological category, cocone and colimit
       structures, sum-indexed continuous maps and quotient-map continuous lifting.
+  - title: Fundamental Groupoids
+    authors:
+      - Formal Frontier Agents
+    type: software
+    id: https://github.com/FormalFrontier/fundamental-groupoids/tree/2d276f19865bb972d0b07221e0979083fff06c4c
+    relationship: background
+    license: Apache-2.0
+    note: >-
+      Direct dependency providing the based-postcomposition API for generalized
+      loops and homotopy quotients, re-exported by RestrictedProductDuality.HomotopyMaps.
+      GenLoop.map, HomotopyGroup.mapFun, HomotopyGroup.map and their laws keep their
+      public names. Restricted-product coordinate maps, naturality squares and the
+      empty-dimensional comparisons with SingletonNaturality.pathMap are defined
+      in this library. Fundamental Groupoids uses the same Mathlib revision and
+      depends on GroupTheory at da81dc691eabf38306f427465ea8a4af350f0aef.
 automation:
   methods:
     - method: agent

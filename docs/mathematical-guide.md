@@ -86,9 +86,10 @@ characters and compact-open Pontryagin dual; they do not redefine those APIs.
   squares for both comparisons. The path-component square includes empty index
   types and needs no separation. The positive square uses arbitrary nonempty
   cube-index types with the same decidable equality and requires T1 of both
-  restricted products. Based postcomposition has representative, identity and
-  composition laws and agrees with Mathlib's fundamental-group map in dimension
-  one. [Homotopy naturality](../RestrictedProductDuality/HomotopyMaps.lean).
+  restricted products. The re-exported Fundamental Groupoids API supplies based
+  postcomposition, its representative, identity and composition laws, and its
+  agreement with Mathlib's fundamental-group map in dimension one.
+  [Homotopy naturality](../RestrictedProductDuality/HomotopyMaps.lean).
 - **Based coordinate homotopies assemble jointly.** For arbitrary factor
   topologies and any possibly empty factor index, continuous coordinate
   `HomotopyRel`s fixed at the chosen source points assemble to
@@ -257,8 +258,12 @@ restricted-product formalization by Anatole Dedecker. The algebraic
 finite-support coordinates use Mathlib's dependent finitely supported functions
 by Johannes Hölzl and Kenny Lau and additive/multiplicative type tags by Mario
 Carneiro. The homotopy-coordinate composite reuses the singleton homotopy
-comparison and Mathlib's homotopy groups by Roberto Alvarez. The ordinary
-finite-support-product viewpoint is motivated by J. P. May,
+comparison and Mathlib's homotopy groups by Roberto Alvarez. Based postcomposition
+on generalized loops and homotopy quotients is provided by the
+[Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids)
+library by Formal Frontier Agents and re-exported by `HomotopyMaps`. The coordinate
+naturality and empty-dimensional path-component comparisons are defined in this
+library. The ordinary finite-support-product viewpoint is motivated by J. P. May,
 *A Concise Course in Algebraic Topology*. The T1 compactness argument above
 and the ordinary-product comparisons concern this topological setting, not
 compactly generated replacements. The based product homeomorphisms reuse
@@ -294,13 +299,15 @@ The usual positive finite degrees specialize this to `N = Fin (n+1)`.
 Its representative and arbitrary-class coordinate formulas, inverse reconstruction,
 inverse characterizations, `joined_iff`, existence and uniqueness lemmas allow use
 without unfolding quotient descent or choosing representatives.
-`GenLoop.map` postcomposes based cube maps for every cube-index type.
-`HomotopyGroup.mapFun` acts on their homotopy quotient without decidable equality
-or nonemptiness of that index, with representative, constant, identity, composition
-and relative-homotopy laws. Its empty-index and `Fin 0` comparisons intertwine it
-with the generic `SingletonNaturality.pathMap`. With the given decidable equality
-and nonemptiness, `coe_map_eq_mapFun` identifies the underlying function of
-`HomotopyGroup.map`, the positive induced homomorphism.
+`HomotopyMaps` publicly imports
+`FundamentalGroupoids.Topology.Homotopy.HomotopyGroup.Map`. That dependency supplies
+`GenLoop.map`, which postcomposes based cube maps for every cube-index type, and
+`HomotopyGroup.mapFun`, which acts on their homotopy quotient without decidable
+equality or nonemptiness of that index, with representative, constant, identity,
+composition and relative-homotopy laws. This library supplies the empty-index and
+`Fin 0` comparisons intertwining it with `SingletonNaturality.pathMap`. With the
+given decidable equality and nonemptiness, `coe_map_eq_mapFun` identifies the
+underlying function of `HomotopyGroup.map`, the positive induced homomorphism.
 The latter's `map_class`, `map_id`, `map_comp` and
 `pi1MulEquivFundamentalGroup_map` give its characteristic computations.
 In `RestrictedProduct.SingletonNaturality`, `pointMap`, `pathMap`, `componentMap`
