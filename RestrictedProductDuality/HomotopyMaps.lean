@@ -4,6 +4,7 @@ Authors: Formal Frontier Agents
 -/
 module
 
+public import FundamentalGroupoids.Topology.Connected.PathConnected
 public import FundamentalGroupoids.Topology.Homotopy.HomotopyGroup.Map
 public import RestrictedProductDuality.HomotopyGroups
 public import RestrictedProductDuality.PathComponents
@@ -23,10 +24,13 @@ The arrows on restricted products are the stock `mapAlong` and `mapAlongMonoidHo
 All coordinate maps preserve the chosen points, not merely eventually. The products
 carry the ordinary final topology, not a compactly generated or CW weak-product topology.
 
-The based-postcomposition API in `GenLoop` and `HomotopyGroup` is re-exported from
+The component-map API in `ZerothHomotopy` is re-exported from
+`FundamentalGroupoids.Topology.Connected.PathConnected`, and the based-postcomposition
+API in `GenLoop` and `HomotopyGroup` is re-exported from
 `FundamentalGroupoids.Topology.Homotopy.HomotopyGroup.Map`. This module supplies the
 coordinate naturality results and the empty-dimensional comparisons with
-`RestrictedProduct.SingletonNaturality.pathMap`.
+`ZerothHomotopy.map`. The `RestrictedProduct.SingletonNaturality.pathMap` names
+remain as deprecated compatibility wrappers.
 
 ## References
 
@@ -34,9 +38,9 @@ The finite-support-product viewpoint occurs in J. P. May, *A Concise Course in
 Algebraic Topology*. This construction reuses Mathlib's generalized loops and homotopy
 groups (Roberto Alvarez), fundamental groups (Mark Lavrentyev and contributors),
 relative homotopies, path components (Patrick Massot and contributors), quotient maps,
-and restricted products (Anatole Dedecker). The based-postcomposition definitions
-and proofs, originally developed in this library by Formal Frontier Agents, are
-provided by [Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids).
+and restricted products (Anatole Dedecker). The component-map and based-postcomposition
+definitions and proofs, originally developed in this library by Formal Frontier Agents,
+are provided by [Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids).
 -/
 
 @[expose] public section
@@ -125,70 +129,68 @@ theorem pointMap_comp {Z : ι → Type z} [∀ i, TopologicalSpace (Z i)]
   intro i
   rfl
 
-/-- A continuous map descends to the stock set quotient by path connectedness. -/
+/-- Compatibility name for the induced path-component map `ZerothHomotopy.map`. -/
 def pathMap {A : Type v} {B : Type w}
     [TopologicalSpace A] [TopologicalSpace B] (g : C(A, B)) :
     ZerothHomotopy A → ZerothHomotopy B :=
-  @Quotient.map A B (pathSetoid A) (pathSetoid B) g
-    (fun _ _ h ↦ h.map g.continuous)
+  ZerothHomotopy.map g
 
-/-- The path-component arrow sends a point class to the class of its image. -/
+/-- Compatibility form of `ZerothHomotopy.map_mk`, preserving its original binders. -/
 @[simp]
 theorem pathMap_mk {A : Type v} {B : Type w}
     [TopologicalSpace A] [TopologicalSpace B] (g : C(A, B)) (a : A) :
     pathMap g (ZerothHomotopy.mk a) = ZerothHomotopy.mk (g a) :=
-  rfl
+  ZerothHomotopy.map_mk g a
 
-/-- The identity acts trivially on path components. -/
+/-- Compatibility form of the pointwise identity law `ZerothHomotopy.map_id`. -/
 @[simp]
 theorem pathMap_id {A : Type v} [TopologicalSpace A] (q : ZerothHomotopy A) :
-    pathMap (ContinuousMap.id A) q = q := by
-  refine Quotient.inductionOn q ?_
-  intro a
-  rfl
+    pathMap (ContinuousMap.id A) q = q :=
+  ZerothHomotopy.map_id q
 
-/-- Postcomposition on path components respects composition. -/
+/-- Compatibility form of the pointwise composition law `ZerothHomotopy.map_comp`. -/
 theorem pathMap_comp {A : Type v} {B : Type w} {D : Type z}
     [TopologicalSpace A] [TopologicalSpace B] [TopologicalSpace D]
     (g : C(B, D)) (f : C(A, B)) (q : ZerothHomotopy A) :
-    pathMap (g.comp f) q = pathMap g (pathMap f q) := by
-  refine Quotient.inductionOn q ?_
-  intro a
-  rfl
+    pathMap (g.comp f) q = pathMap g (pathMap f q) :=
+  ZerothHomotopy.map_comp g f q
 
-/-- Homotopic continuous maps induce the same function on path components. -/
+/-- Compatibility form of homotopy invariance `ZerothHomotopy.map_eq_of_homotopy`. -/
 theorem pathMap_eq_of_homotopy {A : Type v} {B : Type w}
     [TopologicalSpace A] [TopologicalSpace B] (f g : C(A, B))
-    (H : ContinuousMap.Homotopy f g) : pathMap f = pathMap g := by
-  funext q
-  induction q using ZerothHomotopy.rec with
-  | mk a =>
-    rw [pathMap_mk, pathMap_mk]
-    exact ZerothHomotopy.sound (H.evalAt a)
+    (H : ContinuousMap.Homotopy f g) : pathMap f = pathMap g :=
+  ZerothHomotopy.map_eq_of_homotopy f g H
+
+attribute [deprecated ZerothHomotopy.map (since := "2026-10-31")] pathMap
+attribute [deprecated ZerothHomotopy.map_mk (since := "2026-10-31")] pathMap_mk
+attribute [deprecated ZerothHomotopy.map_id (since := "2026-10-31")] pathMap_id
+attribute [deprecated ZerothHomotopy.map_comp (since := "2026-10-31")] pathMap_comp
+attribute [deprecated ZerothHomotopy.map_eq_of_homotopy (since := "2026-10-31")]
+  pathMap_eq_of_homotopy
 
 /-- The coordinate path-component arrows preserve the singleton class defaults. -/
 theorem componentMap_membership (b : ∀ i, X i) (c : ∀ i, Y i)
     (f : ∀ i, C(X i, Y i)) (hf : ∀ i, f i (b i) = c i) :
-    ∀ᶠ i in cofinite, Set.MapsTo (pathMap (f i))
+    ∀ᶠ i in cofinite, Set.MapsTo (ZerothHomotopy.map (f i))
       ({ZerothHomotopy.mk (b i)} : Set (ZerothHomotopy (X i)))
       ({ZerothHomotopy.mk (c i)} : Set (ZerothHomotopy (Y i))) := by
   apply Filter.Eventually.of_forall
   intro i a ha
   rcases Set.mem_singleton_iff.mp ha with rfl
-  exact Set.mem_singleton_iff.mpr (by rw [pathMap_mk, hf i])
+  exact Set.mem_singleton_iff.mpr (by rw [ZerothHomotopy.map_mk, hf i])
 
 /-- The stock set-valued restricted-product map of the coordinate path-component arrows. -/
 def componentMap (b : ∀ i, X i) (c : ∀ i, Y i)
     (f : ∀ i, C(X i, Y i)) (hf : ∀ i, f i (b i) = c i) :
     ComponentProduct b → ComponentProduct c :=
-  RestrictedProduct.map (fun i ↦ pathMap (f i)) (componentMap_membership b c f hf)
+  RestrictedProduct.map (fun i ↦ ZerothHomotopy.map (f i)) (componentMap_membership b c f hf)
 
 /-- Evaluation of the restricted family of path-component images. -/
 @[simp]
 theorem componentMap_apply (b : ∀ i, X i) (c : ∀ i, Y i)
     (f : ∀ i, C(X i, Y i)) (hf : ∀ i, f i (b i) = c i)
     (a : ComponentProduct b) (i : ι) :
-    componentMap b c f hf a i = pathMap (f i) (a i) :=
+    componentMap b c f hf a i = ZerothHomotopy.map (f i) (a i) :=
   rfl
 
 /-- Identity coordinate maps induce the identity on component families. -/
@@ -197,8 +199,8 @@ theorem componentMap_id (b : ∀ i, X i) (a : ComponentProduct b) :
     componentMap b b (fun i ↦ ContinuousMap.id (X i)) (fun _ ↦ rfl) a = a := by
   apply RestrictedProduct.ext
   intro i
-  change pathMap (ContinuousMap.id (X i)) (a i) = a i
-  exact pathMap_id (a i)
+  change ZerothHomotopy.map (ContinuousMap.id (X i)) (a i) = a i
+  exact ZerothHomotopy.map_id (a i)
 
 /-- The component-family arrow respects composition of based maps. -/
 theorem componentMap_comp {Z : ι → Type z} [∀ i, TopologicalSpace (Z i)]
@@ -210,33 +212,34 @@ theorem componentMap_comp {Z : ι → Type z} [∀ i, TopologicalSpace (Z i)]
       componentMap c d g hg (componentMap b c f hf a) := by
   apply RestrictedProduct.ext
   intro i
-  change pathMap ((g i).comp (f i)) (a i) = pathMap (g i) (pathMap (f i) (a i))
-  exact pathMap_comp (g i) (f i) (a i)
+  change ZerothHomotopy.map ((g i).comp (f i)) (a i) =
+    ZerothHomotopy.map (g i) (ZerothHomotopy.map (f i) (a i))
+  exact ZerothHomotopy.map_comp (g i) (f i) (a i)
 
 /-- Naturality of the set-valued path-component comparison, including empty index
 sets, with no separation or local path-connectedness assumptions. -/
 theorem canonicalEquiv_naturality (b : ∀ i, X i) (c : ∀ i, Y i)
     (f : ∀ i, C(X i, Y i)) (hf : ∀ i, f i (b i) = c i)
     (q : ZerothHomotopy (PointProduct b)) :
-    canonicalEquiv c (pathMap (pointMap b c f hf) q) =
+    canonicalEquiv c (ZerothHomotopy.map (pointMap b c f hf) q) =
       componentMap b c f hf (canonicalEquiv b q) := by
   induction q using ZerothHomotopy.rec with
   | mk x =>
     apply RestrictedProduct.ext
     intro i
     calc
-      canonicalEquiv c (pathMap (pointMap b c f hf) (ZerothHomotopy.mk x)) i =
+      canonicalEquiv c (ZerothHomotopy.map (pointMap b c f hf) (ZerothHomotopy.mk x)) i =
           canonicalEquiv c (ZerothHomotopy.mk (pointMap b c f hf x)) i :=
         congrArg (fun q : ZerothHomotopy (PointProduct c) ↦ canonicalEquiv c q i)
-          (pathMap_mk (pointMap b c f hf) x)
+          (ZerothHomotopy.map_mk (pointMap b c f hf) x)
       _ = ZerothHomotopy.mk (pointMap b c f hf x i) :=
         representative_coordinate_apply c (pointMap b c f hf x) i
       _ = ZerothHomotopy.mk (f i (x i)) :=
         congrArg (ZerothHomotopy.mk (X := Y i)) (pointMap_apply b c f hf x i)
-      _ = pathMap (f i) (ZerothHomotopy.mk (x i)) :=
-        (pathMap_mk (f i) (x i)).symm
-      _ = pathMap (f i) (canonicalEquiv b (ZerothHomotopy.mk x) i) :=
-        congrArg (pathMap (f i)) (representative_coordinate_apply b x i).symm
+      _ = ZerothHomotopy.map (f i) (ZerothHomotopy.mk (x i)) :=
+        (ZerothHomotopy.map_mk (f i) (x i)).symm
+      _ = ZerothHomotopy.map (f i) (canonicalEquiv b (ZerothHomotopy.mk x) i) :=
+        congrArg (ZerothHomotopy.map (f i)) (representative_coordinate_apply b x i).symm
       _ = componentMap b c f hf (canonicalEquiv b (ZerothHomotopy.mk x)) i :=
         (componentMap_apply b c f hf (canonicalEquiv b (ZerothHomotopy.mk x)) i).symm
 
@@ -373,22 +376,20 @@ path-component map under Mathlib's empty-dimensional comparison. -/
 theorem equivZerothHomotopyOfIsEmpty_mapFun (N : Type s) [IsEmpty N]
     (f : C(X, Y)) (hf : f x = y) (a : HomotopyGroup N X x) :
     homotopyGroupEquivZerothHomotopyOfIsEmpty N y (mapFun N f hf a) =
-      RestrictedProduct.SingletonNaturality.pathMap f
-        (homotopyGroupEquivZerothHomotopyOfIsEmpty N x a) := by
+      ZerothHomotopy.map f (homotopyGroupEquivZerothHomotopyOfIsEmpty N x a) := by
   refine Quotient.inductionOn a ?_
   intro p
   exact Eq.trans (α := ZerothHomotopy Y)
     (congrArg (homotopyGroupEquivZerothHomotopyOfIsEmpty N y)
       (mapFun_class N f hf p))
-    (RestrictedProduct.SingletonNaturality.pathMap_mk f (p 0)).symm
+    (ZerothHomotopy.map_mk f (p 0)).symm
 
 /-- In dimension zero, postcomposition agrees with the existing path-component map
 under Mathlib's canonical comparison. -/
 theorem pi0EquivZerothHomotopy_mapFun (f : C(X, Y)) (hf : f x = y)
     (a : HomotopyGroup (Fin 0) X x) :
     pi0EquivZerothHomotopy (X := Y) (x := y) (mapFun (Fin 0) f hf a) =
-      RestrictedProduct.SingletonNaturality.pathMap f
-        (pi0EquivZerothHomotopy (X := X) (x := x) a) := by
+      ZerothHomotopy.map f (pi0EquivZerothHomotopy (X := X) (x := x) a) := by
   exact equivZerothHomotopyOfIsEmpty_mapFun (Fin 0) f hf a
 
 end HomotopyGroup

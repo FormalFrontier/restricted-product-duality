@@ -67,7 +67,7 @@ private theorem bool_not_dimension_zero :
       ZerothHomotopy.mk true ∧
     HomotopyGroup.pi0EquivZerothHomotopy (X := Bool) (x := true)
         (HomotopyGroup.mapFun (Fin 0) boolNotMap boolNot_based sourceTrue) =
-      RestrictedProduct.SingletonNaturality.pathMap boolNotMap
+      ZerothHomotopy.map boolNotMap
         (HomotopyGroup.pi0EquivZerothHomotopy (X := Bool) (x := false) sourceTrue) := by
   have hpath : (ZerothHomotopy.mk false : ZerothHomotopy Bool) ≠
       ZerothHomotopy.mk true := by
@@ -113,7 +113,7 @@ private theorem bool_not_dimension_zero :
     simpa only [htargetFalse, htargetTrue] using
       congrArg (HomotopyGroup.pi0EquivZerothHomotopy (X := Bool) (x := true)) h
   · rw [hmapTrue, htargetFalse, hsourceTrue,
-      RestrictedProduct.SingletonNaturality.pathMap_mk]
+      ZerothHomotopy.map_mk]
     rfl
 
 end RestrictedProductTest.HomotopyMaps

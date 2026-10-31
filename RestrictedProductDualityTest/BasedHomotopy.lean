@@ -111,8 +111,10 @@ private theorem productHomotopy_based (t : I) :
     (fun _ ↦ identity_based) (fun _ ↦ doubling_based) (fun _ ↦ coordinateHomotopy) t
 
 private theorem model_pathMap_eq :
-    pathMap (pointMap realBase realBase (fun _ ↦ identityMap) (fun _ ↦ identity_based)) =
-      pathMap (pointMap realBase realBase (fun _ ↦ doublingMap) (fun _ ↦ doubling_based)) :=
+    ZerothHomotopy.map
+        (pointMap realBase realBase (fun _ ↦ identityMap) (fun _ ↦ identity_based)) =
+      ZerothHomotopy.map
+        (pointMap realBase realBase (fun _ ↦ doublingMap) (fun _ ↦ doubling_based)) :=
   pathMap_pointMap_eq_of_homotopyRel realBase realBase
     (fun _ ↦ identityMap) (fun _ ↦ doublingMap)
     (fun _ ↦ identity_based) (fun _ ↦ doubling_based) (fun _ ↦ coordinateHomotopy)

@@ -163,8 +163,8 @@ theorem pathMap_pointMap_eq_of_homotopyRel (b : ∀ i, X i) (c : ∀ i, Y i)
     (f g : ∀ i, C(X i, Y i))
     (hf : ∀ i, f i (b i) = c i) (hg : ∀ i, g i (b i) = c i)
     (H : ∀ i, ContinuousMap.HomotopyRel (f i) (g i) ({b i} : Set (X i))) :
-    pathMap (pointMap b c f hf) = pathMap (pointMap b c g hg) := by
-  exact pathMap_eq_of_homotopy (pointMap b c f hf) (pointMap b c g hg)
+    ZerothHomotopy.map (pointMap b c f hf) = ZerothHomotopy.map (pointMap b c g hg) := by
+  exact ZerothHomotopy.map_eq_of_homotopy (pointMap b c f hf) (pointMap b c g hg)
     (pointMapHomotopyRel b c f g hf hg H).toHomotopy
 
 /-- Based-homotopic coordinate families induce the same positive homotopy-group

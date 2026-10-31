@@ -258,12 +258,13 @@ restricted-product formalization by Anatole Dedecker. The algebraic
 finite-support coordinates use Mathlib's dependent finitely supported functions
 by Johannes Hölzl and Kenny Lau and additive/multiplicative type tags by Mario
 Carneiro. The homotopy-coordinate composite reuses the singleton homotopy
-comparison and Mathlib's homotopy groups by Roberto Alvarez. Based postcomposition
-on generalized loops and homotopy quotients is provided by the
-[Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids)
-library by Formal Frontier Agents and re-exported by `HomotopyMaps`. The coordinate
-naturality and empty-dimensional path-component comparisons are defined in this
-library. The ordinary finite-support-product viewpoint is motivated by J. P. May,
+comparison and Mathlib's homotopy groups by Roberto Alvarez. Maps on path
+components and based postcomposition on generalized loops and homotopy quotients
+are provided by [Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids),
+by Formal Frontier Agents, and re-exported by `HomotopyMaps`; those definitions
+and proofs were originally developed in this library. The coordinate naturality
+and empty-dimensional path-component comparisons are defined in this library.
+The ordinary finite-support-product viewpoint is motivated by J. P. May,
 *A Concise Course in Algebraic Topology*. The T1 compactness argument above
 and the ordinary-product comparisons concern this topological setting, not
 compactly generated replacements. The based product homeomorphisms reuse
@@ -300,19 +301,26 @@ Its representative and arbitrary-class coordinate formulas, inverse reconstructi
 inverse characterizations, `joined_iff`, existence and uniqueness lemmas allow use
 without unfolding quotient descent or choosing representatives.
 `HomotopyMaps` publicly imports
+`FundamentalGroupoids.Topology.Connected.PathConnected` for `ZerothHomotopy.map`,
+the map on path components induced by any continuous map. Its `map_mk` formula
+computes representatives, `map_id` and `map_comp` are pointwise identity and
+composition laws, and `map_eq_of_homotopy` equates the functions induced by
+homotopic maps. The `RestrictedProduct.SingletonNaturality.pathMap` names are
+deprecated compatibility wrappers retaining their original binders.
+`HomotopyMaps` also publicly imports
 `FundamentalGroupoids.Topology.Homotopy.HomotopyGroup.Map`. That dependency supplies
 `GenLoop.map`, which postcomposes based cube maps for every cube-index type, and
 `HomotopyGroup.mapFun`, which acts on their homotopy quotient without decidable
 equality or nonemptiness of that index, with representative, constant, identity,
 composition and relative-homotopy laws. This library supplies the empty-index and
-`Fin 0` comparisons intertwining it with `SingletonNaturality.pathMap`. With the
-given decidable equality and nonemptiness, `coe_map_eq_mapFun` identifies the
-underlying function of `HomotopyGroup.map`, the positive induced homomorphism.
-The latter's `map_class`, `map_id`, `map_comp` and
-`pi1MulEquivFundamentalGroup_map` give its characteristic computations.
-In `RestrictedProduct.SingletonNaturality`, `pointMap`, `pathMap`, `componentMap`
-and `homotopyTupleMap` name the stock continuous, quotient and restricted-product
-arrows, with evaluation and identity/composition formulas.
+`Fin 0` comparisons intertwining it with `ZerothHomotopy.map`. With the given
+decidable equality and nonemptiness, `coe_map_eq_mapFun` identifies the underlying
+function of `HomotopyGroup.map`, the positive induced homomorphism. The latter's
+`map_class`, `map_id`, `map_comp` and `pi1MulEquivFundamentalGroup_map` give its
+characteristic computations.
+In `RestrictedProduct.SingletonNaturality`, `pointMap`, `componentMap` and
+`homotopyTupleMap` name the stock continuous and restricted-product arrows, with
+evaluation and identity/composition formulas.
 `canonicalEquiv_naturality` and `homotopyGroupSingletonMulEquiv_naturality`
 express the two comparison squares. No map needs factorwise T1; the positive
 square has precisely the two restricted-product T1 assumptions of its comparisons.

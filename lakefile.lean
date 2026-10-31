@@ -22,7 +22,7 @@ require mathlib from git
 
 require «fundamental-groupoids» from git
   "https://github.com/FormalFrontier/fundamental-groupoids.git" @
-    "2d276f19865bb972d0b07221e0979083fff06c4c"
+    "ce98f182cebbd2ae549dc9e7de6882a6f860cc7b"
 
 @[default_target]
 lean_lib RestrictedProductDuality

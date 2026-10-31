@@ -712,7 +712,7 @@ private def boolProductNot : C(PointProduct base, PointProduct trueBase) :=
 
 private def boolImagePoint : PointProduct trueBase := boolProductNot zeroTrue
 private def boolImageClass : ZerothHomotopy (PointProduct trueBase) :=
-  pathMap boolProductNot zeroTrueClass
+  ZerothHomotopy.map boolProductNot zeroTrueClass
 private def boolImageByFactors : ComponentProduct trueBase :=
   componentMap base trueBase (fun _ ↦ boolNotMap) (fun _ ↦ boolNot_based) zeroTrueTuple
 
@@ -764,17 +764,17 @@ private theorem bool_not_factor_tuple :
   have hfalse : boolNotMap false = true := rfl
   apply RestrictedProduct.ext
   intro n
-  have happly : boolImageByFactors n = pathMap boolNotMap (zeroTrueTuple n) :=
+  have happly : boolImageByFactors n = ZerothHomotopy.map boolNotMap (zeroTrueTuple n) :=
     componentMap_apply base trueBase (fun _ ↦ boolNotMap) (fun _ ↦ boolNot_based)
       zeroTrueTuple n
   refine Eq.trans (α := ZerothHomotopy Bool) happly ?_
-  change pathMap boolNotMap
+  change ZerothHomotopy.map boolNotMap
       (if n = 0 then ZerothHomotopy.mk true else ZerothHomotopy.mk false) =
     (if n = 0 then ZerothHomotopy.mk false else ZerothHomotopy.mk true)
   split_ifs
-  · exact Eq.trans (α := ZerothHomotopy Bool) (pathMap_mk boolNotMap true)
+  · exact Eq.trans (α := ZerothHomotopy Bool) (ZerothHomotopy.map_mk boolNotMap true)
       (congrArg (ZerothHomotopy.mk (X := Bool)) htrue)
-  · exact Eq.trans (α := ZerothHomotopy Bool) (pathMap_mk boolNotMap false)
+  · exact Eq.trans (α := ZerothHomotopy Bool) (ZerothHomotopy.map_mk boolNotMap false)
       (congrArg (ZerothHomotopy.mk (X := Bool)) hfalse)
 
 /-- The comparison of the image class is the entire false-at-zero/true-elsewhere tuple. -/

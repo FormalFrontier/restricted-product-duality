@@ -60,9 +60,10 @@ contains the detailed statements, API formulas, examples and proof outlines.
   Representative, constant-class, identity, composition and relative-to-`{x}`
   homotopy laws need no decidable equality or nonemptiness of `N`. Under the
   given positive-index dictionaries it is the existing homomorphism's function.
-  This library supplies the comparison with its path-component map: for empty
-  `N`, including `Fin 0`, the canonical path-component comparison intertwines the
-  two maps. Discrete Bool negation computes two distinct quotient/path classes,
+  This library supplies the comparison with `ZerothHomotopy.map`, also provided
+  by Fundamental Groupoids: for empty `N`, including `Fin 0`, the canonical
+  path-component comparison intertwines the two maps. Discrete Bool negation
+  computes two distinct quotient/path classes,
   four comparison values and the off-basepoint square, not a nontrivial positive
   homotopy group.
   [Maps on homotopy quotients and zeroth naturality](RestrictedProductDuality/HomotopyMaps.lean).
@@ -136,8 +137,13 @@ maps. These compute points and coordinate classes, not a Circle homotopy-group
 classification or a nonidentity positive class inferred from a space map.
 
 `RestrictedProductDuality.HomotopyMaps` publicly imports
+`FundamentalGroupoids.Topology.Connected.PathConnected` and
 `FundamentalGroupoids.Topology.Homotopy.HomotopyGroup.Map`, retaining access to
-`GenLoop.map`, `HomotopyGroup.mapFun`, `HomotopyGroup.map` and their laws.
+`ZerothHomotopy.map`, `GenLoop.map`, `HomotopyGroup.mapFun`, `HomotopyGroup.map`
+and their laws. Use `ZerothHomotopy.map`, `map_mk`, `map_id`, `map_comp` and
+`map_eq_of_homotopy` for maps on path components. The five corresponding
+`RestrictedProduct.SingletonNaturality.pathMap` names remain as deprecated
+compatibility wrappers with their original argument names and order.
 The coordinate maps, restricted-product naturality squares and empty-dimensional
 path-component comparisons remain in `RestrictedProductDuality.HomotopyMaps`.
 Applications importing both libraries should upgrade them together: earlier
@@ -151,8 +157,9 @@ The project pins Lean `v4.34.0-rc2` in `lean-toolchain` and mathlib revision
 `83abb3e776bdefcbc447a1e44d0debe4010039e5` in `lakefile.lean` and
 `lake-manifest.json`. The other direct dependency is
 [Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids),
-pinned to `2d276f19865bb972d0b07221e0979083fff06c4c`. It uses the same Mathlib
-revision and brings [GroupTheory](https://github.com/FormalFrontier/group-theory)
+pinned to `ce98f182cebbd2ae549dc9e7de6882a6f860cc7b`, which supplies both the
+component-map and based-postcomposition APIs. It uses the same Mathlib revision
+and brings [GroupTheory](https://github.com/FormalFrontier/group-theory)
 at `da81dc691eabf38306f427465ea8a4af350f0aef` transitively. The manifest also
 retains Mathlib's eight auxiliary Git packages.
 
@@ -197,7 +204,7 @@ is for a fixed public revision and omits later principal/finite-stage API.
 | [`RestrictedProductDuality.FiniteStage`](RestrictedProductDuality/FiniteStage.lean) | compact-map factorization by ordinary finite coordinate restriction. |
 | [`RestrictedProductDuality.FiniteStageColimit`](RestrictedProductDuality/FiniteStageColimit.lean) | finite Pi inclusion diagram, canonical cocone, continuous descent and categorical colimit with stage computation and uniqueness. |
 | [`RestrictedProductDuality.HomotopyGroups`](RestrictedProductDuality/HomotopyGroups.lean) | coordinate homomorphism and multiplicative comparison for homotopy groups of T1 singleton cofinite restricted products, with representative and inverse characterizations. |
-| [`RestrictedProductDuality.HomotopyMaps`](RestrictedProductDuality/HomotopyMaps.lean) | re-exports Fundamental Groupoids' based-postcomposition API; supplies coordinate maps, empty-dimensional path-component naturality and both restricted-product comparison squares. |
+| [`RestrictedProductDuality.HomotopyMaps`](RestrictedProductDuality/HomotopyMaps.lean) | re-exports Fundamental Groupoids' component-map and based-postcomposition APIs; supplies coordinate maps, empty-dimensional path-component naturality and both restricted-product comparison squares. |
 | [`RestrictedProductDuality.BasedHomotopy`](RestrictedProductDuality/BasedHomotopy.lean) | joint coordinatewise based homotopies, all-time coordinate and basepoint formulas, and invariance of the induced path-component and positive homotopy-group maps. |
 | [`RestrictedProductDuality.BasedHomeomorphisms`](RestrictedProductDuality/BasedHomeomorphisms.lean) | based coordinate homeomorphisms of singleton cofinite products, with forward/inverse continuous-map, coordinate and canonical-point formulas. |
 | [`RestrictedProductDuality.Contractibility`](RestrictedProductDuality/Contractibility.lean) | contraction fixing the canonical point from chosen based coordinate contractions, its coordinate formula and the resulting `ContractibleSpace` corollary. |
@@ -246,7 +253,8 @@ their hypotheses and the stated consequences from these unsupported extensions.
 - J. P. May, *A Concise Course in Algebraic Topology*: motivation for ordinary
   finite-support products, not a formalized inventory of the book.
 - [Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids):
-  based postcomposition on generalized loops and homotopy quotients.
+  maps on path components and based postcomposition on generalized loops and
+  homotopy quotients.
 - [Pinned dependencies and bibliography](formalization.yaml);
   [detailed mathematical outline and credits](docs/mathematical-guide.md#mathematical-outline-and-references).
 
@@ -258,7 +266,8 @@ Hölzl and Kenny Lau (DFinsupp), Mario Carneiro (type tags), Roberto Alvarez
 (homotopy groups), Shing Tak Lam (homotopy equivalences and relative homotopies),
 Patrick Massot, Ben Eltschig and subsequent contributors (connectivity).
 Fundamental Groupoids, by Formal Frontier Agents, provides the re-exported
-based-postcomposition definitions and proofs.
+component-map and based-postcomposition definitions and proofs, originally
+developed in this library.
 [Methods and further attribution](formalization.yaml) and the guide describe the
 reused APIs. Original Formal Frontier contributions are Apache-2.0 (see
 [`LICENSE`](LICENSE)); dependencies retain their own authorship and licenses.
