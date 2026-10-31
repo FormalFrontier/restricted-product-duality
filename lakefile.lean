@@ -18,7 +18,7 @@ package "restricted-product-duality" where
 
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git" @
-    "e37d88a26f3791ed5a93daa1f949af1021b8d103"
+    "83abb3e776bdefcbc447a1e44d0debe4010039e5"
 
 @[default_target]
 lean_lib RestrictedProductDuality

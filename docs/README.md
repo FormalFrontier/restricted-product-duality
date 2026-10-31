@@ -48,10 +48,13 @@ The separately cloned upstream `leanprover/doc-gen4` revision is
 `97d4ecdfc8e09e7f511724c25e303d448de6a3db` (tree
 `ebf77f3e174c145c9ca2db0df1c18a78ae87c93b`) at Lean `v4.34.0-rc2`.
 It is a **separate core-only tool**, not an added Lake project dependency.
-This library pins that Lean version and mathlib
+The fixed library snapshot pins that Lean version and mathlib
 `e37d88a26f3791ed5a93daa1f949af1021b8d103` with eight other resolved
-packages in `lake-manifest.json`; the source checkout and native generator
-need no other Formal Frontier library.
+packages in its `lake-manifest.json`; the source checkout and native generator
+need no other Formal Frontier library. The current library retains the same Lean
+version and has Mathlib as its only direct dependency, now pinned to
+`83abb3e776bdefcbc447a1e44d0debe4010039e5`; see the current
+[`lakefile.lean`](../lakefile.lean) and [manifest](../lake-manifest.json).
 
 First create a **fresh, separate checkout** of the matching public revision.
 Do not run the fixed-input recipe in a current library checkout:

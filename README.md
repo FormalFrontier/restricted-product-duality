@@ -135,8 +135,9 @@ classification or a nonidentity positive class inferred from a space map.
 ## Reproducible build
 
 The project pins Lean `v4.34.0-rc2` in `lean-toolchain` and mathlib revision
-`e37d88a26f3791ed5a93daa1f949af1021b8d103` in `lakefile.lean` and
-`lake-manifest.json`.
+`83abb3e776bdefcbc447a1e44d0debe4010039e5` in `lakefile.lean` and
+`lake-manifest.json`. Mathlib is the only direct dependency; the manifest also
+records its eight auxiliary Git packages.
 
 ```sh
 elan toolchain install "$(cat lean-toolchain)"

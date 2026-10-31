@@ -58,7 +58,7 @@ sources:
     author_endorsement: not-contacted
   - title: mathlib4
     type: software
-    id: https://github.com/leanprover-community/mathlib4/tree/e37d88a26f3791ed5a93daa1f949af1021b8d103
+    id: https://github.com/leanprover-community/mathlib4/tree/83abb3e776bdefcbc447a1e44d0debe4010039e5
     relationship: background
     license: Apache-2.0
     note: >-
