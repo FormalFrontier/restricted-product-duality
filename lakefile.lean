@@ -24,6 +24,14 @@ require «fundamental-groupoids» from git
   "https://github.com/FormalFrontier/fundamental-groupoids.git" @
     "ce98f182cebbd2ae549dc9e7de6882a6f860cc7b"
 
+require groupTheory from git
+  "https://github.com/FormalFrontier/group-theory.git" @
+    "da81dc691eabf38306f427465ea8a4af350f0aef"
+
+require complexAnalysis from git
+  "https://github.com/FormalFrontier/complex-analysis.git" @
+    "ec0323f84c5bf2e6639f4a4a02955264baa94e6a"
+
 @[default_target]
 lean_lib RestrictedProductDuality
 
