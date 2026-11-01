@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 import RestrictedProductDuality
+import RestrictedProductDualityTest.UnitaryWeight
 import RestrictedProductDualityTest.BasedHomotopy
 import RestrictedProductDualityTest.Contractibility
 import RestrictedProductDualityTest.HomotopyMaps
