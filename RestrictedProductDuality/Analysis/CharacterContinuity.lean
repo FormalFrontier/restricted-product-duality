@@ -8,25 +8,26 @@ public import Mathlib.Analysis.Complex.Circle
 public import Mathlib.Topology.ContinuousMap.Algebra
 
 /-!
-# Continuity of characters from continuous weights
+# Continuity from continuous weights
 
-A nonzero continuous complex-valued right weight makes its Circle-valued character
+A nonzero continuous complex-valued right weight makes its Circle-valued function
 continuous. Only a multiplication and an identity on the domain are needed; no
-compatibility between that multiplication and the topology is required.
+compatibility between that multiplication and the topology is required. The character
+case is retained as a specialization for monoid homomorphisms.
 -/
 
 public section
 
 universe u
 
-namespace MonoidHom
+namespace Function
 
-/-- A Circle-valued character with a nonzero continuous complex-valued right weight
-is continuous. The weight identity at the identity element expresses the character
+/-- A Circle-valued function with a nonzero continuous complex-valued right weight
+is continuous. The weight identity at the identity element expresses the function
 as the weight divided by its nonzero value there. -/
 theorem continuous_of_continuous_weight
     {G : Type u} [MulOneClass G] [TopologicalSpace G]
-    (χ : G →* Circle) (w : C(G, ℂ)) (hw : w ≠ 0)
+    (χ : G → Circle) (w : C(G, ℂ)) (hw : w ≠ 0)
     (hweight : ∀ s g : G, w (s * g) = (χ g : ℂ) * w s) :
     Continuous χ := by
   have hw_one : w 1 ≠ 0 := by
@@ -43,5 +44,18 @@ theorem continuous_of_continuous_weight
     rw [heq]
     exact w.continuous.div_const (w 1)
   exact continuous_induced_rng.2 hcoe
+
+end Function
+
+namespace MonoidHom
+
+/-- A Circle-valued character with a nonzero continuous complex-valued right weight
+is continuous, by the corresponding result for Circle-valued functions. -/
+theorem continuous_of_continuous_weight
+    {G : Type u} [MulOneClass G] [TopologicalSpace G]
+    (χ : G →* Circle) (w : C(G, ℂ)) (hw : w ≠ 0)
+    (hweight : ∀ s g : G, w (s * g) = (χ g : ℂ) * w s) :
+    Continuous χ :=
+  Function.continuous_of_continuous_weight (χ : G → Circle) w hw hweight
 
 end MonoidHom
