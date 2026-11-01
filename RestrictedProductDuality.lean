@@ -4,6 +4,7 @@ Authors: Formal Frontier Agents
 -/
 module
 
+public import RestrictedProductDuality.Analysis.CharacterContinuity
 public import RestrictedProductDuality.Analysis.UnitaryWeight
 public import RestrictedProductDuality.CompactStage
 public import RestrictedProductDuality.PrincipalStage
