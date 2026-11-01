@@ -8,6 +8,7 @@ public import RestrictedProductDuality.Analysis.CharacterContinuity
 public import RestrictedProductDuality.Analysis.CompactConvolution
 public import RestrictedProductDuality.Analysis.EigenspaceWeight
 public import RestrictedProductDuality.Analysis.UnitaryWeight
+public import RestrictedProductDuality.Analysis.HaarLpAction
 public import RestrictedProductDuality.CompactStage
 public import RestrictedProductDuality.PrincipalStage
 public import RestrictedProductDuality.Contractibility
