@@ -9,6 +9,13 @@ contains the detailed statements, API formulas, examples and proof outlines.
 
 ## Headline results
 
+- **Evaluation with a compact open subgroup.** For a Hausdorff abelian topological
+  group with a compact open subgroup, canonical Circle-valued compact-open
+  evaluation is surjective and open on the entire bidual. Evaluation identifies
+  the compact subgroup homeomorphically with the open annihilator of the
+  restriction kernel. No countability or metrizability hypothesis is required.
+  [Evaluation](RestrictedProductDuality/PontryaginDual/CompactOpen.lean)
+
 - **Compact containment and finite factorization.** Every compact subset of a
   **T1 restricted product** lies in one finite-exceptional stage, for arbitrary
   distinguished subsets and index type; only the original restricted product,
@@ -268,7 +275,7 @@ their hypotheses and the stated consequences from these unsupported extensions.
 
 - E. Hewitt and K. A. Ross, *Abstract Harmonic Analysis*, Vol. I, second
   edition, Springer, 1979: the Pontryagin–van Kampen duality theorem, in its
-  compact Hausdorff abelian case.
+  compact Hausdorff abelian and compact-open-subgroup cases.
 - Jürgen Neukirch, Alexander Schmidt and Kay Wingberg, *Cohomology of Number
   Fields*, corrected second edition, version 2.3 (May 2020), Proposition
   (1.1.13), pp. 10–11: motivation for a **finite-coordinate conditional

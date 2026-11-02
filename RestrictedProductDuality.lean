@@ -7,6 +7,7 @@ module
 public import RestrictedProductDuality.Analysis.CharacterContinuity
 public import RestrictedProductDuality.Analysis.HaarCharacter
 public import RestrictedProductDuality.PontryaginDual.Compact
+public import RestrictedProductDuality.PontryaginDual.CompactOpen
 public import RestrictedProductDuality.Analysis.CompactConvolution
 public import RestrictedProductDuality.Analysis.EigenspaceWeight
 public import RestrictedProductDuality.Analysis.UnitaryWeight
