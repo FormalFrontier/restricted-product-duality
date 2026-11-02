@@ -89,6 +89,11 @@ contains the detailed statements, API formulas, examples and proof outlines.
   bottom-subgroup products use `Group`. No topology or commutativity is needed;
   this is not a noncommutative categorical coproduct.
   [Finite support](RestrictedProductDuality/FiniteSupport.lean).
+- **Compact abelian character separation.** For a compact Hausdorff abelian
+  topological group in any universe, every nonidentity element is detected by
+  a continuous Circle-valued character. No additional countability, probability
+  normalization or measurable-space input is required.
+  [Character separation](RestrictedProductDuality/Analysis/HaarCharacter.lean).
 - **Conditional character reconstruction and duality.** For commutative groups,
   local circle bicharacters and orthogonality on both distinguished subgroups
   give a finite-product pairing. Joint local continuity and **both** subgroup
@@ -153,15 +158,21 @@ locally and cannot be co-imported with
 
 ## Reproducible build
 
-The project pins Lean `v4.34.0-rc2` in `lean-toolchain` and mathlib revision
-`83abb3e776bdefcbc447a1e44d0debe4010039e5` in `lakefile.lean` and
-`lake-manifest.json`. The other direct dependency is
-[Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids),
-pinned to `ce98f182cebbd2ae549dc9e7de6882a6f860cc7b`, which supplies both the
-component-map and based-postcomposition APIs. It uses the same Mathlib revision
-and brings [GroupTheory](https://github.com/FormalFrontier/group-theory)
-at `da81dc691eabf38306f427465ea8a4af350f0aef` transitively. The manifest also
-retains Mathlib's eight auxiliary Git packages.
+The project pins Lean `v4.34.0-rc2` in `lean-toolchain` and
+[Mathlib](https://github.com/leanprover-community/mathlib4.git) at
+`83abb3e776bdefcbc447a1e44d0debe4010039e5`. The direct dependencies recorded in
+`lakefile.lean` and `lake-manifest.json` also include:
+
+- [Fundamental Groupoids](https://github.com/FormalFrontier/fundamental-groupoids.git)
+  at `ce98f182cebbd2ae549dc9e7de6882a6f860cc7b`, supplying the component-map and
+  based-postcomposition APIs.
+- [GroupTheory](https://github.com/FormalFrontier/group-theory.git) at
+  `da81dc691eabf38306f427465ea8a4af350f0aef`, a direct root override of the
+  identical transitive pin used by Fundamental Groupoids.
+- [Complex Analysis](https://github.com/FormalFrontier/complex-analysis.git) at
+  `ec0323f84c5bf2e6639f4a4a02955264baa94e6a`.
+
+The manifest also retains Mathlib's eight auxiliary Git packages.
 
 ```sh
 elan toolchain install "$(cat lean-toolchain)"
