@@ -229,10 +229,10 @@ noncomputable def evalEquivOfCompact (A : Type u) [CommGroup A]
 
 /-- The multiplicative morphism underlying compact bidual evaluation is
  the original evaluation morphism. -/
-theorem evalEquivOfCompact_toMonoidHom (A : Type u) [CommGroup A]
+@[simp] theorem evalEquivOfCompact_toMonoidHom (A : Type u) [CommGroup A]
     [TopologicalSpace A] [IsTopologicalGroup A] [CompactSpace A] [T2Space A] :
-    (PontryaginDual.evalEquivOfCompact A).toMulEquiv.toMonoidHom =
-      PontryaginDual.evalHom A := by
+    (PontryaginDual.evalEquivOfCompact A :
+      A →* PontryaginDual (PontryaginDual A)) = PontryaginDual.evalHom A := by
   rfl
 
 /-- Compact bidual evaluation evaluates each character at the given point. -/
