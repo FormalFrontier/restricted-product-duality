@@ -1,7 +1,8 @@
 # Restricted-product duality
 
 Reusable Lean theory of cofinite restricted products: ordinary finite-support
-stages and their colimit, path components, homotopy groups and conditional Pontryagin duality.
+stages and their colimit, path components and homotopy groups, compact Hausdorff
+abelian Pontryagin biduality, and conditional restricted-product Pontryagin duality.
 The library uses Mathlib's restricted products, circle characters and
 compact-open dual, rather than redefining them. The [mathematical guide](docs/mathematical-guide.md)
 contains the detailed statements, API formulas, examples and proof outlines.
@@ -94,6 +95,14 @@ contains the detailed statements, API formulas, examples and proof outlines.
   a continuous Circle-valued character. No additional countability, probability
   normalization or measurable-space input is required.
   [Character separation](RestrictedProductDuality/Analysis/HaarCharacter.lean).
+- **Compact Pontryagin biduality.** For a compact Hausdorff commutative
+  topological group in any universe, the original evaluation map is a continuous
+  multiplicative equivalence with its **entire compact-open Pontryagin bidual**.
+  Its inverse reconstructs every character value of a bidual element. Evaluation
+  and reconstruction commute with every continuous multiplicative morphism
+  between such groups, with independent source and target universes.
+  This does not assert biduality for arbitrary locally compact abelian groups.
+  [Compact biduality](RestrictedProductDuality/PontryaginDual/Compact.lean).
 - **Conditional character reconstruction and duality.** For commutative groups,
   local circle bicharacters and orthogonality on both distinguished subgroups
   give a finite-product pairing. Joint local continuity and **both** subgroup
@@ -257,6 +266,9 @@ their hypotheses and the stated consequences from these unsupported extensions.
 
 ## References
 
+- E. Hewitt and K. A. Ross, *Abstract Harmonic Analysis*, Vol. I, second
+  edition, Springer, 1979: the Pontryagin–van Kampen duality theorem, in its
+  compact Hausdorff abelian case.
 - Jürgen Neukirch, Alexander Schmidt and Kay Wingberg, *Cohomology of Number
   Fields*, corrected second edition, version 2.3 (May 2020), Proposition
   (1.1.13), pp. 10–11: motivation for a **finite-coordinate conditional

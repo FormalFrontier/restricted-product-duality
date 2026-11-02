@@ -26,7 +26,7 @@ require «fundamental-groupoids» from git
 
 require groupTheory from git
   "https://github.com/FormalFrontier/group-theory.git" @
-    "da81dc691eabf38306f427465ea8a4af350f0aef"
+    "aad807ee05018f3a7b45cea81aeed190112a7b75"
 
 require complexAnalysis from git
   "https://github.com/FormalFrontier/complex-analysis.git" @
