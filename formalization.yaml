@@ -112,3 +112,12 @@ review:
     stated hypotheses. The general locally compact-coordinate proposition,
     source coverage, source-author endorsement and independent rights clearance
     are not claimed.
+
+highlights:
+  - title: Compact Pontryagin biduality
+    statement: >-
+      Canonical evaluation is a topological group isomorphism from every compact
+      Hausdorff commutative topological group to its Circle-valued Pontryagin bidual.
+    declarations:
+      - declaration: PontryaginDual.evalEquivOfCompact
+        file: RestrictedProductDuality/PontryaginDual/Compact.lean
